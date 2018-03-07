@@ -34,7 +34,7 @@ public class ClassHourListAdapter extends RecyclerView.Adapter<ClassHourListAdap
         public ClassHourViewHolder(View itemView)
         {
             super(itemView);
-            this.ClassName=itemView.findViewById(R.id.className);
+            this.ClassName=itemView.findViewById(R.id.taskName);
             this.Hours=itemView.findViewById(R.id.classHours);
             this.Day=itemView.findViewById(R.id.classDay);
             viewBackground = itemView.findViewById(R.id.view_background);

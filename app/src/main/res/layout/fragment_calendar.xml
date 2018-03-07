@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.moshesteinvortzel.assaftayouri.ihw.CalenderFragment">
+    tools:context="com.moshesteinvortzel.assaftayouri.ihw.CalendarFragment">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/dateTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -19,20 +19,21 @@
 
 
     <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/compactcalendar_view"
+        android:id="@+id/calendarView"
         android:layout_width="fill_parent"
-        android:layout_height="250dp"
+        android:layout_height="230dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         app:compactCalendarBackgroundColor="@color/colorPrimary"
-        app:compactCalendarCurrentDayBackgroundColor="@color/IHWBrown"
-        app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
+        app:compactCalendarCurrentDayBackgroundColor="#E57373"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/IHWBrown"
         app:compactCalendarMultiEventIndicatorColor="#fff"
         app:compactCalendarTargetHeight="250dp"
         app:compactCalendarTextColor="#fff"
         app:compactCalendarTextSize="16sp" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/calendarItemList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

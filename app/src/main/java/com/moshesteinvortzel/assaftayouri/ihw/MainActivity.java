@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new ExamsFragment();
                 break;
             case 3:
-                fragment = new CalenderFragment();
+                fragment = new CalendarFragment();
                 break;
             default:
                 fragment = new HomeWorkFragment();

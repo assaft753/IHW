@@ -67,7 +67,7 @@ class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.HWViewHolde
         public HWViewHolder(View itemView)
         {
             super(itemView);
-            this.ClassName = itemView.findViewById(R.id.className);
+            this.ClassName = itemView.findViewById(R.id.taskName);
             this.Time = itemView.findViewById(R.id.time);
             this.Priority = itemView.findViewById(R.id.priority);
             //viewBackground = itemView.findViewById(R.id.view_background);

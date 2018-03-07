@@ -46,7 +46,7 @@
             android:paddingRight="8dp">
 
             <TextView
-                android:id="@+id/className"
+                android:id="@+id/taskName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -59,8 +59,8 @@
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/className"
-                android:layout_alignBottom="@+id/className"
+                android:layout_alignBaseline="@+id/taskName"
+                android:layout_alignBottom="@+id/taskName"
                 android:layout_alignParentEnd="true"
                 android:text="Wed, Feb 21 - 9:30 AM"
                 android:textColor="@color/md_light_green_500"
@@ -71,8 +71,8 @@
                 android:id="@+id/priority"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_alignLeft="@+id/className"
-                android:layout_below="@+id/className"
+                android:layout_alignLeft="@+id/taskName"
+                android:layout_below="@+id/taskName"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/high" />
