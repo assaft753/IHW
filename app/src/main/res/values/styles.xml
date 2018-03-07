@@ -1,0 +1,55 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="testColorHint" parent="TextAppearance.AppCompat">
+
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textSize">25sp</item>
+
+    </style>
+
+    <style name="NewCourseColorHint" parent="TextAppearance.AppCompat">
+
+        <item name="colorAccent">@color/IHWBrown</item>
+        <item name="colorControlNormal">@color/dominantGray</item>
+        <item name="colorControlActivated">@color/IHWBrown</item>
+        <item name="colorControlHighlight">@color/dominantGray</item>
+        <item name="android:textColorHint">@color/dominantGray</item>
+        <item name="android:textSize">25sp</item>
+
+    </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="textColorAlertDialogListItem">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+
+    <style name="LoginHintText">
+        <item name="android:alpha">0.5</item>
+        <item name="android:color">@color/colorPrimary</item>
+    </style>
+
+    <style name="DaysSwitchesTheme" parent="Theme.AppCompat.Light">
+        <item name="colorSwitchThumbNormal">@color/IHWBrown</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

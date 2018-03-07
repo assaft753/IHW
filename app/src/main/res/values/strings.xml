@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">IHW</string>
+    <string name="title_activity_temp_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="enterFirstName">First Name</string>
+    <string name="enterLastName">Last Name</string>
+    <string name="createAccountBtn">Create Account</string>
+    <string name="courseName">Course Name</string>
+    <string name="courseCredit">Course Points</string>
+    <string name="startDate">Start Date</string>
+    <string name="endDate">End Date</string>
+    <string name="addCoursesTime">Add course\'s days and hours</string>
+    <string name="courseColor">Pick Color</string>
+    <string name="EmailInputText">Email</string>
+    <string name="PasswordInputText">Password</string>
+    <string name="SignIn">Sign in</string>
+    <string name="SignUp">No account yet? Create one</string>
+    <string name="FirstNameInputText">First Name</string>
+    <string name="LastNameInputText">Last Name</string>
+    <string name="NextToPickHours">Next</string>
+    <string name="Done">Done</string>
+    <string name="AddHours">Add Time</string>
+
+    <string name="sunday">Sun.</string>
+    <string name="monday">Mon.</string>
+    <string name="tuesday">Tue.</string>
+    <string name="wednesday">Wed.</string>
+    <string name="thursday">Thu.</string>
+    <string name="friday">Fri.</string>
+    <string name="saturday">Sat.</string>
+    <string name="navCalendar">Calendar</string>
+    <string name="navExams">Exams</string>
+    <string name="navClasses">Classes</string>
+    <string name="navHomework">HomeWorks</string>
+
+    <string-array name="nav_titles">
+        <item>HomeWorks</item>
+        <item>Classes</item>
+        <item>Exams</item>
+        <item>Calendar</item>
+    </string-array>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
