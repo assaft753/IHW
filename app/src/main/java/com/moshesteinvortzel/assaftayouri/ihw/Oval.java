@@ -12,14 +12,14 @@ import android.webkit.WebHistoryItem;
  * Created by assaftayouri on 05/03/2018.
  */
 
-public class Border extends android.graphics.drawable.Drawable
+public class Oval extends android.graphics.drawable.Drawable
 {
     private final String WHITE="#ffffff";
     private android.graphics.Paint paint;
     private android.graphics.Rect bounds_rect;
     private String color;
 
-    public Border(String color, int width)
+    public Oval(String color, int width)
     {
         this.color=color;
         this.paint = new android.graphics.Paint();
@@ -34,13 +34,10 @@ public class Border extends android.graphics.drawable.Drawable
 
     public void draw(android.graphics.Canvas c)
     {
-        paint.setColor(Color.parseColor(WHITE));
-        this.paint.setStyle(Paint.Style.FILL);
-        c.drawRect(this.bounds_rect, this.paint);
-
         this.paint.setStyle(Paint.Style.STROKE);
-        this.paint.setColor(Color.parseColor("#"+this.color));
-        c.drawRect(this.bounds_rect, this.paint);
+        this.paint.setStrokeWidth(5);
+        this.paint.setColor(Color.parseColor("#7B1FA2"));
+        c.drawCircle(this.bounds_rect.centerX(),this.bounds_rect.centerY(),110,this.paint);
     }
 
     public void setAlpha(int a)

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,7 +39,7 @@ class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.HWViewHolde
     public void onBindViewHolder(HWViewHolder holder, int position)
     {
         holder.ClassName.setText(list.get(position).HomeWorkName);
-        holder.ClassName.setTextColor(Color.parseColor("#" + list.get(position).Color));
+        holder.ClassName.setTextColor(Color.parseColor("#" + list.get(position).Color));//
         holder.Time.setText(list.get(position).Time);
         holder.Time.setTextColor(Color.parseColor("#67d751"));
         holder.Priority.setImageResource(R.drawable.medium);
@@ -61,7 +62,8 @@ class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.HWViewHolde
         public TextView ClassName;
         public TextView Time;
         public ImageView Priority;
-        public RelativeLayout viewBackground, viewForeground;
+        public RelativeLayout viewForeground;
+        public LinearLayout viewBackground;
 
 
         public HWViewHolder(View itemView)
@@ -70,7 +72,7 @@ class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.HWViewHolde
             this.ClassName = itemView.findViewById(R.id.taskName);
             this.Time = itemView.findViewById(R.id.time);
             this.Priority = itemView.findViewById(R.id.priority);
-            //viewBackground = itemView.findViewById(R.id.view_background);
+            viewBackground = itemView.findViewById(R.id.view_background);
             viewForeground = itemView.findViewById(R.id.container);
         }
     }

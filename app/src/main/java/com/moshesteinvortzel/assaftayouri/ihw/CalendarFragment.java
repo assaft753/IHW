@@ -33,7 +33,7 @@ public class CalendarFragment extends android.support.v4.app.Fragment
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        calanderItemAdapter=new CalendarItemAdapter();
+        calanderItemAdapter=new CalendarItemAdapter(getContext());
         recyclerView.setAdapter(calanderItemAdapter);
         calanderItemAdapter.notifyDataSetChanged();
         calendarView.setFirstDayOfWeek(Calendar.SUNDAY);

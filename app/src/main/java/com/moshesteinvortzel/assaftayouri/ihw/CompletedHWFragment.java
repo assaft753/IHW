@@ -34,8 +34,7 @@ public class CompletedHWFragment extends android.support.v4.app.Fragment impleme
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerCompleteHWItemHelper(0, ItemTouchHelper.LEFT, this);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerCompleteHWItemHelper(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(completedAdapter);
         completedAdapter.notifyDataSetChanged();
