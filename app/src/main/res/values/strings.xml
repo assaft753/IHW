@@ -11,25 +11,27 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="underline"><u>underline</u></string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
     <string name="enterFirstName">First Name</string>
     <string name="enterLastName">Last Name</string>
     <string name="createAccountBtn">Create Account</string>
-    <string name="courseName">Course Name</string>
-    <string name="courseCredit">Course Points</string>
+    <string name="className">Course Name</string>
+    <string name="classCredit">Course Points</string>
     <string name="startDate">Start Date</string>
     <string name="endDate">End Date</string>
     <string name="addCoursesTime">Add course\'s days and hours</string>
     <string name="courseColor">Pick Color</string>
-    <string name="EmailInputText">Email</string>
-    <string name="PasswordInputText">Password</string>
-    <string name="SignIn">Sign in</string>
-    <string name="SignUp">No account yet? Create one</string>
-    <string name="FirstNameInputText">First Name</string>
-    <string name="LastNameInputText">Last Name</string>
-    <string name="NextToPickHours">Next</string>
+    <string name="textEmail">Email</string>
+    <string name="textPassword">Password</string>
+    <string name="signIn">Sign in</string>
+    <string name="signUp">Sign up</string>
+    <string name="signUpRequest">No account yet? Create one</string>
+    <string name="FirstName">First Name</string>
+    <string name="LastName">Last Name</string>
+    <string name="Next">Next</string>
     <string name="Done">Done</string>
     <string name="AddHours">Add Time</string>
 

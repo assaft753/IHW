@@ -39,7 +39,6 @@ private Button pickColor;
         setContentView(R.layout.activity_add_new_course);
         final Calendar myCalendar = Calendar.getInstance();
         final TextView date1 = findViewById(R.id.startDateText);
-        final LinearLayout relativeLayout=findViewById(R.id.test2);
         final TextView date2 = findViewById(R.id.endDateText);
         final Button startDate = findViewById(R.id.startDateButton);
         final Button endDate = findViewById(R.id.endDateButton);
@@ -122,4 +121,7 @@ private Button pickColor;
         });
     }
 
+    public void AddClass(View view)
+    {
+    }
 }

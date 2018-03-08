@@ -4,7 +4,8 @@
     <color name="colorPrimary">#f85473</color>
     <color name="colorPrimaryDark">#F85473</color>
     <color name="colorAccent">#ff4081</color>
-    <color name="white">#FFFFFF</color>
+    <color name="IHWWhite">#ffffff</color>
+    <color name="IHWBrown">#4f4f4f</color>
 
     <color name="primary">#E43F3F</color>
     <color name="primary_dark">#4BAC9B</color>
@@ -20,9 +21,9 @@
     <color name="aluminum">#999999</color>
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
-    <color name="IHWBrown">#4f4f4f</color>
+
     <color name="dominantGray">#424242</color>
-    <color name="IHWWhite">#ffffff</color>
+
     <color name="pink">#f54d83</color>
     <color name="TextHintColor">#7ff85473</color>
     <color name="IHWWhitet">#f7f7e5</color>
@@ -41,8 +42,8 @@
         <item>@color/md_cyan_500</item>
         <item>@color/md_teal_500</item>
         <item>@color/md_green_500</item>
-        <item>@color/md_green_900</item>//
-        <item>@color/md_red_A200</item>//
+        <item>@color/md_green_900</item>
+        <item>@color/md_red_A200</item>
         <item>@color/md_deep_purple_A400</item>
         <item>@color/md_amber_A700</item>
         <item>@color/md_orange_500</item>

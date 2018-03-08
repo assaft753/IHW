@@ -1,14 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/IHWWhite"
-    tools:context=".AddNewCourseActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:orientation="vertical">
 
         <include
@@ -17,17 +14,11 @@
 
         </include>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/test1"
-            android:orientation="vertical"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp"
-            tools:context="com.moshesteinvortzel.assaftayouri.ihw.LoginActivity">
+            android:layout_margin="16dp"
+            android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -35,14 +26,14 @@
                 android:theme="@style/NewCourseColorHint">
 
                 <EditText
-                    android:id="@+id/courseName"
+                    android:id="@+id/className"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/courseName"
+                    android:hint="@string/className"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textColor="@color/IHWWhite">
+                    android:textColor="@color/IHWBrown">
 
                 </EditText>
             </android.support.design.widget.TextInputLayout>
@@ -53,14 +44,14 @@
                 android:theme="@style/NewCourseColorHint">
 
                 <EditText
-                    android:id="@+id/coursePoints"
+                    android:id="@+id/classPoints"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/courseCredit"
+                    android:hint="@string/classCredit"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textColor="@color/IHWWhite">
+                    android:textColor="@color/IHWBrown">
 
                 </EditText>
             </android.support.design.widget.TextInputLayout>
@@ -71,27 +62,19 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="10dp"
                 android:text="@string/startDate"
-                android:textColor="@color/oil"
+                android:textColor="@color/IHWBrown"
                 android:textSize="25sp" />
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/test2"
-
                 android:orientation="horizontal"
-                android:paddingLeft="0dp"
-                android:paddingRight="16dp"
-                android:paddingTop="0dp"
-                tools:context="com.moshesteinvortzel.assaftayouri.ihw.LoginActivity">
+                android:paddingRight="16dp">
 
                 <Button
                     android:id="@+id/startDateButton"
                     android:layout_width="54dp"
-                    android:layout_height="48dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true" />
+                    android:layout_height="48dp" />
 
                 <TextView
                     android:id="@+id/startDateText"
@@ -107,25 +90,19 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:text="@string/endDate"
-                android:textColor="@color/oil"
+                android:textColor="@color/IHWBrown"
                 android:textSize="25sp" />
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:orientation="horizontal"
-                android:paddingRight="16dp"
-                android:paddingTop="0dp"
-                tools:context="com.moshesteinvortzel.assaftayouri.ihw.LoginActivity">
+                android:paddingRight="16dp">
 
                 <Button
                     android:id="@+id/endDateButton"
                     android:layout_width="54dp"
-                    android:layout_height="48dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true" />
+                    android:layout_height="48dp" />
 
                 <TextView
                     android:id="@+id/endDateText"
@@ -145,23 +122,21 @@
                 android:background="@drawable/ovalbutton"
                 android:text="@string/courseColor"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/IHWWhite"
                 android:textSize="14sp" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/NextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal|center"
                 android:layout_marginTop="30dp"
                 android:background="@color/colorPrimary"
                 android:foregroundGravity="bottom"
-                android:text="@string/NextToPickHours"
+                android:text="@string/Next"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/IHWWhite"
                 android:textSize="18sp" />
-
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
