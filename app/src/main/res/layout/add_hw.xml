@@ -15,7 +15,7 @@
             android:id="@+id/hwName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Task Name"
+            android:hint="@string/TaskName"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
             android:singleLine="true"
@@ -36,7 +36,7 @@
             android:elevation="24dp"
             android:maxLines="1"
             android:minLines="1"
-            android:text="Class:"
+            android:text="@string/Class"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
             android:textStyle="bold|italic" />
@@ -65,7 +65,7 @@
             android:elevation="24dp"
             android:maxLines="1"
             android:minLines="1"
-            android:text="Priority:"
+            android:text="@string/Priority"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
             android:textStyle="bold|italic" />
@@ -94,7 +94,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="To Date:"
+            android:text="@string/ToDate"
             android:textColor="?attr/colorPrimary"
             android:textSize="25sp"
             android:textStyle="bold|italic" />
@@ -126,7 +126,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="To Time:"
+            android:text="@string/ToTime"
             android:textColor="?attr/colorPrimary"
             android:textSize="25sp"
             android:textStyle="bold|italic" />
@@ -158,7 +158,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reminder:"
+            android:text="@string/Reminder"
             android:textColor="?attr/colorPrimary"
             android:textSize="25sp"
             android:textStyle="bold|italic" />

@@ -37,7 +37,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Points: " />
+                    android:layout_marginRight="3dp"
+                    android:text="@string/Points" />
 
                 <TextView
                     android:id="@+id/examPointsText"
@@ -54,7 +55,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Term: " />
+                    android:layout_marginRight="3dp"
+                    android:text="@string/Term" />
 
                 <TextView
                     android:id="@+id/examTermText"
@@ -80,7 +82,7 @@
             android:layout_margin="8dp"
             android:elevation="10dp"
             android:gravity="center_vertical|center_horizontal"
-            android:text="?"
+            android:text="@string/noGrade"
             android:textSize="36sp"
             android:textStyle="normal" />
     </RelativeLayout>

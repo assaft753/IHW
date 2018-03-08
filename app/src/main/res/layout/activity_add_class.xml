@@ -119,7 +119,7 @@
                 android:layout_height="85dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/ovalbutton"
+                android:background="@drawable/oval_button"
                 android:text="@string/courseColor"
                 android:textAllCaps="false"
                 android:textColor="@color/IHWWhite"

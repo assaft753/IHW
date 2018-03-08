@@ -1,29 +1,19 @@
 package com.moshesteinvortzel.assaftayouri.ihw;
 
 import android.app.DatePickerDialog;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thebluealliance.spectrum.SpectrumDialog;
-
-import junit.framework.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,7 +26,7 @@ private Button pickColor;
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_course);
+        setContentView(R.layout.activity_add_class);
         final Calendar myCalendar = Calendar.getInstance();
         final TextView date1 = findViewById(R.id.startDateText);
         final TextView date2 = findViewById(R.id.endDateText);

@@ -31,7 +31,7 @@ class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.HWViewHolde
     @Override
     public HWViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.homework_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.uncompleted_hw_item, parent, false);
         return new HWViewHolder(view);
     }
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/view_background"
+    android:id="@+id/Background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:weightSum="2">
 
     <LinearLayout
-        android:id="@+id/complete"
+        android:id="@+id/completeBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
@@ -24,29 +24,12 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:src="@drawable/ic_done_white_48dp" />
-
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/delete"
+    <include
+        layout="@layout/swipe_delete"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bg_row_background">
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_delete_white_24dp" />
-
-        </RelativeLayout>
-    </LinearLayout>
+        android:layout_weight="1" />
 </LinearLayout>

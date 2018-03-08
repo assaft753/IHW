@@ -32,7 +32,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Points: "
+                android:layout_marginRight="3dp"
+                android:text="@string/Points"
                 android:textSize="18sp" />
 
             <TextView
@@ -51,11 +52,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Average: "
+                android:layout_marginRight="3dp"
+                android:text="@string/average"
                 android:textSize="18sp" />
 
             <TextView
-
                 android:id="@+id/gradedExamAvgText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -34,6 +34,13 @@
     <string name="Next">Next</string>
     <string name="Done">Done</string>
     <string name="AddHours">Add Time</string>
+    <string name="Class">Class:</string>
+    <string name="Term">Term:</string>
+    <string name="ToDate">To Date:</string>
+    <string name="ToTime">To Time:</string>
+    <string name="Reminder">Reminder:</string>
+    <string name="TaskName">Task Name</string>
+    <string name="Priority">Priority:</string>
 
     <string name="sunday">Sun.</string>
     <string name="monday">Mon.</string>
@@ -46,21 +53,24 @@
     <string name="navExams">Exams</string>
     <string name="navClasses">Classes</string>
     <string name="navHomework">HomeWorks</string>
-
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Delete">DELETE</string>
+    <string name="Points">Points: </string>
+    <string name="chooseGrade">Choose Grade</string>
+    <string name="average">Average:</string>
+    <string name="timeLeft">Time Left:</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+    <string name="noGrade">\?</string>
     <string-array name="nav_titles">
         <item>HomeWorks</item>
         <item>Classes</item>
         <item>Exams</item>
         <item>Calendar</item>
     </string-array>
-    <string name="title_activity_main">MainActivity</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

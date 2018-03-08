@@ -28,8 +28,8 @@
     <color name="TextHintColor">#7ff85473</color>
     <color name="IHWWhitet">#f7f7e5</color>
     <color name="bg_row_background">#fa315b</color>
-    <color name="year">#999999</color>
-    <color name="title">#222222</color>
+    <color name="classHour">#999999</color>
+    <color name="taskName">#222222</color>
 
     <array name="demo_colors">
         <item>@color/md_red_500</item>
@@ -61,7 +61,7 @@
     <color name="md_red_200">#EF9A9A</color>
     <color name="md_red_300">#E57373</color>
     <color name="md_red_400">#EF5350</color>
-    <color name="md_red_500">#F44336</color>/////
+    <color name="md_red_500">#F44336</color>
     <color name="md_red_600">#e53935</color>
     <color name="md_red_700">#D32F2F</color>
     <color name="md_red_800">#C62828</color>

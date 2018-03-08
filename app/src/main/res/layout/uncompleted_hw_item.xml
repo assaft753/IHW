@@ -4,24 +4,24 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/swipe_homework_completed" />
+        <include layout="@layout/swipe_complete" />
 
         <RelativeLayout
-            android:id="@+id/container"
+            android:id="@+id/uncompletedHWContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffff"
+            android:background="@color/IHWWhite"
             android:elevation="4dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp">
 
             <TextView
-                android:id="@+id/taskName"
+                android:id="@+id/hwName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -31,11 +31,11 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/time"
+                android:id="@+id/hwTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/taskName"
-                android:layout_alignBottom="@+id/taskName"
+                android:layout_alignBaseline="@+id/hwName"
+                android:layout_alignBottom="@+id/hwName"
                 android:layout_alignParentEnd="true"
                 android:text="Wed, Feb 21 - 9:30 AM"
                 android:textColor="@color/md_light_green_500"
@@ -43,11 +43,11 @@
                 android:textStyle="normal" />
 
             <ImageView
-                android:id="@+id/priority"
+                android:id="@+id/hwPriority"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_alignLeft="@+id/taskName"
-                android:layout_below="@+id/taskName"
+                android:layout_alignLeft="@+id/hwName"
+                android:layout_below="@+id/hwName"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/high" />
@@ -55,17 +55,18 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/time"
-                android:layout_alignTop="@+id/priority"
+                android:layout_alignStart="@+id/hwTime"
+                android:layout_alignTop="@+id/hwPriority"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Time Left: " />
+                    android:layout_marginRight="3dp"
+                    android:text="@string/timeLeft" />
 
                 <TextView
-                    android:id="@+id/examTermText"
+                    android:id="@+id/hwTimeLeft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="40" />

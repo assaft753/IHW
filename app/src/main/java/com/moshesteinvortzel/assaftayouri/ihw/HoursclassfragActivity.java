@@ -20,7 +20,7 @@ public class HoursclassfragActivity extends AppCompatActivity implements Recycle
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.hoursclassfrag);
+        setContentView(R.layout.fragment_hours_class);
         classHours = new ArrayList<ClassHours>();
         mAdapter = new ClassHourListAdapter(this, classHours);
         recyclerView = findViewById(R.id.hoursRecyclerView);

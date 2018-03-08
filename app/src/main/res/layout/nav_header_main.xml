@@ -13,9 +13,9 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
+        android:id="@+id/userFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/userFullName"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Assaf Tayouri"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -43,8 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/ic_exit_to_app_white_24dp"
-            android:onClick="LogOut"/>
+            android:src="@drawable/ic_exit_to_app_white_24dp" />
     </RelativeLayout>
 
 </LinearLayout>
