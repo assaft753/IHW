@@ -1,0 +1,73 @@
+package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core;
+
+import android.support.annotation.NonNull;
+
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.Term;
+
+import java.util.Calendar;
+import java.util.Date;
+
+/**
+ * Created by assaftayouri on 09/03/2018.
+ */
+
+public class Exam implements Comparable<Exam>
+{
+    private Course course;
+    private int grade;
+    private Term term;
+    private Calendar examDate;
+    private int notify;
+    private int pushId;
+    private boolean graded;
+
+    public Exam(Course course, Term term, Calendar examDate, int notify)
+    {
+        this.course = course;
+        this.term = term;
+        this.examDate = examDate;
+        this.notify = notify;
+        this.graded = false;
+    }
+
+    public int getNotify()
+    {
+        return notify;
+    }
+
+    public void setNotify(int notify)
+    {
+        this.notify = notify;
+    }
+
+    public Calendar getExamDate()
+    {
+        return examDate;
+    }
+
+    public void setExamDate(Calendar examDate)
+    {
+        this.examDate = examDate;
+    }
+
+    public int getPushId()
+    {
+        return pushId;
+    }
+
+    public Course getCourse()
+    {
+        return course;
+    }
+
+    public void setPushId(int pushId)
+    {
+        this.pushId = pushId;
+    }
+
+    @Override
+    public int compareTo(@NonNull Exam exam)
+    {
+        return this.examDate.compareTo(exam.getExamDate());
+    }
+}
