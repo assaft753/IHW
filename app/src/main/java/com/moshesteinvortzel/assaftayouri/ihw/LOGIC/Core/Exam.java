@@ -30,6 +30,36 @@ public class Exam implements Comparable<Exam>
         this.graded = false;
     }
 
+    public Exam(Exam currentExam)
+    {
+        this.course = currentExam.getCourse();
+        this.term = currentExam.getTerm();
+        this.examDate = Calendar.getInstance();
+        this.examDate.setTimeInMillis(currentExam.getExamDate().getTimeInMillis());
+        this.notify = getNotify();
+        this.graded = false;
+    }
+
+    public void setGrade(int grade)
+    {
+        this.grade = grade;
+    }
+
+    public void setTerm(Term term)
+    {
+        this.term = term;
+    }
+
+    public void setGraded(boolean graded)
+    {
+        this.graded = graded;
+    }
+
+    public Term getTerm()
+    {
+        return term;
+    }
+
     public int getNotify()
     {
         return notify;

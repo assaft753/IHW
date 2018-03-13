@@ -1,4 +1,8 @@
 package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary;
+
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Course;
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.Day;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,29 +15,58 @@ import java.util.Date;
 
 public class CourseDay
 {
-    private int dayInWeek;
-    private int hour;
-    private int minute;
+    private Day dayInWeek;
+    private int startHour;
+    private int startMinute;
+    private int endHour;
+    private int endMinute;
 
-    public CourseDay(int day, int hour, int minute)
+    public CourseDay(Day dayInWeek, int startHour, int startMinute, int endHour, int endMinute)
     {
-        this.dayInWeek = day;
-        this.hour = hour;
-        this.minute = minute;
+        this.dayInWeek = dayInWeek;
+        this.startHour = startHour;
+        this.startMinute = startMinute;
+        this.endHour = endHour;
+        this.endMinute = endMinute;
     }
 
-    public int getDayInWeek()
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        CourseDay courseDay = (CourseDay) obj;
+        if (courseDay.dayInWeek == this.dayInWeek
+                && courseDay.startHour == this.startHour
+                && courseDay.endHour == this.endHour)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public Day getDayInWeek()
     {
         return dayInWeek;
     }
 
-    public int getHour()
+    public int getStartHour()
     {
-        return hour;
+        return startHour;
     }
 
-    public int getMinute()
+    public int getStartMinute()
     {
-        return minute;
+        return startMinute;
+    }
+
+    public int getEndHour()
+    {
+        return endHour;
+    }
+
+    public int getEndMinute()
+    {
+        return endMinute;
     }
 }

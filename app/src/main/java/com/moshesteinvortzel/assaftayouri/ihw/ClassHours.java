@@ -6,14 +6,20 @@ package com.moshesteinvortzel.assaftayouri.ihw;
 
 public class ClassHours
 {
-    public String ClassName;
-    public String Hours;
-    public String Day;
+    private String ClassName;
+    private int startHour;
+    private int startMinute;
+    private int endHour;
+    private int endMinute;
+    private String Day;
 
-    public ClassHours(String className, String startHour,String endHour,String day)
+    public ClassHours(String className, int startHour, int startMinute, int endHour, int endMinute, String day)
     {
         ClassName = className;
-        Hours = startHour+"-"+endHour;
-        Day=day;
+        this.startHour = startHour;
+        this.startMinute = startMinute;
+        this.endHour = endHour;
+        this.endMinute = endMinute;
+        Day = day;
     }
 }

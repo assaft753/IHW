@@ -7,10 +7,12 @@ import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarManager;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.NotificationManager;
 
+import java.lang.reflect.Array;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.FormatFlagsConversionMismatchException;
 
 /**
  * Created by assaftayouri on 09/03/2018.
@@ -18,6 +20,10 @@ import java.util.Collections;
 
 public class Student
 {
+
+    private int MAXTOALERT = 7;
+
+
     private NotificationManager notificationManager;
     private CalendarManager calendarManager;
     private String email;
@@ -32,6 +38,7 @@ public class Student
     public Student(int pushId, String email, String password, String userName)
     {
         this.notificationManager = new NotificationManager(pushId);
+        this.calendarManager = new CalendarManager();
         this.email = email;
         this.password = password;
         this.userName = userName;
@@ -40,6 +47,41 @@ public class Student
         this.uncompletedHW = new ArrayList<HomeWork>();
         this.gradedExams = new ArrayList<Exam>();
         this.ungradedExams = new ArrayList<Exam>();
+    }
+
+    public String[] GetCourseNames()
+    {
+        String[] strings = new String[courses.size()];
+        for (int i = 0; i < courses.size(); i++)
+        {
+            strings[i] = courses.get(i).getCourseName();
+        }
+        return strings;
+    }
+
+    public ArrayList<Exam> getUngradedExams()
+    {
+        return ungradedExams;
+    }
+
+    public ArrayList<Course> getCourses()
+    {
+        return courses;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public String getUserName()
+    {
+        return userName;
     }
 
     public void AddCompletedHW(int toBeCompleted, Context context)
@@ -72,13 +114,10 @@ public class Student
         return this.AddNotification("HomeWork", homeWork.getTaskName(), context, homeWork.getToDate(), homeWork.getNotify());
     }
 
-    public int UpdatedUncompletedHW(int indexUncompleted, Context context, boolean toSort, HomeWork oldHomeWork)
+    public int UpdatedUncompletedHW(int indexUncompleted, Context context, HomeWork oldHomeWork)
     {
         HomeWork homeWork = this.uncompletedHW.get(indexUncompleted);
-        if (toSort)
-        {
-            Collections.sort(this.uncompletedHW);
-        }
+        Collections.sort(this.uncompletedHW);
 
         CalendarHelper calendarHelper = new CalendarHelper(oldHomeWork.getToDate().get(Calendar.HOUR_OF_DAY), oldHomeWork.getToDate().get(Calendar.MINUTE), oldHomeWork.getTaskName(), oldHomeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.RemoveFromCalendar(calendarHelper, oldHomeWork.getToDate());
@@ -112,7 +151,6 @@ public class Student
         this.calendarManager.RemoveFromCalendar(calendarHelper, homeWork.getToDate());
     }
 
-
     public void AddGradedExam(int toBeGraded, Context context)
     {
         Exam exam = this.ungradedExams.remove(toBeGraded);
@@ -142,13 +180,10 @@ public class Student
         return this.AddNotification("Exam", exam.getCourse().getCourseName(), context, exam.getExamDate(), exam.getNotify());
     }
 
-    public int UpdatedUngradedExam(int indexUngraded, Context context, boolean toSort, Exam oldExam)
+    public void UpdatedUngradedExam(int indexUngraded, Context context, Exam oldExam)
     {
         Exam exam = this.ungradedExams.get(indexUngraded);
-        if (toSort)
-        {
-            Collections.sort(this.ungradedExams);
-        }
+        Collections.sort(this.ungradedExams);
 
         CalendarHelper calendarHelper = new CalendarHelper(oldExam.getExamDate().get(Calendar.HOUR_OF_DAY), oldExam.getExamDate().get(Calendar.MINUTE), oldExam.getCourse().getCourseName(), oldExam.getCourse(), TaskType.Exam);
         this.calendarManager.RemoveFromCalendar(calendarHelper, oldExam.getExamDate());
@@ -156,7 +191,12 @@ public class Student
         calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), exam.getCourse().getCourseName(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.AddToCalendar(calendarHelper, exam.getExamDate());
 
-        return this.UpdateNotification(exam.getPushId(), "Exam", exam.getCourse().getCourseName(), exam.getExamDate(), context, exam.getNotify());
+        exam.setPushId(this.UpdateNotification(exam.getPushId(), "Exam", exam.getCourse().getCourseName(), exam.getExamDate(), context, exam.getNotify()));
+    }
+
+    public Exam GetUngradedExam(int index)
+    {
+        return ungradedExams.get(index);
     }
 
     public Exam RemoveExam(int indexExam, boolean graded, Context context)
@@ -181,13 +221,42 @@ public class Student
         this.calendarManager.RemoveFromCalendar(calendarHelper, exam.getExamDate());
     }
 
+    public Course GetCourseAtIndex(int index)
+    {
+        return this.courses.get(index);
+    }
+
+    public boolean CheckValidationOfClass(String CourseName)
+    {
+        for (int i = 0; i < this.courses.size(); i++)
+        {
+            if (this.courses.get(i).getCourseName().equals(CourseName))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean CheckValidationOfClassWithIndex(String CourseName, int index)
+    {
+        for (int i = 0; i < this.courses.size(); i++)
+        {
+            if (this.courses.get(i).getCourseName().equals(CourseName) && i != index)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void AddClass(Course course)
     {
         this.courses.add(course);
         this.calendarManager.AddClass(course);
     }
 
-    public void RemoveClass(int courseIndex, Context context)
+    public void RemoveClassElements(int courseIndex, Context context)
     {
         Course course = this.courses.remove(courseIndex);
         for (int i = 0; i < this.uncompletedHW.size(); i++)
@@ -244,4 +313,29 @@ public class Student
     {
         return notificationManager.UpdateNotification(pushId, title, content, calendar, context, notify);
     }
+
+    public String[] GetNotifyOpt()
+    {
+        String[] strs = new String[MAXTOALERT];
+        for (int i = 0; i < MAXTOALERT; i++)
+        {
+            if (i == 0)
+            {
+                strs[i] = (i + 1) + " Day";
+            }
+            else
+            {
+                strs[i] = (i + 1) + " Days";
+            }
+        }
+        return strs;
+    }
+
+
+    public String[] GetTermOpt()
+    {
+        return new String[]{"A", "B", "C"};
+    }
+
+
 }

@@ -56,11 +56,11 @@ public class CalendarManager
         }
     }
 
-    /*public void RemoveClass(Course course)
+    public void RemoveClass(Course course)
     {
-        for (Map.Entry pair : this.calendarDictionary.entrySet())
+        for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
         {
-            ArrayList<CalendarHelper> arrayList = ((ArrayList<CalendarHelper>) pair.getValue());
+            ArrayList<CalendarHelper> arrayList = (pair.getValue());
             for (int i = 0; i < arrayList.size(); i++)
             {
                 if (arrayList.get(i).getCourse().getCourseName().equals(course.getCourseName()))
@@ -69,13 +69,13 @@ public class CalendarManager
                 }
             }
         }
-    }*/
+    }
 
     public void RemoveOnlyClass(Course course)
     {
-        for (Map.Entry pair : this.calendarDictionary.entrySet())
+        for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
         {
-            ArrayList<CalendarHelper> arrayList = ((ArrayList<CalendarHelper>) pair.getValue());
+            ArrayList<CalendarHelper> arrayList = (pair.getValue());
             for (int i = 0; i < arrayList.size(); i++)
             {
                 if (arrayList.get(i).getCourse().getCourseName().equals(course.getCourseName()) && arrayList.get(i).getTaskType() == TaskType.Class)
@@ -90,35 +90,41 @@ public class CalendarManager
     public void AddClass(Course course)
     {
         Calendar baseCalendar = Calendar.getInstance();
-        baseCalendar.setTimeInMillis(course.getStartDate().getTimeInMillis());
-        baseCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        while (baseCalendar.compareTo(course.getEndDate()) <= 0)
+        //baseCalendar.setTimeInMillis(course.getStartDate().getTimeInMillis());
+        //baseCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        //while (baseCalendar.compareTo(course.getEndDate()) <= 0)
+        // {
+        for (CourseDay day : course.getCourseDays())
         {
-            for (CourseDay day : course.getCourseDays())
+            baseCalendar.setTimeInMillis(course.getStartDate().getTimeInMillis());
+            //baseCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            baseCalendar.set(Calendar.DAY_OF_WEEK, day.getDayInWeek().GetDayNumber());
+            if (baseCalendar.compareTo(course.getStartDate()) < 0)
             {
-                baseCalendar.set(Calendar.DAY_OF_WEEK, day.getDayInWeek());
-                if (baseCalendar.compareTo(course.getEndDate()) <= 0 && baseCalendar.compareTo(course.getStartDate()) >= 0)
-                {
-                    CalendarHelper calendarHelper = new CalendarHelper(day.getHour(), day.getMinute(), course.getCourseName(), course, TaskType.Class);
-                    String string = MakeDateString(baseCalendar);
-                    if (this.calendarDictionary.containsKey(string))
-                    {
-                        this.calendarDictionary.get(string).add(calendarHelper);
-                    }
-                    else
-                    {
-                        ArrayList<CalendarHelper> arrayList = new ArrayList<CalendarHelper>();
-                        arrayList.add(calendarHelper);
-                        this.calendarDictionary.put(string, arrayList);
-                    }
-                }
-                baseCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                baseCalendar.set(Calendar.DAY_OF_MONTH, baseCalendar.get(Calendar.DAY_OF_MONTH) + 7);
             }
+            while (baseCalendar.compareTo(course.getEndDate()) <= 0 && baseCalendar.compareTo(course.getStartDate()) >= 0)
+            {
+                CalendarHelper calendarHelper = new CalendarHelper(day.getStartHour(), day.getStartMinute(), course.getCourseName(), course, TaskType.Class);
+                String string = MakeDateString(baseCalendar);
+                if (this.calendarDictionary.containsKey(string))
+                {
+                    this.calendarDictionary.get(string).add(calendarHelper);
+                }
+                else
+                {
+                    ArrayList<CalendarHelper> arrayList = new ArrayList<CalendarHelper>();
+                    arrayList.add(calendarHelper);
+                    this.calendarDictionary.put(string, arrayList);
+                }
+                baseCalendar.set(Calendar.DAY_OF_MONTH, baseCalendar.get(Calendar.DAY_OF_MONTH) + 7);
+            }
+            //baseCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         }
-        for (Map.Entry pair : this.calendarDictionary.entrySet())
+        // }
+        for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
         {
-            Collections.sort(((ArrayList<CalendarHelper>) pair.getValue()));
-
+            Collections.sort(pair.getValue());
         }
 
     }

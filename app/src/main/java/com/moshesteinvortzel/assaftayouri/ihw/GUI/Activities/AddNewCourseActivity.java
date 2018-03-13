@@ -27,7 +27,7 @@ private Button pickColor;
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_class);
+        setContentView(R.layout.first_add_class);
         final Calendar myCalendar = Calendar.getInstance();
         final TextView date1 = findViewById(R.id.startDateText);
         final TextView date2 = findViewById(R.id.endDateText);

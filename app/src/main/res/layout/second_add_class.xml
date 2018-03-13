@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarInSecondAddClass"
         layout="@layout/toolbar" />
 
     <LinearLayout
@@ -116,14 +116,15 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/startTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="18:00 PM"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/startTimeButton"
                 android:layout_width="45dp"
                 android:layout_height="44dp"
                 android:layout_marginLeft="16dp"
@@ -148,14 +149,15 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/endTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="19:00 PM"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/endTimeButton"
                 android:layout_width="45dp"
                 android:layout_height="44dp"
                 android:layout_marginLeft="18dp"
@@ -163,7 +165,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/addHoursButton"
+            android:id="@+id/addTimeButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal|center"
@@ -180,6 +182,7 @@
             android:textSize="18sp" />
 
         <include
+            android:id="@+id/timeList"
             layout="@layout/hours_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"

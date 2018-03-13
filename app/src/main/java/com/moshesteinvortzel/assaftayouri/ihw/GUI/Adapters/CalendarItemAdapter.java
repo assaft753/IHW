@@ -50,7 +50,7 @@ public class CalendarItemAdapter extends SwipeAdapter implements View.OnLongClic
             super(itemView);
             Container = itemView.findViewById(R.id.calendarItemContainer);
             TaskType = itemView.findViewById(R.id.taskType);
-            TaskName = itemView.findViewById(R.id.taskName);
+            TaskName = itemView.findViewById(R.id.classDay);
             Time = itemView.findViewById(R.id.time);
             ClassName = itemView.findViewById(R.id.className);
         }
@@ -67,7 +67,7 @@ public class CalendarItemAdapter extends SwipeAdapter implements View.OnLongClic
     @Override
     public void onBindSwipeViewHolder(RecyclerView.ViewHolder viewHolder, int i)
     {
-        ((CalendarItemViewHolder) viewHolder).Container.setBackground(new Border("7B1FA2", 10));
+        //((CalendarItemViewHolder) viewHolder).Container.setBackground(new Border("7B1FA2", 10));
     }
 
     @Override

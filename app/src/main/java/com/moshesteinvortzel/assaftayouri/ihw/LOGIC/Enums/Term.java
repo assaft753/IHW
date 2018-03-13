@@ -8,8 +8,18 @@ public enum Term
 {
     A, B, C;
 
-    public static String[] TermArray()
+    public static Term GetTermByIndex(int index)
     {
-        return new String[]{"A", "B", "C"};
+        switch (index)
+        {
+            case 0:
+                return A;
+            case 1:
+                return B;
+            case 2:
+                return C;
+            default:
+                return A;
+        }
     }
 }

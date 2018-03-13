@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.RefreshDataSetListener;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
 
@@ -21,7 +22,7 @@ import com.moshesteinvortzel.assaftayouri.ihw.R;
  * Use the {@link HomeWorkFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeWorkFragment extends android.support.v4.app.Fragment
+public class HomeWorkFragment extends android.support.v4.app.Fragment implements RefreshDataSetListener
 {
     public  TabLayout tabLayout;
     public  ViewPager viewPager;
@@ -30,7 +31,7 @@ public class HomeWorkFragment extends android.support.v4.app.Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View x = inflater.inflate(R.layout.fragment_home_work, null);
+        /*View x = inflater.inflate(R.layout.fragment_home_work, null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
@@ -42,7 +43,14 @@ public class HomeWorkFragment extends android.support.v4.app.Fragment
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
-        return x;
+        return x;*/
+        return null;
+    }
+
+    @Override
+    public void RefreshDataSet()
+    {
+
     }
 
     class MyAdapter extends FragmentPagerAdapter

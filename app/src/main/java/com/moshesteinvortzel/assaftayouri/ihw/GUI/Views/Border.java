@@ -9,14 +9,14 @@ import android.graphics.Paint;
 
 public class Border extends android.graphics.drawable.Drawable
 {
-    private final String WHITE="#ffffff";
+    private final String WHITE = "#ffffff";
     private android.graphics.Paint paint;
     private android.graphics.Rect bounds_rect;
-    private String color;
+    private int color;
 
-    public Border(String color, int width)
+    public Border(int color, int width)
     {
-        this.color=color;
+        this.color = color;
         this.paint = new android.graphics.Paint();
         this.paint.setStrokeWidth(width);
     }
@@ -34,7 +34,7 @@ public class Border extends android.graphics.drawable.Drawable
         c.drawRect(this.bounds_rect, this.paint);
 
         this.paint.setStyle(Paint.Style.STROKE);
-        this.paint.setColor(Color.parseColor("#"+this.color));
+        this.paint.setColor(this.color);
         c.drawRect(this.bounds_rect, this.paint);
     }
 

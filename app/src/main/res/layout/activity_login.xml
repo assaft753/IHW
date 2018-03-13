@@ -17,7 +17,7 @@
         android:src="@drawable/logo" />
 
     <LinearLayout
-        android:id="@+id/registerInput"
+        android:id="@+id/signInInputContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"

@@ -16,8 +16,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="AddClass"
-            android:src="@drawable/addclass" />
+            android:src="@drawable/addclass"
+            android:id="@+id/addClassImage"/>
 
     </LinearLayout>
 
@@ -30,7 +30,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="AddHomeWork"
+            android:id="@+id/addHWImage"
             android:src="@drawable/addhw" />
 
     </LinearLayout>
@@ -44,7 +44,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="AddExam"
+            android:id="@+id/addExamImage"
             android:src="@drawable/addexam" />
 
     </LinearLayout>

@@ -3,6 +3,7 @@ package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core;
 import android.graphics.Color;
 import android.provider.CalendarContract;
 
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.Term;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CourseDay;
 
 import java.util.ArrayList;
@@ -19,21 +20,46 @@ public class Course
     private float points;
     private Calendar startDate;
     private Calendar endDate;
-    private Color courseColor;
+    private int courseColor;
     private ArrayList<CourseDay> courseDays;
     private ArrayList<HomeWork> homeWorks;
-    private ArrayList<Exam> exams;
+    private Exam[] exams;
 
-    public Course(String courseName, float points, Calendar startDate, Calendar endDate, Color courseColor)
+    public Course(String courseName, float points, Calendar startDate, Calendar endDate, int courseColor, ArrayList<CourseDay> courseDays)
     {
         this.courseName = courseName;
         this.points = points;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        setStartDate(startDate);
+        setEndDate(endDate);
         this.courseColor = courseColor;
-        this.courseDays = new ArrayList<CourseDay>();
+        this.courseDays = courseDays;
         this.homeWorks = new ArrayList<HomeWork>();
-        this.exams = new ArrayList<Exam>();
+        this.exams = new Exam[3];
+    }
+
+    public boolean CheckExamValidate(Term term)
+    {
+        if (exams[term.ordinal()] != null)
+        {
+            return false;
+        }
+        return true;
+
+    }
+
+    public boolean CheckExamDate(Calendar calendar)
+    {
+        for (int i = 0; i < exams.length; i++)
+        {
+            if (exams[i] != null)
+            {
+                if (exams[i].getExamDate().compareTo(calendar) == 0)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -57,7 +83,7 @@ public class Course
         return endDate;
     }
 
-    public Color getCourseColor()
+    public int getCourseColor()
     {
         return courseColor;
     }
@@ -83,21 +109,64 @@ public class Course
         this.homeWorks.remove(homeWork);
     }
 
-    public void AddToExam(Exam exam)
+    public Boolean AddToExam(Exam exam, int term)
     {
-        this.exams.add(exam);
+        if (exams[term] == null)
+        {
+            exams[term] = exam;
+            return true;
+        }
+        return false;
     }
 
-    public void RemoveFromExam(Exam exam)
+    public void RemoveFromExam(int term)
     {
-        this.exams.remove(exam);
+        exams[term] = null;
+    }
+
+    public void setCourseName(String courseName)
+    {
+        this.courseName = courseName;
+    }
+
+    public void setPoints(float points)
+    {
+        this.points = points;
+    }
+
+    public void setStartDate(Calendar startDate)
+    {
+        startDate.set(Calendar.MINUTE, 0);
+        startDate.set(Calendar.HOUR, 0);
+        startDate.set(Calendar.SECOND, 0);
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Calendar endDate)
+    {
+        endDate.set(Calendar.MINUTE, 0);
+        endDate.set(Calendar.HOUR, 0);
+        endDate.set(Calendar.SECOND, 0);
+        this.endDate = endDate;
+    }
+
+    public void setCourseColor(int courseColor)
+    {
+        this.courseColor = courseColor;
+    }
+
+    public void setCourseDays(ArrayList<CourseDay> courseDays)
+    {
+        this.courseDays = courseDays;
     }
 
     @Override
     public boolean equals(Object obj)
     {
         if (this == obj)
+        {
             return true;
+        }
         Course course = (Course) obj;
         return this.courseName.equals(course.getCourseName());
     }

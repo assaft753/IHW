@@ -8,13 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.CalendarItemAdapter;
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.RefreshDataSetListener;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
 import java.util.Calendar;
 
-public class CalendarFragment extends android.support.v4.app.Fragment
+public class CalendarFragment extends android.support.v4.app.Fragment implements RefreshDataSetListener
 {
     RecyclerView.Adapter calanderItemAdapter;
 
@@ -28,17 +30,22 @@ public class CalendarFragment extends android.support.v4.app.Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
-        CompactCalendarView calendarView=view.findViewById(R.id.calendarView);
-        RecyclerView recyclerView=view.findViewById(R.id.calendarItemList);
+        CompactCalendarView calendarView = view.findViewById(R.id.calendarView);
+        RecyclerView recyclerView = view.findViewById(R.id.calendarItemList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        calanderItemAdapter=new CalendarItemAdapter(getContext());
+        calanderItemAdapter = new CalendarItemAdapter(getContext());
         recyclerView.setAdapter(calanderItemAdapter);
         calanderItemAdapter.notifyDataSetChanged();
         calendarView.setFirstDayOfWeek(Calendar.SUNDAY);
         return view;
     }
 
+    @Override
+    public void RefreshDataSet()
+    {
+
+    }
 }

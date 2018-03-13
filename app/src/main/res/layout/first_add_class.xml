@@ -9,7 +9,7 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbarInFirstAddClass"
             layout="@layout/toolbar">
 
         </include>
@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/classCredit"
-                    android:inputType="textNoSuggestions"
+                    android:inputType="textNoSuggestions|numberDecimal"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="@color/IHWBrown">

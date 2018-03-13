@@ -12,11 +12,11 @@ import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.CalendarItemAdapter;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.HomeWork;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.RecyclerCompleteHWItemHelper;
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.RecyclerHourItemHelper;
+//import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.RecyclerHourItemHelper;
 
 import java.util.ArrayList;
 
-public class CompletedHWFragment extends android.support.v4.app.Fragment implements RecyclerHourItemHelper.RecyclerItemTouchHelperListener
+public class CompletedHWFragment extends android.support.v4.app.Fragment //implements RecyclerHourItemHelper.RecyclerItemTouchHelperListener
 {
     public ArrayList<HomeWork> completedList=new ArrayList<>();
     private RecyclerView recyclerView;
@@ -38,8 +38,8 @@ public class CompletedHWFragment extends android.support.v4.app.Fragment impleme
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerCompleteHWItemHelper(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+        //ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerCompleteHWItemHelper(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT, this);
+        //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         //recyclerView.setAdapter(completedAdapter);
         //completedAdapter.notifyDataSetChanged();
         return view;
@@ -60,10 +60,10 @@ public class CompletedHWFragment extends android.support.v4.app.Fragment impleme
 
     }
 
-    @Override
+    /*@Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position)
     {
         //this.completedAdapter.removeItem(position);
-    }
+    }*/
 }
 
