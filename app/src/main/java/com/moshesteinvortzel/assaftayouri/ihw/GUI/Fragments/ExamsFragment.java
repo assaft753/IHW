@@ -10,23 +10,30 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.RefreshDataSetListener;
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.ShowDialogExamListener;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
-public class ExamsFragment extends android.support.v4.app.Fragment implements RefreshDataSetListener
+public class ExamsFragment extends android.support.v4.app.Fragment implements RefreshDataSetListener, ShowDialogExamListener
 {
     private final int ITEM = 2;
+    private ShowDialogExamListener dialogExamListener;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private UngradedExamFragment ungradedExamFragment;
-    private GraderExamFragment graderExamFragment;
-    private int currentFragment;
+    private GradedExamFragment graderExamFragment;
+
+    public void setDialogExamListener(ShowDialogExamListener dialogExamListener)
+    {
+        this.dialogExamListener = dialogExamListener;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         ungradedExamFragment = new UngradedExamFragment();
-        graderExamFragment = new GraderExamFragment();
+        ungradedExamFragment.setDialogExamListener(this);
+        graderExamFragment = new GradedExamFragment();
     }
 
     @Override
@@ -61,21 +68,20 @@ public class ExamsFragment extends android.support.v4.app.Fragment implements Re
                 return true;
             }
         });*/
-
-
         return view;
     }
 
     @Override
     public void RefreshDataSet()
     {
-        switch (currentFragment)
-        {
-            case 0:
-                ungradedExamFragment.RefreshDataSet();
-            case 1:
-                graderExamFragment.RefreshDataSet();
-        }
+        ungradedExamFragment.RefreshDataSet();
+        graderExamFragment.RefreshDataSet();
+    }
+
+    @Override
+    public void ShowDialogExam(int pos)
+    {
+        this.dialogExamListener.ShowDialogExam(pos);
     }
 
 
@@ -92,10 +98,8 @@ public class ExamsFragment extends android.support.v4.app.Fragment implements Re
             switch (position)
             {
                 case 0:
-                    currentFragment = 0;
                     return ungradedExamFragment;
                 case 1:
-                    currentFragment = 1;
                     return graderExamFragment;
             }
             return null;

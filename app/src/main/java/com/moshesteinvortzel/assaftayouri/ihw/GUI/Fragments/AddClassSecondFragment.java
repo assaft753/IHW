@@ -18,7 +18,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.ClassTimeListAdapter;
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.DeleteItemHelper;
+import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.OneSideItemHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Course;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.User;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.Day;
@@ -200,7 +200,7 @@ public class AddClassSecondFragment extends Fragment implements SwipeHelperListe
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         timeList.setLayoutManager(mLayoutManager);
         timeList.setItemAnimator(new DefaultItemAnimator());
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new DeleteItemHelper<ClassTimeListAdapter.ClassTimeViewHolder>(0, ItemTouchHelper.LEFT, this);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new OneSideItemHelper<ClassTimeListAdapter.ClassTimeViewHolder>(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(timeList);
         timeList.setAdapter(classTimeListAdapter);
         classTimeListAdapter.notifyDataSetChanged();

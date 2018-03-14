@@ -37,6 +37,11 @@ public class Course
         this.exams = new Exam[3];
     }
 
+    public Exam[] getExams()
+    {
+        return exams;
+    }
+
     public boolean CheckExamValidate(Term term)
     {
         if (exams[term.ordinal()] != null)
@@ -47,16 +52,45 @@ public class Course
 
     }
 
-    public boolean CheckExamDate(Calendar calendar)
+    public Exam GetRelevantExam()
     {
+        for (int i = exams.length - 1; i >= 0; i--)
+        {
+            if (exams[i] != null && exams[i].isGraded())
+            {
+                return exams[i];
+            }
+        }
+        return null;
+    }
+
+    public boolean CheckExamDate(Calendar calendar, int skipIndex)
+    {
+
         for (int i = 0; i < exams.length; i++)
         {
-            if (exams[i] != null)
+            if (exams[i] != null && i != skipIndex)
             {
-                if (exams[i].getExamDate().compareTo(calendar) == 0)
+                Calendar calendarcheck = Calendar.getInstance();
+                calendarcheck.setTimeInMillis(calendar.getTimeInMillis());
+
+
+                Calendar calendarsource = Calendar.getInstance();
+                calendarsource.setTimeInMillis(exams[i].getExamDate().getTimeInMillis());
+
+
+                calendarcheck.set(Calendar.HOUR, 0);
+                calendarcheck.set(Calendar.MINUTE, 0);
+                calendarcheck.set(Calendar.SECOND, 0);
+                calendarsource.set(Calendar.HOUR, 0);
+                calendarsource.set(Calendar.MINUTE, 0);
+                calendarsource.set(Calendar.SECOND, 0);
+
+                if (calendarcheck.compareTo(calendarsource) == 0)
                 {
                     return false;
                 }
+
             }
         }
         return true;

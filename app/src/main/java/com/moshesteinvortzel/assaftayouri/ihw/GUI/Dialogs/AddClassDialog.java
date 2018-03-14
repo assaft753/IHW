@@ -26,6 +26,7 @@ import com.moshesteinvortzel.assaftayouri.ihw.R;
 public class AddClassDialog extends DialogFragment implements FirstAddClassListener, DismissListener
 {
     RefreshDataSetListener refreshDataSetListener;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -55,12 +56,13 @@ public class AddClassDialog extends DialogFragment implements FirstAddClassListe
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        View view= inflater.inflate(R.layout.dialog_add, container, false);
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        View view = inflater.inflate(R.layout.dialog_add, container, false);
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         AddClassFirstFragment addClassFirstFragment = new AddClassFirstFragment();
         addClassFirstFragment.setListener(this);
         addClassFirstFragment.setArguments(getArguments());
         fragmentTransaction.replace(R.id.addDialogFrame, addClassFirstFragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commitAllowingStateLoss();
         return view;
     }
@@ -80,7 +82,7 @@ public class AddClassDialog extends DialogFragment implements FirstAddClassListe
         AddClassSecondFragment addClassSecondFragment = new AddClassSecondFragment();
         addClassSecondFragment.setDialogDismissCallback(this);
         addClassSecondFragment.setArguments(bundle);
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         fragmentTransaction.replace(R.id.addDialogFrame, addClassSecondFragment);
         fragmentTransaction.addToBackStack(null);

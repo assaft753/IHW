@@ -73,6 +73,7 @@ public class AddExamFragment extends android.support.v4.app.Fragment
         super.onCreate(savedInstanceState);
         toDateCalendar = Calendar.getInstance();
         toDateCalendar.set(Calendar.SECOND, 0);
+        toDateCalendar.set(Calendar.MILLISECOND, 0);
         NotifyStrings = User.Student.GetNotifyOpt();
         opt = getArguments().getString("opt");
         if (opt.equals("new"))
@@ -82,6 +83,7 @@ public class AddExamFragment extends android.support.v4.app.Fragment
         else
         {
             examIndex = Integer.parseInt(opt);
+            System.out.println(examIndex);
             currentExam = User.Student.GetUngradedExam(examIndex);
             oldExam = new Exam(currentExam);
         }
@@ -272,7 +274,6 @@ public class AddExamFragment extends android.support.v4.app.Fragment
 
     private boolean ValidateInput()
     {
-
         try
         {
             if (classText.getText().equals("") || termText.getText().equals("")
@@ -280,11 +281,22 @@ public class AddExamFragment extends android.support.v4.app.Fragment
             {
                 throw new Exception("Missing Info");
             }
-            if (! currentCourse.CheckExamValidate(termExam))
+
+            if ((oldExam != null && oldExam.getTerm() != termExam) || (oldExam == null))
             {
-                throw new Exception("Term Taken For This Class");
+                if (! currentCourse.CheckExamValidate(termExam))
+                {
+                    throw new Exception("Term Taken For This Class");
+                }
             }
-            if (! currentCourse.CheckExamDate(toDateCalendar))
+
+            int index = - 1;
+            if (currentExam != null)
+            {
+                index = examIndex;
+            }
+
+            if (! currentCourse.CheckExamDate(toDateCalendar,index))
             {
                 throw new Exception("Another Exam On That Time");
             }

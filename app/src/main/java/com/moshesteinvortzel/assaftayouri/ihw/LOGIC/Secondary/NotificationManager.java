@@ -41,16 +41,18 @@ public class NotificationManager
         myIntent.putExtra("content", content);
         myIntent.putExtra("channel", CHANNELIS);
         myIntent.putExtra("id", pushId);
+        System.out.println("Add Push " + pushId);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, pushId, myIntent, 0);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), pendingIntent);
-
     }
 
     public void CancelNotification(int pushId, Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        System.out.println("Delete Push " + pushId);
         Intent myIntent = new Intent(context, NotificationReceiver.class);
-        alarmManager.cancel(PendingIntent.getBroadcast(context, pushId, myIntent, 0));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, pushId, myIntent, 0);
+        alarmManager.cancel(pendingIntent);
     }
 
     public int UpdateNotification(int pushId, String title, String content, Calendar calendar, Context context, int notify)

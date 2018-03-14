@@ -59,6 +59,11 @@ public class Student
         return strings;
     }
 
+    public ArrayList<Exam> getGradedExams()
+    {
+        return gradedExams;
+    }
+
     public ArrayList<Exam> getUngradedExams()
     {
         return ungradedExams;
@@ -151,33 +156,43 @@ public class Student
         this.calendarManager.RemoveFromCalendar(calendarHelper, homeWork.getToDate());
     }
 
-    public void AddGradedExam(int toBeGraded, Context context)
+    public void CanceledGradedExam(Exam exam, int position)
     {
-        Exam exam = this.ungradedExams.remove(toBeGraded);
+        this.ungradedExams.add(position, exam);
+        //Collections.sort(this.gradedExams);
+    }
+
+    public Exam AddGradedExamPartly(int toBeGraded)
+    {
+        return this.ungradedExams.remove(toBeGraded);
+    }
+
+    public void AddGradedExamFinish(Exam exam, int grade, Context context)
+    {
+        exam.setGrade(grade);
+        exam.setGraded(true);
         this.gradedExams.add(exam);
         Collections.sort(this.gradedExams);
         this.RemoveNotification(exam.getPushId(), context);
     }
 
-    public int FromGradedToUngraded(int gradedExamIndex, Context context)
+    public void FromGradedToUngraded(int gradedExamIndex, Context context)
     {
         Exam exam = this.gradedExams.remove(gradedExamIndex);
+        exam.setGraded(false);
         this.ungradedExams.add(exam);
         Collections.sort(this.ungradedExams);
-        if (! exam.getExamDate().before(Calendar.getInstance()))
-        {
-            return this.AddNotification("Exam", exam.getCourse().getCourseName(), context, exam.getExamDate(), exam.getNotify());
-        }
-        return exam.getPushId();
+        exam.setPushId(this.AddNotification("Exam", exam.getCourse().getCourseName(), context, exam.getExamDate(), exam.getNotify()));
     }
 
-    public int AddUngradedExam(Exam exam, Context context)
+    public void AddUngradedExam(Exam exam, Context context)
     {
         this.ungradedExams.add(exam);
+        exam.getCourse().getExams()[exam.getTerm().ordinal()] = exam;
         Collections.sort(this.ungradedExams);
         CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), exam.getCourse().getCourseName(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.AddToCalendar(calendarHelper, exam.getExamDate());
-        return this.AddNotification("Exam", exam.getCourse().getCourseName(), context, exam.getExamDate(), exam.getNotify());
+        exam.setPushId(this.AddNotification("Exam", exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), context, exam.getExamDate(), exam.getNotify()));
     }
 
     public void UpdatedUngradedExam(int indexUngraded, Context context, Exam oldExam)
@@ -191,7 +206,7 @@ public class Student
         calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), exam.getCourse().getCourseName(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.AddToCalendar(calendarHelper, exam.getExamDate());
 
-        exam.setPushId(this.UpdateNotification(exam.getPushId(), "Exam", exam.getCourse().getCourseName(), exam.getExamDate(), context, exam.getNotify()));
+        exam.setPushId(this.UpdateNotification(exam.getPushId(), "Exam", exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), exam.getExamDate(), context, exam.getNotify()));
     }
 
     public Exam GetUngradedExam(int index)
@@ -216,7 +231,12 @@ public class Student
 
     private void RemoveExam(Exam exam, Context context)
     {
-        RemoveNotification(exam.getPushId(), context);
+        exam.getCourse().getExams()[exam.getTerm().ordinal()] = null;
+        if (exam.getPushId() != - 1)
+        {
+            System.out.println("enter delete push");
+            RemoveNotification(exam.getPushId(), context);
+        }
         CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), exam.getCourse().getCourseName(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.RemoveFromCalendar(calendarHelper, exam.getExamDate());
     }
@@ -259,33 +279,52 @@ public class Student
     public void RemoveClassElements(int courseIndex, Context context)
     {
         Course course = this.courses.remove(courseIndex);
-        for (int i = 0; i < this.uncompletedHW.size(); i++)
+
+        for (int i = 0; i < this.uncompletedHW.size(); )
         {
             if (this.uncompletedHW.get(i).getCourse().equals(course))
             {
                 this.RemoveHW(i, false, context);
             }
+            else
+            {
+                i++;
+            }
         }
 
-        for (int i = 0; i < this.completedHW.size(); i++)
+        for (int i = 0; i < this.completedHW.size(); )
         {
             if (this.completedHW.get(i).getCourse().equals(course))
             {
                 this.RemoveHW(i, true, context);
             }
+            else
+            {
+                i++;
+            }
         }
-        for (int i = 0; i < this.gradedExams.size(); i++)
+
+        for (int i = 0; i < this.gradedExams.size(); )
         {
             if (this.gradedExams.get(i).getCourse().equals(course))
             {
                 this.RemoveExam(i, true, context);
             }
+            else
+            {
+                i++;
+            }
         }
-        for (int i = 0; i < this.ungradedExams.size(); i++)
+
+        for (int i = 0; i < this.ungradedExams.size(); )
         {
             if (this.ungradedExams.get(i).getCourse().equals(course))
             {
                 this.RemoveExam(i, false, context);
+            }
+            else
+            {
+                i++;
             }
         }
     }
@@ -299,19 +338,73 @@ public class Student
 
     private int AddNotification(String title, String content, Context context, Calendar calendar, int notify)
     {
-        int pushId = notificationManager.getPushId();
-        notificationManager.AddNotification(pushId, title, content, context, calendar, notify);
-        return pushId;
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTimeInMillis(calendar.getTimeInMillis());
+        calendar1.set(Calendar.DAY_OF_MONTH, calendar1.get(Calendar.DAY_OF_MONTH) - notify);
+        if (calendar1.after(Calendar.getInstance()))
+        {
+            System.out.println("Notification Added");
+            int pushId = notificationManager.getPushId();
+            notificationManager.AddNotification(pushId, title, content, context, calendar, notify);
+            return pushId;
+        }
+        else
+        {
+            System.out.println("Notification Not Added");
+            return - 1;
+        }
     }
 
     private void RemoveNotification(int pushId, Context context)
     {
-        notificationManager.CancelNotification(pushId, context);
+        if (pushId != - 1)
+        {
+            System.out.println("Notification Removed");
+            notificationManager.CancelNotification(pushId, context);
+        }
     }
 
     private int UpdateNotification(int pushId, String title, String content, Calendar calendar, Context context, int notify)
     {
-        return notificationManager.UpdateNotification(pushId, title, content, calendar, context, notify);
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTimeInMillis(calendar.getTimeInMillis());
+        calendar1.set(Calendar.DAY_OF_MONTH, calendar1.get(Calendar.DAY_OF_MONTH) - notify);
+        if (calendar1.after(Calendar.getInstance()))
+        {
+            System.out.println("Notification Updated");
+            return notificationManager.UpdateNotification(pushId, title, content, calendar, context, notify);
+        }
+        System.out.println("Notification Not Updated");
+        return - 1;
+    }
+
+    public float[] CalculateExamsAvg()
+    {
+        float exampoints = 0;
+        float sumgrade = 0;
+        Exam exam;
+        for (Course course : courses)
+        {
+            exam = course.GetRelevantExam();
+            if (exam != null)
+            {
+                exampoints += course.getPoints();
+                sumgrade += course.getPoints() * exam.getGrade();
+            }
+        }
+        float cal;
+        if (exampoints == 0 || sumgrade == 0)
+        {
+            cal = 0;
+        }
+        else
+        {
+            cal = sumgrade / exampoints;
+        }
+        float[] result = new float[]{
+                cal, exampoints
+        };
+        return result;
     }
 
     public String[] GetNotifyOpt()

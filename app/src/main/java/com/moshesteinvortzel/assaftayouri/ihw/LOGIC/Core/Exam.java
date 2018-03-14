@@ -30,6 +30,11 @@ public class Exam implements Comparable<Exam>
         this.graded = false;
     }
 
+    public boolean isGraded()
+    {
+        return graded;
+    }
+
     public Exam(Exam currentExam)
     {
         this.course = currentExam.getCourse();
@@ -38,6 +43,11 @@ public class Exam implements Comparable<Exam>
         this.examDate.setTimeInMillis(currentExam.getExamDate().getTimeInMillis());
         this.notify = getNotify();
         this.graded = false;
+    }
+
+    public int getGrade()
+    {
+        return grade;
     }
 
     public void setGrade(int grade)

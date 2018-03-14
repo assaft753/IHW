@@ -20,18 +20,24 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.AddDialog;
+import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.AddExamDialog;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.CalendarFragment;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.ClassesFragment;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.ExamsFragment;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.HomeWorkFragment;
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Course;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Student;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.User;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.RefreshDataSetListener;
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.ShowDialogExamListener;
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CourseDay;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
 import java.security.PrivateKey;
+import java.util.ArrayList;
+import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RefreshDataSetListener
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RefreshDataSetListener, ShowDialogExamListener
 {
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -39,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int CurrentFragment;
     private String[] toolbarTitles;
     private ActionBarDrawerToggle toggle;
-    private AddDialog newFragment;
+    //private AddDialog newFragment;
     Fragment fragment;
 
     @Override
@@ -49,6 +55,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         User.Student = new Student(2, "assaf@gmail.com", "122345", "Assaf Tayouri");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2017);
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(Calendar.DAY_OF_MONTH, 18);
+        Course course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
+        User.Student.AddClass(course);
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -82,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case 2:
                 fragment = new ExamsFragment();
+                ((ExamsFragment) fragment).setDialogExamListener(this);
                 break;
             case 3:
                 fragment = new CalendarFragment();
@@ -180,11 +228,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void showDialog()
     {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        newFragment = new AddDialog();
+        AddDialog newFragment = new AddDialog();
         newFragment.setRefreshDataSetListener(this);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void ShowDialogExam(int pos)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        AddExamDialog examDialog = new AddExamDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("opt", String.valueOf(pos));
+        examDialog.setArguments(bundle);
+        examDialog.setRefreshDataSetListener(this);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.add(android.R.id.content, examDialog).addToBackStack(null).commit();
     }
 
 

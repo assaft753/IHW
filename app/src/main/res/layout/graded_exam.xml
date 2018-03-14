@@ -26,6 +26,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="4dp"
             android:orientation="horizontal">
 
@@ -34,19 +35,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="3dp"
                 android:text="@string/Points"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/gradedExamPointsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2.5"
+                android:text="0"
+                android:textColor="@color/IHWBrown"
                 android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:orientation="horizontal">
 
             <TextView
@@ -54,13 +59,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="3dp"
                 android:text="@string/average"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/gradedExamAvgText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="88.9"
+                android:text="0"
+                android:textColor="@color/IHWBrown"
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>

@@ -102,10 +102,10 @@ public class AddDialog extends DialogFragment implements AddChoicesListener, Fir
     public void MoveToAddExam()
     {
         AddExamFragment addExamFragment = new AddExamFragment();
-        addExamFragment.setDialogDismissCallback(this);
         Bundle bundle = new Bundle();
         bundle.putString("opt", "new");
         addExamFragment.setArguments(bundle);
+        addExamFragment.setDialogDismissCallback(this);
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         fragmentTransaction.replace(R.id.addDialogFrame, addExamFragment);
@@ -137,6 +137,7 @@ public class AddDialog extends DialogFragment implements AddChoicesListener, Fir
     @Override
     public void Dismiss()
     {
+        System.out.println("enter dismiss");
         refreshDataSetListener.RefreshDataSet();
         this.dismiss();
     }

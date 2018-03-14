@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.CalendarItemAdapter;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.HomeWork;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.RecyclerCompleteHWItemHelper;
+//import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.RecyclerCompleteHWItemHelper;
 //import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.RecyclerHourItemHelper;
 
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,13 +9,14 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.UngradedExamAdapter;
+import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.GradedExamAdapter;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.GradeDialog;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.TwoSidesItemHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Exam;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.User;
-import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnLongUngradedItemListener;
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnLongGradedItemListener;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.RefreshDataSetListener;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.ShowDialogExamListener;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.SwipeHelperListener;
@@ -28,56 +28,61 @@ import java.util.ArrayList;
  * Created by assaftayouri on 08/03/2018.
  */
 
-public class UngradedExamFragment extends Fragment implements RefreshDataSetListener, SwipeHelperListener, OnLongUngradedItemListener, DialogInterface.OnClickListener
+public class GradedExamFragment extends Fragment implements RefreshDataSetListener, OnLongGradedItemListener, SwipeHelperListener
 {
-    private RecyclerView ungradedRecyclerView;
-    private ArrayList<Exam> ungradedList;
-    private UngradedExamAdapter ungradedExamAdapter;
+
+    private RecyclerView gradedRecyclerView;
+    private ArrayList<Exam> gradedList;
+    private GradedExamAdapter gradedExamAdapter;
     private ShowDialogExamListener dialogExamListener;
-    private Exam aboutToGraded;
-    private int getAboutToGradedIndex;
     private GradeDialog gradeDialog;
-
-
-    public void setDialogExamListener(ShowDialogExamListener dialogExamListener)
-    {
-        this.dialogExamListener = dialogExamListener;
-    }
+    private TextView pointsText;
+    private TextView avgText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.ungraded_exam, container, false);
-        ungradedRecyclerView = view.findViewById(R.id.ungradedExamList);
-        ungradedList = User.Student.getUngradedExams();
+        View view = inflater.inflate(R.layout.graded_exam, container, false);
+        gradedRecyclerView = view.findViewById(R.id.gradedExamList);
+        pointsText = view.findViewById(R.id.gradedExamPointsText);
+        avgText = view.findViewById(R.id.gradedExamAvgText);
+        gradedList = User.Student.getGradedExams();
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        ungradedRecyclerView.setLayoutManager(mLayoutManager);
-        ungradedRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        ungradedExamAdapter = new UngradedExamAdapter(ungradedList, this);
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new TwoSidesItemHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(ungradedRecyclerView);
-        ungradedRecyclerView.setAdapter(ungradedExamAdapter);
-
+        gradedRecyclerView.setLayoutManager(mLayoutManager);
+        gradedRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        gradedExamAdapter = new GradedExamAdapter(gradedList, this, null);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new TwoSidesItemHelper<GradedExamAdapter.GradedExamViewHolder>(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(gradedRecyclerView);
+        gradedRecyclerView.setAdapter(gradedExamAdapter);
         return view;
-    }
-
-    @Override
-    public void RefreshDataSet()
-    {
-        ungradedExamAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void setMenuVisibility(boolean menuVisible)
     {
-        if (ungradedExamAdapter != null && menuVisible)
+        if (gradedExamAdapter != null && menuVisible)
         {
-            ungradedExamAdapter.notifyDataSetChanged();
+            RefreshDataSet();
         }
         super.setMenuVisibility(menuVisible);
     }
 
     @Override
+    public void RefreshDataSet()
+    {
+        gradedExamAdapter.notifyDataSetChanged();
+        SetAverageTexts();
+    }
+
+    private void SetAverageTexts()
+    {
+        float[] result = User.Student.CalculateExamsAvg();
+        System.out.println("ttttt");
+        pointsText.setText(String.valueOf(result[1]));
+        avgText.setText(String.valueOf(result[0]));
+    }
+
+    /*@Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position)
     {
         if (direction == ItemTouchHelper.LEFT)
@@ -94,33 +99,44 @@ public class UngradedExamFragment extends Fragment implements RefreshDataSetList
             ungradedExamAdapter.notifyItemRemoved(position);
             gradeDialog.show(getFragmentManager(), "Number Picker");
 
-        }
-        ungradedExamAdapter.notifyItemRemoved(position);
 
-    }
+            //User.Student.AddGradedExam(position, getContext());
+
+        }
+        //ungradedExamAdapter.notifyItemRemoved(position);
+        System.out.println("here");
+
+    }*/
 
     @Override
-    public void OnLongUngradedItem(int pos)
+    public void OnLongGradedItem(int pos)
     {
-        /*Bundle bundle = new Bundle();
-        bundle.putString("opt", String.valueOf(pos));
-        FragmentManager fragmentManager = getFragmentManager();
-        addExamDialog = new AddExamDialog();
-        addExamDialog.setArguments(bundle);
-        //addClassDialog.setRefreshDataSetListener(this);
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.add(android.R.id.content, addExamDialog).addToBackStack(null).commit();*/
         dialogExamListener.ShowDialogExam(pos);
     }
 
-
     @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position)
+    {
+        if (direction == ItemTouchHelper.RIGHT)
+        {
+
+            User.Student.RemoveExam(position, true, getContext());
+        }
+        else
+        {
+            User.Student.FromGradedToUngraded(position, getContext());
+        }
+        gradedExamAdapter.notifyItemRemoved(position);
+        SetAverageTexts();
+
+    }
+
+
+    /*@Override
     public void onClick(DialogInterface dialogInterface, int i)
     {
         if (i == - 1)
         {
-            System.out.println(gradeDialog.getPicker().getValue());
             User.Student.AddGradedExamFinish(aboutToGraded, gradeDialog.getPicker().getValue(), getContext());
         }
         else
@@ -129,5 +145,6 @@ public class UngradedExamFragment extends Fragment implements RefreshDataSetList
             ungradedExamAdapter.notifyItemInserted(getAboutToGradedIndex);
         }
         //ungradedExamAdapter.notifyItemInserted(aboutToGraded);
-    }
+    }*/
 }
+

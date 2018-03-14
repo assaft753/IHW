@@ -13,8 +13,7 @@ import android.view.ViewGroup;
 
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.ClassesAdapter;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.AddClassDialog;
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.AddDialog;
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.DeleteItemHelper;
+import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.OneSideItemHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Course;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.User;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnLongClassItemListener;
@@ -48,7 +47,7 @@ public class ClassesFragment extends android.support.v4.app.Fragment implements 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         classesAdapter = new ClassesAdapter(courses,this);
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new DeleteItemHelper(0, ItemTouchHelper.LEFT, this);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new OneSideItemHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         this.recyclerView.setAdapter(classesAdapter);
         classesAdapter.notifyDataSetChanged();

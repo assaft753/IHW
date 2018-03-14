@@ -5,19 +5,19 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-//import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.CompletedAdapter;
+import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.ClassTimeListAdapter;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.ViewHolder;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.SwipeHelperListener;
-import com.moshesteinvortzel.assaftayouri.ihw.R;
 
 /**
- * Created by assaftayouri on 06/03/2018.
+ * Created by assaftayouri on 04/03/2018.
  */
-public class CompleteItemHelper<T extends ViewHolder> extends ItemTouchHelper.SimpleCallback
+
+public class OneSideItemHelper<T extends ViewHolder> extends ItemTouchHelper.SimpleCallback
 {
     private SwipeHelperListener listener;
 
-    public CompleteItemHelper(int dragDirs, int swipeDirs, SwipeHelperListener listener)
+    public OneSideItemHelper(int dragDirs, int swipeDirs, SwipeHelperListener listener)
     {
         super(dragDirs, swipeDirs);
         this.listener = listener;
@@ -43,19 +43,6 @@ public class CompleteItemHelper<T extends ViewHolder> extends ItemTouchHelper.Si
     public void onChildDrawOver(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive)
     {
         final View foregroundView = ((T) viewHolder).getForeground();
-        final View backgroundView = ((T) viewHolder).getBackground();
-
-        if (dX > 0)
-        {
-            backgroundView.findViewById(R.id.deleteBackground).setVisibility(View.GONE);
-            backgroundView.findViewById(R.id.completeBackground).setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            backgroundView.findViewById(R.id.completeBackground).setVisibility(View.GONE);
-            backgroundView.findViewById(R.id.deleteBackground).setVisibility(View.VISIBLE);
-        }
-
         getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);
     }
 
@@ -70,14 +57,12 @@ public class CompleteItemHelper<T extends ViewHolder> extends ItemTouchHelper.Si
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive)
     {
         final View foregroundView = ((T) viewHolder).getForeground();
-
         getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);
     }
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
     {
-
         listener.onSwiped(viewHolder, direction, viewHolder.getAdapterPosition());
     }
 
@@ -86,5 +71,6 @@ public class CompleteItemHelper<T extends ViewHolder> extends ItemTouchHelper.Si
     {
         return super.convertToAbsoluteDirection(flags, layoutDirection);
     }
+
 
 }

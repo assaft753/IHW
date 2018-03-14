@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Views.Border;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Views.Oval;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Exam;
-import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnLongUngradedItemListener;
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnLongGradedItemListener;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.ShowDialogExamListener;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
@@ -21,19 +21,20 @@ import java.util.Date;
  * Created by assaftayouri on 13/03/2018.
  */
 
-public class UngradedExamAdapter extends RecyclerView.Adapter<UngradedExamAdapter.UngradedExamViewHolder>
+public class GradedExamAdapter extends RecyclerView.Adapter<GradedExamAdapter.GradedExamViewHolder>
 {
-    private ArrayList<Exam> ungradedList;
-    private OnLongUngradedItemListener listener;
-    ShowDialogExamListener dialogExamListener;
+    private ArrayList<Exam> gradedList;
+    private OnLongGradedItemListener onLongGradedItemListener;
+    private ShowDialogExamListener showDialogExamListener;
 
-    public UngradedExamAdapter(ArrayList<Exam> ungradedList, OnLongUngradedItemListener listener)
+    public GradedExamAdapter(ArrayList<Exam> gradedList, OnLongGradedItemListener onLongGradedItemListener, ShowDialogExamListener showDialogExamListener)
     {
-        this.listener = listener;
-        this.ungradedList = ungradedList;
+        this.onLongGradedItemListener = onLongGradedItemListener;
+        this.showDialogExamListener = showDialogExamListener;
+        this.gradedList = gradedList;
     }
 
-    public class UngradedExamViewHolder extends ViewHolder
+    public class GradedExamViewHolder extends ViewHolder
     {
         public TextView examClassText;
         public TextView examPointsText;
@@ -44,7 +45,7 @@ public class UngradedExamAdapter extends RecyclerView.Adapter<UngradedExamAdapte
         private ViewGroup Foreground;
         private ViewGroup Background;
 
-        public UngradedExamViewHolder(View itemView)
+        public GradedExamViewHolder(View itemView)
         {
             super(itemView);
             view = itemView;
@@ -73,23 +74,23 @@ public class UngradedExamAdapter extends RecyclerView.Adapter<UngradedExamAdapte
 
 
     @Override
-    public UngradedExamViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public GradedExamViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.ungraded_exam_item, parent, false);
-        return new UngradedExamViewHolder(itemView);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.graded_exam_item, parent, false);
+        return new GradedExamViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final UngradedExamViewHolder holder, final int position)
+    public void onBindViewHolder(final GradedExamViewHolder holder, final int position)
     {
-        Exam exam = ungradedList.get(position);
+        Exam exam = gradedList.get(position);
         holder.view.setOnLongClickListener(new View.OnLongClickListener()
         {
             @Override
             public boolean onLongClick(View view)
             {
                 System.out.println(holder.getAdapterPosition());
-                listener.OnLongUngradedItem(holder.getAdapterPosition());
+                onLongGradedItemListener.OnLongGradedItem(holder.getAdapterPosition());
                 return true;
             }
         });
@@ -101,14 +102,14 @@ public class UngradedExamAdapter extends RecyclerView.Adapter<UngradedExamAdapte
         holder.examDateText.setText(ft.format(date));
         holder.getForeground().setBackground(new Border(exam.getCourse().getCourseColor(), 20));
         holder.examUngradedText.setBackground(new Oval(exam.getCourse().getCourseColor()));
-        holder.examUngradedText.setText("?");
+        holder.examUngradedText.setText(String.valueOf(exam.getGrade()));
 
     }
 
     @Override
     public int getItemCount()
     {
-        return ungradedList.size();
+        return gradedList.size();
     }
 }
 

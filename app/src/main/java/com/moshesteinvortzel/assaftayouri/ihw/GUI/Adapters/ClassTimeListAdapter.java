@@ -92,8 +92,8 @@ public class ClassTimeListAdapter extends RecyclerView.Adapter<ClassTimeListAdap
     {
         if (! this.classTimeList.contains(courseDay))
         {
-            this.classTimeList.add( courseDay);
-            notifyItemInserted(this.classTimeList.size()-1);
+            this.classTimeList.add(courseDay);
+            notifyItemInserted(this.classTimeList.size() - 1);
         }
     }
 

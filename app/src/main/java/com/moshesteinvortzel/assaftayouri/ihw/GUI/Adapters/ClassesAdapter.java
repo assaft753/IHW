@@ -74,7 +74,7 @@ public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ClassVie
     }
 
     @Override
-    public void onBindViewHolder(ClassViewHolder holder, final int position)
+    public void onBindViewHolder(final ClassViewHolder holder, final int position)
     {
         Course course = courses.get(position);
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener()
@@ -82,7 +82,7 @@ public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ClassVie
             @Override
             public boolean onLongClick(View view)
             {
-                onLongClassItem.OnLongClassItem(position);
+                onLongClassItem.OnLongClassItem(holder.getAdapterPosition());
                 return true;
             }
         });
@@ -106,7 +106,7 @@ public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ClassVie
 
     private String MakeDateString(Calendar calendar)
     {
-        return calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR);
+        return calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR);
     }
 
     public void removeItem(int position)
