@@ -13,11 +13,11 @@ import com.moshesteinvortzel.assaftayouri.ihw.R;
 /**
  * Created by assaftayouri on 06/03/2018.
  */
-public class TwoSidesItemHelper<T extends ViewHolder> extends ItemTouchHelper.SimpleCallback
+public class UnCompleteTwoSidesItemHelper<T extends ViewHolder> extends ItemTouchHelper.SimpleCallback
 {
     private SwipeHelperListener listener;
 
-    public TwoSidesItemHelper(int dragDirs, int swipeDirs, SwipeHelperListener listener)
+    public UnCompleteTwoSidesItemHelper(int dragDirs, int swipeDirs, SwipeHelperListener listener)
     {
         super(dragDirs, swipeDirs);
         this.listener = listener;
@@ -47,13 +47,13 @@ public class TwoSidesItemHelper<T extends ViewHolder> extends ItemTouchHelper.Si
 
         if (dX > 0)
         {
-            backgroundView.findViewById(R.id.deleteBackground).setVisibility(View.GONE);
-            backgroundView.findViewById(R.id.completeBackground).setVisibility(View.VISIBLE);
+            backgroundView.findViewById(R.id.deleteBackground).setVisibility(View.VISIBLE);
+            backgroundView.findViewById(R.id.unCompleteBackground).setVisibility(View.GONE);
         }
         else
         {
-            backgroundView.findViewById(R.id.completeBackground).setVisibility(View.GONE);
-            backgroundView.findViewById(R.id.deleteBackground).setVisibility(View.VISIBLE);
+            backgroundView.findViewById(R.id.deleteBackground).setVisibility(View.GONE);
+            backgroundView.findViewById(R.id.unCompleteBackground).setVisibility(View.VISIBLE);
         }
 
         getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);

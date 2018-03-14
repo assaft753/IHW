@@ -41,7 +41,6 @@
     <string name="Reminder">Reminder:</string>
     <string name="TaskName">Task Name</string>
     <string name="Priority">Priority:</string>
-
     <string name="sunday">Sun.</string>
     <string name="monday">Mon.</string>
     <string name="tuesday">Tue.</string>
@@ -58,6 +57,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="Delete">DELETE</string>
     <string name="Points">Points: </string>
     <string name="chooseGrade">Choose Grade</string>

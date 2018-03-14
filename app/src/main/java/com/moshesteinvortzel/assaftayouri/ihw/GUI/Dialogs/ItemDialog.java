@@ -24,6 +24,7 @@ import java.security.PrivateKey;
 
 public class ItemDialog extends DialogFragment
 {
+    private final int MIN_VALUE = 0;
     private String[] strs;
     private NumberPicker picker;
     private TextView titleText;
@@ -34,7 +35,6 @@ public class ItemDialog extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-        System.out.println("dialog created");
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.item_picker, null);
         this.view = view;
@@ -45,7 +45,7 @@ public class ItemDialog extends DialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setView(view)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int id)
@@ -53,7 +53,7 @@ public class ItemDialog extends DialogFragment
                         OKbtn.OkValue(picker.getValue());
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
@@ -71,7 +71,7 @@ public class ItemDialog extends DialogFragment
 
     private void SetPickerOpt()
     {
-        picker.setMinValue(0);
+        picker.setMinValue(MIN_VALUE);
         picker.setMaxValue(strs.length - 1);
         picker.setDisplayedValues(strs);
         picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);

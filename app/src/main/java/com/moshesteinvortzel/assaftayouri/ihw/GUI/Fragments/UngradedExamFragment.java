@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.UngradedExamAdapter;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.GradeDialog;
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.TwoSidesItemHelper;
+import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.CompleteTwoSidesItemHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Exam;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.User;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnLongUngradedItemListener;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * Created by assaftayouri on 08/03/2018.
  */
 
-public class UngradedExamFragment extends Fragment implements RefreshDataSetListener, SwipeHelperListener, OnLongUngradedItemListener, DialogInterface.OnClickListener
+public class UngradedExamFragment extends Fragment implements RefreshDataSetListener, SwipeHelperListener, OnLongUngradedItemListener, DialogInterface.OnClickListener, DialogInterface.OnCancelListener
 {
     private RecyclerView ungradedRecyclerView;
     private ArrayList<Exam> ungradedList;
@@ -54,7 +54,7 @@ public class UngradedExamFragment extends Fragment implements RefreshDataSetList
         ungradedRecyclerView.setLayoutManager(mLayoutManager);
         ungradedRecyclerView.setItemAnimator(new DefaultItemAnimator());
         ungradedExamAdapter = new UngradedExamAdapter(ungradedList, this);
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new TwoSidesItemHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new CompleteTwoSidesItemHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(ungradedRecyclerView);
         ungradedRecyclerView.setAdapter(ungradedExamAdapter);
 
@@ -91,6 +91,7 @@ public class UngradedExamFragment extends Fragment implements RefreshDataSetList
             getAboutToGradedIndex = position;
             aboutToGraded = User.Student.AddGradedExamPartly(position);
             gradeDialog.setOnClickListener(this);
+            gradeDialog.setOnCancelListener(this);
             ungradedExamAdapter.notifyItemRemoved(position);
             gradeDialog.show(getFragmentManager(), "Number Picker");
 
@@ -120,7 +121,6 @@ public class UngradedExamFragment extends Fragment implements RefreshDataSetList
     {
         if (i == - 1)
         {
-            System.out.println(gradeDialog.getPicker().getValue());
             User.Student.AddGradedExamFinish(aboutToGraded, gradeDialog.getPicker().getValue(), getContext());
         }
         else
@@ -129,5 +129,14 @@ public class UngradedExamFragment extends Fragment implements RefreshDataSetList
             ungradedExamAdapter.notifyItemInserted(getAboutToGradedIndex);
         }
         //ungradedExamAdapter.notifyItemInserted(aboutToGraded);
+    }
+
+
+    @Override
+    public void onCancel(DialogInterface dialogInterface)
+    {
+        System.out.println("dismiss");
+        User.Student.CanceledGradedExam(aboutToGraded, getAboutToGradedIndex);
+        ungradedExamAdapter.notifyItemInserted(getAboutToGradedIndex);
     }
 }

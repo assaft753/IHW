@@ -59,7 +59,6 @@ public class AddExamDialog extends DialogFragment implements DismissListener
         addExamFragment.setArguments(getArguments());
         fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         fragmentTransaction.replace(R.id.addDialogFrame, addExamFragment);
-        //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commitAllowingStateLoss();
         return view;
     }
@@ -68,7 +67,6 @@ public class AddExamDialog extends DialogFragment implements DismissListener
     @Override
     public void Dismiss()
     {
-        System.out.println("AddExam");
         this.refreshDataSetListener.RefreshDataSet();
         this.dismiss();
     }

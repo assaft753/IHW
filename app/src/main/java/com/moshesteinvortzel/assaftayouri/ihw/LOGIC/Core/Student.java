@@ -159,7 +159,6 @@ public class Student
     public void CanceledGradedExam(Exam exam, int position)
     {
         this.ungradedExams.add(position, exam);
-        //Collections.sort(this.gradedExams);
     }
 
     public Exam AddGradedExamPartly(int toBeGraded)
@@ -182,7 +181,7 @@ public class Student
         exam.setGraded(false);
         this.ungradedExams.add(exam);
         Collections.sort(this.ungradedExams);
-        exam.setPushId(this.AddNotification("Exam", exam.getCourse().getCourseName(), context, exam.getExamDate(), exam.getNotify()));
+        exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", context, exam.getExamDate(), exam.getNotify()));
     }
 
     public void AddUngradedExam(Exam exam, Context context)
@@ -192,7 +191,7 @@ public class Student
         Collections.sort(this.ungradedExams);
         CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), exam.getCourse().getCourseName(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.AddToCalendar(calendarHelper, exam.getExamDate());
-        exam.setPushId(this.AddNotification("Exam", exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), context, exam.getExamDate(), exam.getNotify()));
+        exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", context, exam.getExamDate(), exam.getNotify()));
     }
 
     public void UpdatedUngradedExam(int indexUngraded, Context context, Exam oldExam)
@@ -200,13 +199,16 @@ public class Student
         Exam exam = this.ungradedExams.get(indexUngraded);
         Collections.sort(this.ungradedExams);
 
+        exam.getCourse().getExams()[oldExam.getTerm().ordinal()] = null;
+        exam.getCourse().getExams()[exam.getTerm().ordinal()] = exam;
+
         CalendarHelper calendarHelper = new CalendarHelper(oldExam.getExamDate().get(Calendar.HOUR_OF_DAY), oldExam.getExamDate().get(Calendar.MINUTE), oldExam.getCourse().getCourseName(), oldExam.getCourse(), TaskType.Exam);
         this.calendarManager.RemoveFromCalendar(calendarHelper, oldExam.getExamDate());
 
         calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), exam.getCourse().getCourseName(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.AddToCalendar(calendarHelper, exam.getExamDate());
 
-        exam.setPushId(this.UpdateNotification(exam.getPushId(), "Exam", exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), exam.getExamDate(), context, exam.getNotify()));
+        exam.setPushId(this.UpdateNotification(exam.getPushId(), exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", exam.getExamDate(), context, exam.getNotify()));
     }
 
     public Exam GetUngradedExam(int index)

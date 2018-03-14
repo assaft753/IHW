@@ -6,6 +6,7 @@ import android.provider.CalendarContract;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.Term;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CourseDay;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -71,22 +72,25 @@ public class Course
         {
             if (exams[i] != null && i != skipIndex)
             {
-                Calendar calendarcheck = Calendar.getInstance();
+                /*Calendar calendarcheck = Calendar.getInstance();
                 calendarcheck.setTimeInMillis(calendar.getTimeInMillis());
-
 
                 Calendar calendarsource = Calendar.getInstance();
                 calendarsource.setTimeInMillis(exams[i].getExamDate().getTimeInMillis());
 
-
-                calendarcheck.set(Calendar.HOUR, 0);
+                calendarcheck.set(Calendar.HOUR_OF_DAY, 0);
                 calendarcheck.set(Calendar.MINUTE, 0);
                 calendarcheck.set(Calendar.SECOND, 0);
-                calendarsource.set(Calendar.HOUR, 0);
+                calendarcheck.set(Calendar.MILLISECOND, 0);
+
+                calendarsource.set(Calendar.HOUR_OF_DAY, 0);
                 calendarsource.set(Calendar.MINUTE, 0);
                 calendarsource.set(Calendar.SECOND, 0);
+                calendarsource.set(Calendar.MILLISECOND, 0);*/
 
-                if (calendarcheck.compareTo(calendarsource) == 0)
+                if (calendar.get(Calendar.YEAR) == exams[i].getExamDate().get(Calendar.YEAR)
+                        && calendar.get(Calendar.DAY_OF_MONTH) == exams[i].getExamDate().get(Calendar.DAY_OF_MONTH)
+                        && calendar.get(Calendar.MONTH) == exams[i].getExamDate().get(Calendar.MONTH))
                 {
                     return false;
                 }

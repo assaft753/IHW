@@ -23,14 +23,14 @@ import java.util.Date;
 
 public class GradedExamAdapter extends RecyclerView.Adapter<GradedExamAdapter.GradedExamViewHolder>
 {
+    private final int BORDER_WIDTH = 20;
+    private final String DATE_PATTERN = "E','dd MMM HH:mm a ";
     private ArrayList<Exam> gradedList;
     private OnLongGradedItemListener onLongGradedItemListener;
-    private ShowDialogExamListener showDialogExamListener;
 
-    public GradedExamAdapter(ArrayList<Exam> gradedList, OnLongGradedItemListener onLongGradedItemListener, ShowDialogExamListener showDialogExamListener)
+    public GradedExamAdapter(ArrayList<Exam> gradedList, OnLongGradedItemListener onLongGradedItemListener)
     {
         this.onLongGradedItemListener = onLongGradedItemListener;
-        this.showDialogExamListener = showDialogExamListener;
         this.gradedList = gradedList;
     }
 
@@ -98,9 +98,9 @@ public class GradedExamAdapter extends RecyclerView.Adapter<GradedExamAdapter.Gr
         holder.examPointsText.setText(String.valueOf(exam.getCourse().getPoints()));
         holder.examTermText.setText(exam.getTerm().toString());
         Date date = exam.getExamDate().getTime();
-        SimpleDateFormat ft = new SimpleDateFormat("E','dd MMM HH:mm a ");
+        SimpleDateFormat ft = new SimpleDateFormat(DATE_PATTERN);
         holder.examDateText.setText(ft.format(date));
-        holder.getForeground().setBackground(new Border(exam.getCourse().getCourseColor(), 20));
+        holder.getForeground().setBackground(new Border(exam.getCourse().getCourseColor(), BORDER_WIDTH));
         holder.examUngradedText.setBackground(new Oval(exam.getCourse().getCourseColor()));
         holder.examUngradedText.setText(String.valueOf(exam.getGrade()));
 

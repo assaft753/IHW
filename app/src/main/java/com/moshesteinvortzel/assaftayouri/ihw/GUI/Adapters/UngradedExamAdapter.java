@@ -23,6 +23,9 @@ import java.util.Date;
 
 public class UngradedExamAdapter extends RecyclerView.Adapter<UngradedExamAdapter.UngradedExamViewHolder>
 {
+    private final String NO_GRADE_STRING = "?";
+    private final String DATE_PATTERN = "E','dd MMM HH:mm a ";
+    private final int BORDER_WIDTH = 20;
     private ArrayList<Exam> ungradedList;
     private OnLongUngradedItemListener listener;
     ShowDialogExamListener dialogExamListener;
@@ -97,11 +100,11 @@ public class UngradedExamAdapter extends RecyclerView.Adapter<UngradedExamAdapte
         holder.examPointsText.setText(String.valueOf(exam.getCourse().getPoints()));
         holder.examTermText.setText(exam.getTerm().toString());
         Date date = exam.getExamDate().getTime();
-        SimpleDateFormat ft = new SimpleDateFormat("E','dd MMM HH:mm a ");
+        SimpleDateFormat ft = new SimpleDateFormat(DATE_PATTERN);
         holder.examDateText.setText(ft.format(date));
-        holder.getForeground().setBackground(new Border(exam.getCourse().getCourseColor(), 20));
+        holder.getForeground().setBackground(new Border(exam.getCourse().getCourseColor(), BORDER_WIDTH));
         holder.examUngradedText.setBackground(new Oval(exam.getCourse().getCourseColor()));
-        holder.examUngradedText.setText("?");
+        holder.examUngradedText.setText(NO_GRADE_STRING);
 
     }
 

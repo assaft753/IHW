@@ -38,7 +38,8 @@ import java.util.Locale;
  * Created by assaftayouri on 08/03/2018.
  */
 
-public class AddExamFragment extends android.support.v4.app.Fragment
+public class
+AddExamFragment extends android.support.v4.app.Fragment
 {
     private String opt;
     private Exam exam;
@@ -293,10 +294,11 @@ public class AddExamFragment extends android.support.v4.app.Fragment
             int index = - 1;
             if (currentExam != null)
             {
-                index = examIndex;
+                index = currentExam.getTerm().ordinal();
+
             }
 
-            if (! currentCourse.CheckExamDate(toDateCalendar,index))
+            if (! currentCourse.CheckExamDate(toDateCalendar, index))
             {
                 throw new Exception("Another Exam On That Time");
             }

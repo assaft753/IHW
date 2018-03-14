@@ -1,5 +1,6 @@
 package com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,7 +14,8 @@ import android.widget.TextView;
 
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.GradedExamAdapter;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.GradeDialog;
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.TwoSidesItemHelper;
+import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.CompleteTwoSidesItemHelper;
+import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.UnCompleteTwoSidesItemHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Exam;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.User;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnLongGradedItemListener;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
  * Created by assaftayouri on 08/03/2018.
  */
 
-public class GradedExamFragment extends Fragment implements RefreshDataSetListener, OnLongGradedItemListener, SwipeHelperListener
+public class GradedExamFragment extends Fragment implements RefreshDataSetListener, OnLongGradedItemListener, SwipeHelperListener, DialogInterface.OnClickListener, DialogInterface.OnCancelListener
 {
 
     private RecyclerView gradedRecyclerView;
@@ -38,6 +40,7 @@ public class GradedExamFragment extends Fragment implements RefreshDataSetListen
     private GradeDialog gradeDialog;
     private TextView pointsText;
     private TextView avgText;
+    private int gradeAboutToChangeIndex;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -50,8 +53,8 @@ public class GradedExamFragment extends Fragment implements RefreshDataSetListen
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         gradedRecyclerView.setLayoutManager(mLayoutManager);
         gradedRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        gradedExamAdapter = new GradedExamAdapter(gradedList, this, null);
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new TwoSidesItemHelper<GradedExamAdapter.GradedExamViewHolder>(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
+        gradedExamAdapter = new GradedExamAdapter(gradedList, this);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new UnCompleteTwoSidesItemHelper<GradedExamAdapter.GradedExamViewHolder>(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(gradedRecyclerView);
         gradedRecyclerView.setAdapter(gradedExamAdapter);
         return view;
@@ -77,7 +80,6 @@ public class GradedExamFragment extends Fragment implements RefreshDataSetListen
     private void SetAverageTexts()
     {
         float[] result = User.Student.CalculateExamsAvg();
-        System.out.println("ttttt");
         pointsText.setText(String.valueOf(result[1]));
         avgText.setText(String.valueOf(result[0]));
     }
@@ -111,7 +113,12 @@ public class GradedExamFragment extends Fragment implements RefreshDataSetListen
     @Override
     public void OnLongGradedItem(int pos)
     {
-        dialogExamListener.ShowDialogExam(pos);
+        gradeDialog = new GradeDialog();
+        gradeDialog.setOnClickListener(this);
+        gradeDialog.setOnCancelListener(this);
+        //ungradedExamAdapter.notifyItemRemoved(position);
+        gradeAboutToChangeIndex = pos;
+        gradeDialog.show(getFragmentManager(), "Number Picker");
     }
 
     @Override
@@ -128,6 +135,30 @@ public class GradedExamFragment extends Fragment implements RefreshDataSetListen
         }
         gradedExamAdapter.notifyItemRemoved(position);
         SetAverageTexts();
+
+    }
+
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i)
+    {
+
+        if (i == - 1)
+        {
+            gradedList.get(gradeAboutToChangeIndex).setGrade(gradeDialog.getPicker().getValue());
+            gradedExamAdapter.notifyItemChanged(gradeAboutToChangeIndex);
+            SetAverageTexts();
+            //User.Student.AddGradedExamFinish(aboutToGraded, gradeDialog.getPicker().getValue(), getContext());
+        }
+        else
+        {
+            /*User.Student.CanceledGradedExam(aboutToGraded, getAboutToGradedIndex);
+            ungradedExamAdapter.notifyItemInserted(getAboutToGradedIndex);*/
+        }
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialogInterface)
+    {
 
     }
 
