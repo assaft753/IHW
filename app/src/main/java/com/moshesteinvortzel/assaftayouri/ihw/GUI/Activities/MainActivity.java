@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        System.out.println("sssssssssssssssssssssss");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         homeWorkFragment=new HomeWorkFragment();

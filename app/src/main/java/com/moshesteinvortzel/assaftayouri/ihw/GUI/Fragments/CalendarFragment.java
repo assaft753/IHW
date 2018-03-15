@@ -1,5 +1,6 @@
 package com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.CalendarAdapter;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.User;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.RefreshDataSetListener;
@@ -48,6 +50,8 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
         calendarItemList = view.findViewById(R.id.calendarItemList);
         dateText=view.findViewById(R.id.dateText);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        RefreshCalendarEvents();
+        calendarView.displayOtherMonthDays(true);
         calendarItemList.setLayoutManager(mLayoutManager);
         calendarItemList.setItemAnimator(new DefaultItemAnimator());
         calendarItemList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
@@ -85,13 +89,19 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
         return view;
     }
 
+    private void RefreshCalendarEvents()
+    {
+        calendarView.removeAllEvents();
+        ArrayList<Event> events=User.Student.GetEvents();
+        calendarView.addEvents(events);
+    }
+
     @Override
     public void RefreshDataSet()
     {
         UpdateDateText(currentDate);
         ArrayList<CalendarHelper> calendarHelpers= User.Student.GetListOFTasksInDate(currentDate);
         calendarAdapter.setCalendarHelpers(calendarHelpers);
-        System.out.println(currentDate);
     }
 
     private void setCalendarHelperList()

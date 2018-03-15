@@ -1,15 +1,23 @@
 package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary;
 
+import android.graphics.Color;
+import android.provider.CalendarContract;
+
+import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Course;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.TaskType;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CourseDay;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.TaskType;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -18,6 +26,7 @@ import java.util.Map;
 
 public class CalendarManager
 {
+    private final String PATTERN="dd'/'MM'/'yyyy";
     private HashMap<String, ArrayList<CalendarHelper>> calendarDictionary;
 
     public CalendarManager()
@@ -51,10 +60,38 @@ public class CalendarManager
     public void RemoveFromCalendar(CalendarHelper calendarHelper, Calendar calendar)
     {
         String date = MakeDateString(calendar);
+        boolean b;
         if (this.calendarDictionary.containsKey(date))
         {
-            this.calendarDictionary.get(date).remove(calendarHelper);
+           System.out.println(this.calendarDictionary.get(date).remove(calendarHelper));
         }
+    }
+
+    public ArrayList<Event> GetEvent()
+    {
+        ArrayList<Event> events=new ArrayList<Event>();
+        Calendar cal = Calendar.getInstance();
+        for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
+        {
+            SimpleDateFormat sdf = new SimpleDateFormat(PATTERN, Locale.ENGLISH);
+            try
+            {
+                cal.setTime(sdf.parse(pair.getKey()));
+                for(CalendarHelper calendarHelper:pair.getValue())
+                {
+                    Calendar calendar=Calendar.getInstance();
+                    calendar.set(Calendar.DAY_OF_MONTH,cal.get(Calendar.DAY_OF_MONTH));
+                    calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
+                    Event ev = new Event(calendarHelper.getCourse().getCourseColor(),calendar.getTimeInMillis());
+                    events.add(ev);
+                }
+            }
+            catch (ParseException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return  events;
     }
 
     public void RemoveClass(Course course)

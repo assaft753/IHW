@@ -2,6 +2,7 @@ package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core;
 
 import android.content.Context;
 
+import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.TaskType;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarManager;
@@ -240,7 +241,7 @@ public class Student
             System.out.println("enter delete push");
             RemoveNotification(exam.getPushId(), context);
         }
-        CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), exam.getCourse().getCourseName(), exam.getCourse(), TaskType.Exam);
+        CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), "Term "+exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.RemoveFromCalendar(calendarHelper, exam.getExamDate());
     }
 
@@ -331,6 +332,11 @@ public class Student
             }
         }
         calendarManager.RemoveClass(course);
+    }
+
+    public ArrayList<Event> GetEvents()
+    {
+        return calendarManager.GetEvent();
     }
 
     public void UpdateCourse(int courseIndex)
