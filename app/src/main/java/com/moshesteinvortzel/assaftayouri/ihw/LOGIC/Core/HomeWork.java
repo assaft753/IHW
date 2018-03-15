@@ -16,7 +16,7 @@ public class HomeWork implements Comparable<HomeWork>
     private String TaskName;
     private Priority priority;
     private Calendar toDate;
-    //private boolean finished;
+    private boolean finished;
     private int notify;
     private int pushId;
 
@@ -27,13 +27,53 @@ public class HomeWork implements Comparable<HomeWork>
         this.priority = priority;
         this.toDate = toDate;
         this.notify = notify;
-        //this.finished = false;
+        this.finished = false;
+    }
+
+    public void setCourse(Course course)
+    {
+        this.course = course;
+    }
+
+    public void setPriority(Priority priority)
+    {
+        this.priority = priority;
+    }
+
+    public void setToDate(Calendar toDate)
+    {
+        this.toDate = toDate;
+    }
+
+    public boolean isFinished()
+    {
+        return finished;
+    }
+
+    public void setFinished(boolean finished)
+    {
+        this.finished = finished;
+    }
+
+    public Priority getPriority()
+    {
+        return priority;
     }
 
     public HomeWork(String taskName, Calendar toDate)
     {
         TaskName = taskName;
         this.toDate = toDate;
+    }
+
+    public HomeWork(HomeWork homeWork)
+    {
+        this.course = homeWork.getCourse();
+        this.TaskName = homeWork.getTaskName();
+        this.priority = homeWork.getPriority();
+        this.toDate = Calendar.getInstance();
+        this.toDate.setTimeInMillis(homeWork.getToDate().getTimeInMillis());
+        this.notify=homeWork.getNotify();
     }
 
 

@@ -51,7 +51,6 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
         dateText=view.findViewById(R.id.dateText);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         RefreshCalendarEvents();
-        calendarView.displayOtherMonthDays(true);
         calendarItemList.setLayoutManager(mLayoutManager);
         calendarItemList.setItemAnimator(new DefaultItemAnimator());
         calendarItemList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));

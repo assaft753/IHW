@@ -26,4 +26,14 @@ public enum Priority
                 return 0;
         }
     }
+
+    public static String[] GetOpt()
+    {
+        String[] strings = new String[Priority.values().length];
+        for (int i = 0; i < Priority.values().length; i++)
+        {
+            strings[i] = Priority.values()[i].toString();
+        }
+        return strings;
+    }
 }

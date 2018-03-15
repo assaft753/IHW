@@ -91,6 +91,17 @@ public class Student
         return userName;
     }
 
+
+    public HomeWork GetUncompletedHWByIndex(int hwIndex)
+    {
+        return this.uncompletedHW.get(hwIndex);
+    }
+
+    public HomeWork GetCompletedHWByIndex(int hwIndex)
+    {
+        return this.completedHW.get(hwIndex);
+    }
+
     public void AddCompletedHW(int toBeCompleted, Context context)
     {
         HomeWork homeWork = this.uncompletedHW.remove(toBeCompleted);
@@ -100,28 +111,25 @@ public class Student
         this.RemoveNotification(homeWork.getPushId(), context);
     }
 
-    public int FromCompletedToUncompleted(int completedHWIndex, Context context)
+    public void FromCompletedToUncompleted(int completedHWIndex, Context context)
     {
         HomeWork homeWork = this.completedHW.remove(completedHWIndex);
+        homeWork.setFinished(true);
         this.uncompletedHW.add(homeWork);
         Collections.sort(this.uncompletedHW);
-        if (! homeWork.getToDate().before(Calendar.getInstance()))
-        {
-            return this.AddNotification("HomeWork", homeWork.getTaskName(), context, homeWork.getToDate(), homeWork.getNotify());
-        }
-        return homeWork.getPushId();
+        homeWork.setPushId(this.AddNotification(homeWork.getTaskName(), "HomeWork", context, homeWork.getToDate(), homeWork.getNotify()));
     }
 
-    public int AddUncompletedHW(HomeWork homeWork, Context context)
+    public void AddUncompletedHW(HomeWork homeWork, Context context)
     {
         this.uncompletedHW.add(homeWork);
         Collections.sort(this.uncompletedHW);
         CalendarHelper calendarHelper = new CalendarHelper(homeWork.getToDate().get(Calendar.HOUR_OF_DAY), homeWork.getToDate().get(Calendar.MINUTE), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.AddToCalendar(calendarHelper, homeWork.getToDate());
-        return this.AddNotification("HomeWork", homeWork.getTaskName(), context, homeWork.getToDate(), homeWork.getNotify());
+        homeWork.setPushId(this.AddNotification(homeWork.getTaskName(), "HomeWork", context, homeWork.getToDate(), homeWork.getNotify()));
     }
 
-    public int UpdatedUncompletedHW(int indexUncompleted, Context context, HomeWork oldHomeWork)
+    public void UpdatedUncompletedHW(int indexUncompleted, Context context, HomeWork oldHomeWork)
     {
         HomeWork homeWork = this.uncompletedHW.get(indexUncompleted);
         Collections.sort(this.uncompletedHW);
@@ -132,7 +140,19 @@ public class Student
         calendarHelper = new CalendarHelper(homeWork.getToDate().get(Calendar.HOUR_OF_DAY), homeWork.getToDate().get(Calendar.MINUTE), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.AddToCalendar(calendarHelper, homeWork.getToDate());
 
-        return this.UpdateNotification(homeWork.getPushId(), "HomeWork", homeWork.getTaskName(), homeWork.getToDate(), context, homeWork.getNotify());
+        homeWork.setPushId(this.UpdateNotification(homeWork.getPushId(), homeWork.getTaskName(), "HomeWork", homeWork.getToDate(), context, homeWork.getNotify()));
+    }
+
+    public void UpdatedCompletedHW(int indexCompleted, Context context, HomeWork oldHomeWork)
+    {
+        HomeWork homeWork = this.completedHW.get(indexCompleted);
+        Collections.sort(this.completedHW);
+
+        CalendarHelper calendarHelper = new CalendarHelper(oldHomeWork.getToDate().get(Calendar.HOUR_OF_DAY), oldHomeWork.getToDate().get(Calendar.MINUTE), oldHomeWork.getTaskName(), oldHomeWork.getCourse(), TaskType.HomeWork);
+        this.calendarManager.RemoveFromCalendar(calendarHelper, oldHomeWork.getToDate());
+
+        calendarHelper = new CalendarHelper(homeWork.getToDate().get(Calendar.HOUR_OF_DAY), homeWork.getToDate().get(Calendar.MINUTE), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
+        this.calendarManager.AddToCalendar(calendarHelper, homeWork.getToDate());
     }
 
     public HomeWork RemoveHW(int indexHW, boolean completed, Context context)
@@ -153,10 +173,14 @@ public class Student
 
     private void RemoveHW(HomeWork homeWork, Context context)
     {
-        RemoveNotification(homeWork.getPushId(), context);
+        if (homeWork.getPushId() != - 1)
+        {
+            RemoveNotification(homeWork.getPushId(), context);
+        }
         CalendarHelper calendarHelper = new CalendarHelper(homeWork.getToDate().get(Calendar.HOUR_OF_DAY), homeWork.getToDate().get(Calendar.MINUTE), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.RemoveFromCalendar(calendarHelper, homeWork.getToDate());
     }
+
 
     public void CanceledGradedExam(Exam exam, int position)
     {
@@ -191,7 +215,7 @@ public class Student
         this.ungradedExams.add(exam);
         exam.getCourse().getExams()[exam.getTerm().ordinal()] = exam;
         Collections.sort(this.ungradedExams);
-        CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), "Term "+exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
+        CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), "Term " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.AddToCalendar(calendarHelper, exam.getExamDate());
         exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", context, exam.getExamDate(), exam.getNotify()));
     }
@@ -218,6 +242,7 @@ public class Student
         return ungradedExams.get(index);
     }
 
+
     public Exam RemoveExam(int indexExam, boolean graded, Context context)
     {
         Exam exam;
@@ -241,7 +266,7 @@ public class Student
             System.out.println("enter delete push");
             RemoveNotification(exam.getPushId(), context);
         }
-        CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), "Term "+exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
+        CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), "Term " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.RemoveFromCalendar(calendarHelper, exam.getExamDate());
     }
 
@@ -249,6 +274,7 @@ public class Student
     {
         return this.courses.get(index);
     }
+
 
     public boolean CheckValidationOfClass(String CourseName)
     {
@@ -334,17 +360,13 @@ public class Student
         calendarManager.RemoveClass(course);
     }
 
-    public ArrayList<Event> GetEvents()
-    {
-        return calendarManager.GetEvent();
-    }
-
     public void UpdateCourse(int courseIndex)
     {
         Course course = this.courses.get(courseIndex);
         this.calendarManager.RemoveOnlyClass(course);
         this.calendarManager.AddClass(course);
     }
+
 
     private int AddNotification(String title, String content, Context context, Calendar calendar, int notify)
     {
@@ -388,10 +410,16 @@ public class Student
         return - 1;
     }
 
-   public ArrayList<CalendarHelper> GetListOFTasksInDate(Date date)
-   {
+    public ArrayList<Event> GetEvents()
+    {
+        return calendarManager.GetEvent();
+    }
+
+
+    public ArrayList<CalendarHelper> GetListOFTasksInDate(Date date)
+    {
         return calendarManager.GetListOFTasksInDate(date);
-   }
+    }
 
 
     public float[] CalculateExamsAvg()
@@ -438,11 +466,6 @@ public class Student
             }
         }
         return strs;
-    }
-
-    public String[] GetTermOpt()
-    {
-        return new String[]{"A", "B", "C"};
     }
 
 

@@ -72,22 +72,6 @@ public class Course
         {
             if (exams[i] != null && i != skipIndex)
             {
-                /*Calendar calendarcheck = Calendar.getInstance();
-                calendarcheck.setTimeInMillis(calendar.getTimeInMillis());
-
-                Calendar calendarsource = Calendar.getInstance();
-                calendarsource.setTimeInMillis(exams[i].getExamDate().getTimeInMillis());
-
-                calendarcheck.set(Calendar.HOUR_OF_DAY, 0);
-                calendarcheck.set(Calendar.MINUTE, 0);
-                calendarcheck.set(Calendar.SECOND, 0);
-                calendarcheck.set(Calendar.MILLISECOND, 0);
-
-                calendarsource.set(Calendar.HOUR_OF_DAY, 0);
-                calendarsource.set(Calendar.MINUTE, 0);
-                calendarsource.set(Calendar.SECOND, 0);
-                calendarsource.set(Calendar.MILLISECOND, 0);*/
-
                 if (calendar.get(Calendar.YEAR) == exams[i].getExamDate().get(Calendar.YEAR)
                         && calendar.get(Calendar.DAY_OF_MONTH) == exams[i].getExamDate().get(Calendar.DAY_OF_MONTH)
                         && calendar.get(Calendar.MONTH) == exams[i].getExamDate().get(Calendar.MONTH))
@@ -99,7 +83,6 @@ public class Course
         }
         return true;
     }
-
 
     public String getCourseName()
     {
@@ -131,10 +114,33 @@ public class Course
         return courseDays;
     }
 
-    public boolean IsHomeWorkExists(String taskName, Calendar toDate)
+    public boolean CheckNewHomeWork(String homeWorkStr)
     {
-        return this.homeWorks.contains(new HomeWork(taskName, toDate));
+        for (HomeWork homeWork : homeWorks)
+        {
+            if (homeWork.getTaskName().equals(homeWorkStr))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    public boolean CheckExistsHomeWork(String homeWorkStr)
+    {
+        int count = 0;
+        for (HomeWork homeWork : homeWorks)
+        {
+            if (homeWork.getTaskName().equals(homeWorkStr))
+            {
+                count++;
+                if (count > 1)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public void AddToHomeWork(HomeWork homeWork)

@@ -8,18 +8,14 @@ public enum Term
 {
     A, B, C;
 
-    public static Term GetTermByIndex(int index)
+    public static String[] GetOpt()
     {
-        switch (index)
+        String[] strings = new String[Term.values().length];
+        for (int i = 0; i < Term.values().length; i++)
         {
-            case 0:
-                return A;
-            case 1:
-                return B;
-            case 2:
-                return C;
-            default:
-                return A;
+            strings[i] = Term.values()[i].toString();
         }
+        return strings;
     }
 }
+

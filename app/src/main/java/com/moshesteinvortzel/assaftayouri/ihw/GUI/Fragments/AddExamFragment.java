@@ -203,8 +203,6 @@ AddExamFragment extends android.support.v4.app.Fragment
                 ItemDialog itemDialog = new ItemDialog();
                 itemDialog.setStrs(NotifyStrings, OKbtn);
                 itemDialog.show(getFragmentManager(), "Picker");
-
-
             }
         });
 
@@ -213,13 +211,13 @@ AddExamFragment extends android.support.v4.app.Fragment
             @Override
             public void onClick(View view)
             {
-                String[] strings = User.Student.GetTermOpt();
+                String[] strings = Term.GetOpt();
                 AddExamDialogListener OKbtn = new AddExamDialogListener()
                 {
                     @Override
                     public void OkValue(int value)
                     {
-                        termExam = Term.GetTermByIndex(value);
+                        termExam = Term.values()[value];
                         termText.setText(termExam.toString());
                     }
                 };

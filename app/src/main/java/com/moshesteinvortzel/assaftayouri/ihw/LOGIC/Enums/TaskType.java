@@ -7,10 +7,4 @@ package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums;
 public enum TaskType
 {
     HomeWork, Exam, Class;
-
-    @Override
-    public String toString()
-    {
-        return this.name();
-    }
 }

@@ -16,6 +16,7 @@ import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.AddClassFirstFragmen
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.AddClassSecondFragment;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.AddExamFragment;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.AddFragment;
+import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.AddHWFragment;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.AddChoicesListener;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.DismissListener;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.FirstAddClassListener;
@@ -95,7 +96,16 @@ public class AddDialog extends DialogFragment implements AddChoicesListener, Fir
     @Override
     public void MoveToAddHomeWork()
     {
-
+        AddHWFragment addHWFragment = new AddHWFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("opt", "new");
+        addHWFragment.setArguments(bundle);
+        addHWFragment.setDialogDismissCallback(this);
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        fragmentTransaction.replace(R.id.addDialogFrame, addHWFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
     @Override
