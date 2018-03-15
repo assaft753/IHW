@@ -20,7 +20,7 @@ public class ExamsFragment extends android.support.v4.app.Fragment implements Re
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private UngradedExamFragment ungradedExamFragment;
-    private GradedExamFragment graderExamFragment;
+    private GradedExamFragment gradedExamFragment;
 
     public void setDialogExamListener(ShowDialogExamListener dialogExamListener)
     {
@@ -33,7 +33,7 @@ public class ExamsFragment extends android.support.v4.app.Fragment implements Re
         super.onCreate(savedInstanceState);
         ungradedExamFragment = new UngradedExamFragment();
         ungradedExamFragment.setDialogExamListener(this);
-        graderExamFragment = new GradedExamFragment();
+        gradedExamFragment = new GradedExamFragment();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ExamsFragment extends android.support.v4.app.Fragment implements Re
     public void RefreshDataSet()
     {
         ungradedExamFragment.RefreshDataSet();
-        graderExamFragment.RefreshDataSet();
+        gradedExamFragment.RefreshDataSet();
     }
 
     @Override
@@ -100,7 +100,7 @@ public class ExamsFragment extends android.support.v4.app.Fragment implements Re
                 case 0:
                     return ungradedExamFragment;
                 case 1:
-                    return graderExamFragment;
+                    return gradedExamFragment;
             }
             return null;
         }

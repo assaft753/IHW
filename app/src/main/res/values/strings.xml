@@ -63,7 +63,7 @@
     <string name="Points">Points: </string>
     <string name="chooseGrade">Choose Grade</string>
     <string name="average">Average:</string>
-    <string name="timeLeft">Time Left:</string>
+    <string name="timeLeft">Submit Days:</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
     <string name="noGrade">\?</string>

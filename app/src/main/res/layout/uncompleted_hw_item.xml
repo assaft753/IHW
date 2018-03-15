@@ -12,7 +12,7 @@
         <include layout="@layout/swipe_complete" />
 
         <RelativeLayout
-            android:id="@+id/uncompletedHWContainer"
+            android:id="@+id/viewForeground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/IHWWhite"
@@ -44,12 +44,12 @@
 
             <ImageView
                 android:id="@+id/hwPriority"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignLeft="@+id/hwName"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
                 android:layout_below="@+id/hwName"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
                 android:src="@drawable/high" />
 
             <LinearLayout
@@ -68,8 +68,7 @@
                 <TextView
                     android:id="@+id/hwTimeLeft"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="40" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>

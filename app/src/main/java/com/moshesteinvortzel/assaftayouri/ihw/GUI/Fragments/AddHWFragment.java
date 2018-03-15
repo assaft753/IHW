@@ -296,10 +296,9 @@ public class AddHWFragment extends android.support.v4.app.Fragment
             {
                 throw new Exception("Missing Info");
             }
-
             if (currentHW != null)
             {
-                if (! currentHW.getCourse().CheckExistsHomeWork(hwName.getText().toString().trim()))
+                if (! currentCourse.CheckExistsHomeWork(hwName.getText().toString().trim()))
                 {
                     throw new Exception("Duplicate Task Name");
                 }
@@ -311,11 +310,12 @@ public class AddHWFragment extends android.support.v4.app.Fragment
                     throw new Exception("Duplicate Task Name");
                 }
             }
-
+            System.out.println("true");
             return true;
         } catch (Exception ex)
         {
             Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+            System.out.println("false");
             return false;
         }
     }

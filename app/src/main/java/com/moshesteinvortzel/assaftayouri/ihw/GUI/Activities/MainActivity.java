@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         examsFragment.setDialogExamListener(this);
 
         User.Student = new Student(2, "assaf@gmail.com", "122345", "Assaf Tayouri");
-       /* Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2017);
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(Calendar.DAY_OF_MONTH, 18);
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
         User.Student.AddClass(course);
         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);*/
+        User.Student.AddClass(course);
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);

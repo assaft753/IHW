@@ -51,6 +51,16 @@ public class Student
         this.ungradedExams = new ArrayList<Exam>();
     }
 
+    public ArrayList<HomeWork> getCompletedHW()
+    {
+        return completedHW;
+    }
+
+    public ArrayList<HomeWork> getUncompletedHW()
+    {
+        return uncompletedHW;
+    }
+
     public String[] GetCourseNames()
     {
         String[] strings = new String[courses.size()];
@@ -123,6 +133,7 @@ public class Student
     public void AddUncompletedHW(HomeWork homeWork, Context context)
     {
         this.uncompletedHW.add(homeWork);
+        homeWork.getCourse().AddToHomeWork(homeWork);
         Collections.sort(this.uncompletedHW);
         CalendarHelper calendarHelper = new CalendarHelper(homeWork.getToDate().get(Calendar.HOUR_OF_DAY), homeWork.getToDate().get(Calendar.MINUTE), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.AddToCalendar(calendarHelper, homeWork.getToDate());

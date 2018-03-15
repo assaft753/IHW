@@ -1,8 +1,9 @@
 package com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments;
 
+import android.app.VoiceInteractor;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -13,27 +14,22 @@ import android.view.ViewGroup;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.RefreshDataSetListener;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeWorkFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeWorkFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HomeWorkFragment extends android.support.v4.app.Fragment implements RefreshDataSetListener
+public class HomeWorkFragment extends Fragment implements RefreshDataSetListener
 {
-    public  TabLayout tabLayout;
-    public  ViewPager viewPager;
-    public  int int_items = 2;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private UncompletedHWFragment uncompletedHWFragment;
+    private CompletedHWFragment completedHWFragment;
+    private final int ITEMS = 2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        /*View x = inflater.inflate(R.layout.fragment_home_work, null);
-        tabLayout = (TabLayout) x.findViewById(R.id.tabs);
-        viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+        View view = inflater.inflate(R.layout.fragment_home_work, container, false);
+        tabLayout = (TabLayout) view.findViewById(R.id.hwTabs);
+        viewPager = (ViewPager) view.findViewById(R.id.hwViewPager);
+        uncompletedHWFragment = new UncompletedHWFragment();
+        completedHWFragment = new CompletedHWFragment();
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
         tabLayout.post(new Runnable()
         {
@@ -43,14 +39,13 @@ public class HomeWorkFragment extends android.support.v4.app.Fragment implements
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
-        return x;*/
-        return null;
+        return view;
     }
 
     @Override
     public void RefreshDataSet()
     {
-
+        uncompletedHWFragment.RefreshDataSet();
     }
 
     class MyAdapter extends FragmentPagerAdapter
@@ -66,9 +61,9 @@ public class HomeWorkFragment extends android.support.v4.app.Fragment implements
             switch (position)
             {
                 case 0:
-                    return new UncompletedHWFragment();
+                    return uncompletedHWFragment;
                 case 1:
-                    return new CompletedHWFragment();
+                    return completedHWFragment;
             }
             return null;
         }
@@ -76,7 +71,7 @@ public class HomeWorkFragment extends android.support.v4.app.Fragment implements
         @Override
         public int getCount()
         {
-            return int_items;
+            return ITEMS;
         }
 
         @Override
