@@ -12,6 +12,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.FormatFlagsConversionMismatchException;
 
 /**
@@ -189,7 +190,7 @@ public class Student
         this.ungradedExams.add(exam);
         exam.getCourse().getExams()[exam.getTerm().ordinal()] = exam;
         Collections.sort(this.ungradedExams);
-        CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), exam.getCourse().getCourseName(), exam.getCourse(), TaskType.Exam);
+        CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), "Term "+exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.AddToCalendar(calendarHelper, exam.getExamDate());
         exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", context, exam.getExamDate(), exam.getNotify()));
     }
@@ -329,6 +330,7 @@ public class Student
                 i++;
             }
         }
+        calendarManager.RemoveClass(course);
     }
 
     public void UpdateCourse(int courseIndex)
@@ -380,6 +382,12 @@ public class Student
         return - 1;
     }
 
+   public ArrayList<CalendarHelper> GetListOFTasksInDate(Date date)
+   {
+        return calendarManager.GetListOFTasksInDate(date);
+   }
+
+
     public float[] CalculateExamsAvg()
     {
         float exampoints = 0;
@@ -425,7 +433,6 @@ public class Student
         }
         return strs;
     }
-
 
     public String[] GetTermOpt()
     {

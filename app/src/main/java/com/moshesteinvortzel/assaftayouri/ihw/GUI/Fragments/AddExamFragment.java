@@ -41,6 +41,7 @@ import java.util.Locale;
 public class
 AddExamFragment extends android.support.v4.app.Fragment
 {
+    private final String PATTERN="dd/MM/yy";
     private String opt;
     private Exam exam;
     private TextView toolbarTitleText;
@@ -109,7 +110,7 @@ AddExamFragment extends android.support.v4.app.Fragment
 
     private void SetDateText(TextView toDateText, Calendar toDateCalendar)
     {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(PATTERN, Locale.getDefault());
         toDateText.setText(simpleDateFormat.format(toDateCalendar.getTime()));
     }
 

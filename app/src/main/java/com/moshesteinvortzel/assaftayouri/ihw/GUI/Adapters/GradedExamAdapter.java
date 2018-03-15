@@ -23,7 +23,6 @@ import java.util.Date;
 
 public class GradedExamAdapter extends RecyclerView.Adapter<GradedExamAdapter.GradedExamViewHolder>
 {
-    private final int BORDER_WIDTH = 20;
     private final String DATE_PATTERN = "E','dd MMM HH:mm a ";
     private ArrayList<Exam> gradedList;
     private OnLongGradedItemListener onLongGradedItemListener;
@@ -100,7 +99,7 @@ public class GradedExamAdapter extends RecyclerView.Adapter<GradedExamAdapter.Gr
         Date date = exam.getExamDate().getTime();
         SimpleDateFormat ft = new SimpleDateFormat(DATE_PATTERN);
         holder.examDateText.setText(ft.format(date));
-        holder.getForeground().setBackground(new Border(exam.getCourse().getCourseColor(), BORDER_WIDTH));
+        holder.getForeground().setBackground(new Border(exam.getCourse().getCourseColor()));
         holder.examUngradedText.setBackground(new Oval(exam.getCourse().getCourseColor()));
         holder.examUngradedText.setText(String.valueOf(exam.getGrade()));
 

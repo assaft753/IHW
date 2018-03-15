@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int CurrentFragment;
     private String[] toolbarTitles;
     private ActionBarDrawerToggle toggle;
+    private HomeWorkFragment homeWorkFragment;
+    private ClassesFragment classesFragment;
+    private CalendarFragment calendarFragment;
+    private ExamsFragment examsFragment;
     //private AddDialog newFragment;
     Fragment fragment;
 
@@ -53,9 +57,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        homeWorkFragment=new HomeWorkFragment();
+        classesFragment=new ClassesFragment();
+        calendarFragment=new CalendarFragment();
+        examsFragment=new ExamsFragment();
+        examsFragment.setDialogExamListener(this);
 
         User.Student = new Student(2, "assaf@gmail.com", "122345", "Assaf Tayouri");
-        Calendar calendar = Calendar.getInstance();
+       /* Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2017);
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(Calendar.DAY_OF_MONTH, 18);
@@ -94,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
         User.Student.AddClass(course);
         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
+        User.Student.AddClass(course);*/
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -122,20 +131,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (CurrentFragment)
         {
             case 0:
-                fragment = new HomeWorkFragment();
+                fragment = homeWorkFragment;
                 break;
             case 1:
-                fragment = new ClassesFragment();
+                fragment =classesFragment;
                 break;
             case 2:
-                fragment = new ExamsFragment();
-                ((ExamsFragment) fragment).setDialogExamListener(this);
+                fragment = examsFragment;
                 break;
             case 3:
-                fragment = new CalendarFragment();
+                fragment = calendarFragment;
                 break;
             default:
-                fragment = new HomeWorkFragment();
+                fragment = homeWorkFragment;
         }
 
         fragmentTransaction = getSupportFragmentManager().beginTransaction();

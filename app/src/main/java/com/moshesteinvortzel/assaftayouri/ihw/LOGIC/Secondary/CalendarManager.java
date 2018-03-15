@@ -8,6 +8,7 @@ import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.TaskType;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class CalendarManager
         this.calendarDictionary = new HashMap<String, ArrayList<CalendarHelper>>();
     }
 
-    public String MakeDateString(Calendar calendar)
+    private String MakeDateString(Calendar calendar)
     {
         return calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.YEAR);
     }
@@ -86,7 +87,6 @@ public class CalendarManager
         }
     }
 
-
     public void AddClass(Course course)
     {
         Calendar baseCalendar = Calendar.getInstance();
@@ -128,4 +128,18 @@ public class CalendarManager
         }
 
     }
+
+    public ArrayList<CalendarHelper> GetListOFTasksInDate(Date date)
+    {
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(date);
+        String datestr=MakeDateString(calendar);
+        ArrayList<CalendarHelper> calendarHelpers=calendarDictionary.get(datestr);
+        if(calendarHelpers==null)
+        {
+            calendarHelpers=new ArrayList<>();
+        }
+        return calendarHelpers;
+    }
 }
+

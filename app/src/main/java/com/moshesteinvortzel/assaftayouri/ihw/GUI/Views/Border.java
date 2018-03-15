@@ -10,15 +10,16 @@ import android.graphics.Paint;
 public class Border extends android.graphics.drawable.Drawable
 {
     private final String WHITE = "#ffffff";
+    private final int WIDTH=20;
     private android.graphics.Paint paint;
     private android.graphics.Rect bounds_rect;
     private int color;
 
-    public Border(int color, int width)
+    public Border(int color)
     {
         this.color = color;
         this.paint = new android.graphics.Paint();
-        this.paint.setStrokeWidth(width);
+        this.paint.setStrokeWidth(WIDTH);
     }
 
     @Override

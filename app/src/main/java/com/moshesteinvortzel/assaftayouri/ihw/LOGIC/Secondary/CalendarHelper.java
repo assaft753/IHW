@@ -27,8 +27,25 @@ public class CalendarHelper implements Comparable<CalendarHelper>
         TaskName = taskName;
         this.course = course;
         this.taskType = taskType;
+
     }
 
+
+    public String GenerateTimeStr()
+    {
+        String ampm = "PM";
+        String minutestr = String.valueOf(minute);
+        if (minute < 10)
+        {
+            minutestr = "0" + minutestr;
+        }
+        if (hour < 12)
+        {
+            ampm = "AM";
+        }
+
+       return hour + ":" + minutestr + " " + ampm;
+    }
     public TaskType getTaskType()
     {
         return taskType;
@@ -42,6 +59,11 @@ public class CalendarHelper implements Comparable<CalendarHelper>
     public int getMinute()
     {
         return minute;
+    }
+
+    public String getTaskName()
+    {
+        return TaskName;
     }
 
     @Override

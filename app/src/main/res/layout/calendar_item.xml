@@ -13,12 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/classDay"
+        android:layout_below="@+id/taskName"
         android:singleLine="true"
         android:text="HomeWork" />
 
     <TextView
-        android:id="@+id/classDay"
+        android:id="@+id/taskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -28,11 +28,11 @@
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/taskTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/classDay"
-        android:layout_alignBottom="@+id/classDay"
+        android:layout_alignBaseline="@+id/taskName"
+        android:layout_alignBottom="@+id/taskName"
         android:layout_alignParentEnd="true"
         android:text="9:30 AM"
         android:textColor="@color/md_grey_500"
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/classDay"
+        android:layout_below="@+id/taskName"
         android:layout_marginLeft="4dp"
         android:text="Algebra" />
 </RelativeLayout>

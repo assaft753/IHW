@@ -8,14 +8,10 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.moshesteinvortzel.assaftayouri.ihw.ClassHours;
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.Views.Border;
-import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Course;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CourseDay;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by assaftayouri on 04/03/2018.
@@ -41,7 +37,7 @@ public class ClassTimeListAdapter extends RecyclerView.Adapter<ClassTimeListAdap
         public ClassTimeViewHolder(View itemView)
         {
             super(itemView);
-            this.ClassDay = itemView.findViewById(R.id.classDay);
+            this.ClassDay = itemView.findViewById(R.id.taskName);
             this.classTime = itemView.findViewById(R.id.classTime);
             this.viewBackground = itemView.findViewById(R.id.deleteBackground);
             this.viewForeground = itemView.findViewById(R.id.viewForeground);
