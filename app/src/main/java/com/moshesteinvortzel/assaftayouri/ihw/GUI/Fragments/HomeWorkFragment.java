@@ -11,13 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnHWDialogListener;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.RefreshDataSetListener;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
-public class HomeWorkFragment extends Fragment implements RefreshDataSetListener
+public class HomeWorkFragment extends Fragment implements RefreshDataSetListener, OnHWDialogListener
 {
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private OnHWDialogListener onHWDialogListener;
     private UncompletedHWFragment uncompletedHWFragment;
     private CompletedHWFragment completedHWFragment;
     private final int ITEMS = 2;
@@ -29,7 +31,9 @@ public class HomeWorkFragment extends Fragment implements RefreshDataSetListener
         tabLayout = (TabLayout) view.findViewById(R.id.hwTabs);
         viewPager = (ViewPager) view.findViewById(R.id.hwViewPager);
         uncompletedHWFragment = new UncompletedHWFragment();
+        uncompletedHWFragment.setOnHWDialogListener(this);
         completedHWFragment = new CompletedHWFragment();
+        completedHWFragment.setOnHWDialogListener(this);
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
         tabLayout.post(new Runnable()
         {
@@ -42,10 +46,21 @@ public class HomeWorkFragment extends Fragment implements RefreshDataSetListener
         return view;
     }
 
+    public void setOnHWDialogListener(OnHWDialogListener onHWDialogListener)
+    {
+        this.onHWDialogListener = onHWDialogListener;
+    }
+
     @Override
     public void RefreshDataSet()
     {
         uncompletedHWFragment.RefreshDataSet();
+    }
+
+    @Override
+    public void OnHWDialog(String index)
+    {
+        this.onHWDialogListener.OnHWDialog(index);
     }
 
     class MyAdapter extends FragmentPagerAdapter

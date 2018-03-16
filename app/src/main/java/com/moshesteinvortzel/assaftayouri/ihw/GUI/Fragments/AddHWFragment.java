@@ -324,6 +324,8 @@ public class AddHWFragment extends android.support.v4.app.Fragment
     {
         currentCourse = currentHW.getCourse();
 
+        hwName.setText(currentHW.getTaskName());
+
         priorityText.setText(currentHW.getPriority().toString());
         priorityHW = currentHW.getPriority();
 

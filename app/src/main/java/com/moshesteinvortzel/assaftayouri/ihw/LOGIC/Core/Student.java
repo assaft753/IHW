@@ -184,6 +184,7 @@ public class Student
 
     private void RemoveHW(HomeWork homeWork, Context context)
     {
+        homeWork.getCourse().RemoveFromHomeWork(homeWork);
         if (homeWork.getPushId() != - 1)
         {
             RemoveNotification(homeWork.getPushId(), context);

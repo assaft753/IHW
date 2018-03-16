@@ -103,15 +103,6 @@ public class UngradedExamFragment extends Fragment implements RefreshDataSetList
     @Override
     public void OnLongUngradedItem(int pos)
     {
-        /*Bundle bundle = new Bundle();
-        bundle.putString("opt", String.valueOf(pos));
-        FragmentManager fragmentManager = getFragmentManager();
-        addExamDialog = new AddExamDialog();
-        addExamDialog.setArguments(bundle);
-        //addClassDialog.setRefreshDataSetListener(this);
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.add(android.R.id.content, addExamDialog).addToBackStack(null).commit();*/
         dialogExamListener.ShowDialogExam(pos);
     }
 

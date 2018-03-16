@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.AddDialog;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.AddExamDialog;
+import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.AddHWDialog;
+import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.AddHWFragment;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.CalendarFragment;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.ClassesFragment;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.ExamsFragment;
@@ -28,6 +30,7 @@ import com.moshesteinvortzel.assaftayouri.ihw.GUI.Fragments.HomeWorkFragment;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Course;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Student;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.User;
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnHWDialogListener;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.RefreshDataSetListener;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.ShowDialogExamListener;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CourseDay;
@@ -37,7 +40,7 @@ import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RefreshDataSetListener, ShowDialogExamListener
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RefreshDataSetListener, ShowDialogExamListener, OnHWDialogListener
 {
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -55,57 +58,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        System.out.println("sssssssssssssssssssssss");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        homeWorkFragment=new HomeWorkFragment();
-        classesFragment=new ClassesFragment();
-        calendarFragment=new CalendarFragment();
-        examsFragment=new ExamsFragment();
+        homeWorkFragment = new HomeWorkFragment();
+        homeWorkFragment.setOnHWDialogListener(this);
+        classesFragment = new ClassesFragment();
+        calendarFragment = new CalendarFragment();
+        examsFragment = new ExamsFragment();
         examsFragment.setDialogExamListener(this);
 
         User.Student = new Student(2, "assaf@gmail.com", "122345", "Assaf Tayouri");
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2017);
+        calendar.set(Calendar.DAY_OF_MONTH, 16);
         Calendar calendar1 = Calendar.getInstance();
-        calendar1.set(Calendar.DAY_OF_MONTH, 18);
+        calendar1.set(Calendar.DAY_OF_MONTH, 30);
         Course course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
         User.Student.AddClass(course);
-         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-         course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -135,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = homeWorkFragment;
                 break;
             case 1:
-                fragment =classesFragment;
+                fragment = classesFragment;
                 break;
             case 2:
                 fragment = examsFragment;
@@ -263,5 +231,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void RefreshDataSet()
     {
         ((RefreshDataSetListener) fragment).RefreshDataSet();
+    }
+
+    @Override
+    public void OnHWDialog(String index)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        AddHWDialog addHWDialog = new AddHWDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("opt", String.valueOf(index));
+        addHWDialog.setArguments(bundle);
+        addHWDialog.setRefreshDataSetListener(this);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.add(android.R.id.content, addHWDialog).addToBackStack(null).commit();
     }
 }

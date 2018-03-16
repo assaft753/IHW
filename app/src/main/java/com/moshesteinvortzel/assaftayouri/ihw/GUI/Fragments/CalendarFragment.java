@@ -29,12 +29,12 @@ import java.util.Date;
 public class CalendarFragment extends android.support.v4.app.Fragment implements RefreshDataSetListener
 {
     private final String DATE_PATTERN = "MMMM yyyy";
-   private CalendarAdapter calendarAdapter;
-   private CompactCalendarView calendarView;
-   private RecyclerView calendarItemList;
-   private TextView dateText;
-   private Date currentDate;
-   private ArrayList<CalendarHelper> calendarHelperList;
+    private CalendarAdapter calendarAdapter;
+    private CompactCalendarView calendarView;
+    private RecyclerView calendarItemList;
+    private TextView dateText;
+    private Date currentDate;
+    private ArrayList<CalendarHelper> calendarHelperList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
@@ -48,19 +48,19 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         calendarView = view.findViewById(R.id.calendarView);
         calendarItemList = view.findViewById(R.id.calendarItemList);
-        dateText=view.findViewById(R.id.dateText);
+        dateText = view.findViewById(R.id.dateText);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        RefreshCalendarEvents();
         calendarItemList.setLayoutManager(mLayoutManager);
         calendarItemList.setItemAnimator(new DefaultItemAnimator());
         calendarItemList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         calendarAdapter = new CalendarAdapter();
         calendarItemList.setAdapter(calendarAdapter);
+        RefreshCalendarEvents();
         calendarAdapter.notifyDataSetChanged();
         calendarView.setFirstDayOfWeek(Calendar.SUNDAY);
-        if(currentDate==null)
+        if (currentDate == null)
         {
-            currentDate=calendarView.getFirstDayOfCurrentMonth();
+            currentDate = calendarView.getFirstDayOfCurrentMonth();
         }
         else
         {
@@ -73,14 +73,14 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
             @Override
             public void onDayClick(Date dateClicked)
             {
-                currentDate=dateClicked;
+                currentDate = dateClicked;
                 RefreshDataSet();
             }
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth)
             {
-                currentDate=firstDayOfNewMonth;
+                currentDate = firstDayOfNewMonth;
                 RefreshDataSet();
             }
         });
@@ -91,7 +91,7 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
     private void RefreshCalendarEvents()
     {
         calendarView.removeAllEvents();
-        ArrayList<Event> events=User.Student.GetEvents();
+        ArrayList<Event> events = User.Student.GetEvents();
         calendarView.addEvents(events);
     }
 
@@ -99,14 +99,14 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
     public void RefreshDataSet()
     {
         UpdateDateText(currentDate);
-        ArrayList<CalendarHelper> calendarHelpers= User.Student.GetListOFTasksInDate(currentDate);
+        ArrayList<CalendarHelper> calendarHelpers = User.Student.GetListOFTasksInDate(currentDate);
         calendarAdapter.setCalendarHelpers(calendarHelpers);
     }
 
-    private void setCalendarHelperList()
+   /* private void setCalendarHelperList()
     {
-       // calendarView.getcu
-    }
+        // calendarView.getcu
+    }*/
 
     private void UpdateDateText(Date date)
     {

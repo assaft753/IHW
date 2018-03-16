@@ -12,7 +12,7 @@
         <include layout="@layout/swipe_uncompleted" />
 
         <RelativeLayout
-            android:id="@+id/completedHWContainer"
+            android:id="@+id/viewForeground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/IHWWhite"
@@ -57,7 +57,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/hwTime"
                 android:layout_alignTop="@+id/hwPriority"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="invisible">
 
                 <TextView
                     android:layout_width="wrap_content"

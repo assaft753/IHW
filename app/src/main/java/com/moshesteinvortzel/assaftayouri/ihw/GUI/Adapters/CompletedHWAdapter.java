@@ -1,5 +1,6 @@
 package com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters;
 
+import android.provider.CalendarContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,42 +28,36 @@ import java.util.concurrent.TimeUnit;
  * Created by assaftayouri on 13/03/2018.
  */
 
-public class UncompletedHWAdapter extends RecyclerView.Adapter<UncompletedHWAdapter.UncompletedHWViewHolder>
+public class CompletedHWAdapter extends RecyclerView.Adapter<CompletedHWAdapter.CompletedHWViewHolder>
 {
     private final String DATE_PATTERN = "E','dd MMM HH:mm a ";
-    private ArrayList<HomeWork> UncompletedList;
+    private ArrayList<HomeWork> completedList;
     private OnLongHWItemListener onLongHWItemListener;
 
-    public UncompletedHWAdapter(ArrayList<HomeWork> UncompletedList, OnLongHWItemListener onLongHWItemListener)
+    public CompletedHWAdapter(ArrayList<HomeWork> completedList, OnLongHWItemListener onLongHWItemListener)
     {
-        this.UncompletedList = UncompletedList;
+        this.completedList = completedList;
         this.onLongHWItemListener = onLongHWItemListener;
     }
 
-    public class UncompletedHWViewHolder extends ViewHolder
+    public class CompletedHWViewHolder extends ViewHolder
     {
         public TextView hwName;
         public ImageView hwImage;
         public TextView hwTime;
-        public TextView hwTimeLeft;
         public View view;
-        public View daysLeftContainer;
-
         public ViewGroup Foreground;
         public ViewGroup Background;
 
-        public UncompletedHWViewHolder(View itemView)
+        public CompletedHWViewHolder(View itemView)
         {
             super(itemView);
             view = itemView;
             hwName = itemView.findViewById(R.id.hwName);
             hwImage = itemView.findViewById(R.id.hwPriority);
             hwTime = itemView.findViewById(R.id.hwTime);
-            hwTimeLeft = itemView.findViewById(R.id.hwTimeLeft);
             Foreground = itemView.findViewById(R.id.viewForeground);
             Background = itemView.findViewById(R.id.Background);
-            daysLeftContainer = itemView.findViewById(R.id.daysLeftContainer);
-
         }
 
         @Override
@@ -80,62 +75,41 @@ public class UncompletedHWAdapter extends RecyclerView.Adapter<UncompletedHWAdap
 
 
     @Override
-    public UncompletedHWViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public CompletedHWViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.uncompleted_hw_item, parent, false);
-        return new UncompletedHWViewHolder(itemView);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.completed_hw_item, parent, false);
+        return new CompletedHWViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final UncompletedHWViewHolder holder, final int position)
+    public void onBindViewHolder(final CompletedHWViewHolder holder, final int position)
     {
-        HomeWork homeWork = UncompletedList.get(position);
+        HomeWork homeWork = completedList.get(position);
         holder.view.setOnLongClickListener(new View.OnLongClickListener()
         {
             @Override
             public boolean onLongClick(View view)
             {
-                int index = holder.getAdapterPosition() + 1;
+                int index = (holder.getAdapterPosition() + 1) * - 1;
+                System.out.println(index);
                 onLongHWItemListener.OnLongHWItem(String.valueOf(index));
                 return true;
             }
         });
-        holder.daysLeftContainer.setVisibility(View.VISIBLE);
         holder.hwName.setText(homeWork.getTaskName());
         Date date = homeWork.getToDate().getTime();
         SimpleDateFormat ft = new SimpleDateFormat(DATE_PATTERN);
         holder.hwTime.setText(ft.format(date));
         holder.hwImage.setImageResource(homeWork.getPriority().GetDrawable());
-        long difftime = homeWork.getToDate().getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
-        long diffInMillies = Math.abs(difftime);
-        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        if (diff <= 3)
-        {
-            if (difftime < 0)
-            {
-                diff = diff * - 1;
-            }
-            holder.hwTime.setTextColor(0xfffa315b);
-        }
-        else
-        {
-            holder.hwTime.setTextColor(0xff4f4f4f);
-        }
-        holder.hwTimeLeft.setText(String.valueOf(diff));
+        holder.hwTime.setTextColor(0xff67d751);
         holder.getForeground().setBackground(new Border(homeWork.getCourse().getCourseColor()));
 
-    }
-
-    public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit)
-    {
-        long diffInMillies = date2.getTime() - date1.getTime();
-        return timeUnit.convert(diffInMillies, TimeUnit.DAYS);
     }
 
     @Override
     public int getItemCount()
     {
-        return UncompletedList.size();
+        return completedList.size();
     }
 }
 
