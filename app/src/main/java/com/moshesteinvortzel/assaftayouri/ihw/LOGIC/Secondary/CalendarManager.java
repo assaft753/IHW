@@ -1,7 +1,15 @@
 package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary;
 
+import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.provider.CalendarContract;
+import android.support.v4.app.ActivityCompat;
 
 import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Course;
@@ -26,7 +34,7 @@ import java.util.Map;
 
 public class CalendarManager
 {
-    private final String PATTERN="dd'/'MM'/'yyyy";
+    private final String PATTERN = "dd'/'MM'/'yyyy";
     private HashMap<String, ArrayList<CalendarHelper>> calendarDictionary;
 
     public CalendarManager()
@@ -34,67 +42,75 @@ public class CalendarManager
         this.calendarDictionary = new HashMap<String, ArrayList<CalendarHelper>>();
     }
 
-    private String MakeDateString(Calendar calendar)
+    private String MakeDateString(CalendarHelper calendarHelper)
     {
-        return calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.YEAR);
+        return calendarHelper.getDay() + "/" + calendarHelper.getMonth() + "/" + calendarHelper.getYear();
     }
 
-    public void AddToCalendar(CalendarHelper calendarHelper, Calendar calendar)
+    private String MakeDateString(Calendar date)
+    {
+        return date.get(Calendar.DAY_OF_MONTH) + "/" + date.get(Calendar.MONTH) + "/" + date.get(Calendar.YEAR);
+    }
+
+    public void AddToCalendar(CalendarHelper calendarHelper, Context context)
     {
         ArrayList<CalendarHelper> arrayList;
-        String date = MakeDateString(calendar);
+        String date = MakeDateString(calendarHelper);
         if (this.calendarDictionary.containsKey(date))
         {
             arrayList = this.calendarDictionary.get(date);
             arrayList.add(calendarHelper);
+            AddToNativeCalendar(calendarHelper, context);
             Collections.sort(arrayList);
         }
         else
         {
-            arrayList = new ArrayList<>();
+            arrayList = new ArrayList<CalendarHelper>();
             arrayList.add(calendarHelper);
+            AddToNativeCalendar(calendarHelper, context);
             this.calendarDictionary.put(date, arrayList);
         }
     }
 
-    public void RemoveFromCalendar(CalendarHelper calendarHelper, Calendar calendar)
+    public void RemoveFromCalendar(CalendarHelper calendarHelper, Context context)
     {
-        String date = MakeDateString(calendar);
+        String date = MakeDateString(calendarHelper);
         boolean b;
         if (this.calendarDictionary.containsKey(date))
         {
-           System.out.println(this.calendarDictionary.get(date).remove(calendarHelper));
+            for (int i = 0; i < calendarDictionary.get(date).size(); i++)
+            {
+                if (calendarDictionary.get(date).get(i).equals(calendarHelper))
+                {
+                    RemoveFromNativeCalendar(this.calendarDictionary.get(date).get(i), context);
+                    this.calendarDictionary.get(date).remove(i);
+                }
+            }
+
         }
     }
 
     public ArrayList<Event> GetEvent()
     {
-        ArrayList<Event> events=new ArrayList<Event>();
+        ArrayList<Event> events = new ArrayList<Event>();
         Calendar cal = Calendar.getInstance();
         for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
         {
-            SimpleDateFormat sdf = new SimpleDateFormat(PATTERN, Locale.ENGLISH);
-            try
+            for (CalendarHelper calendarHelper : pair.getValue())
             {
-                cal.setTime(sdf.parse(pair.getKey()));
-                for(CalendarHelper calendarHelper:pair.getValue())
-                {
-                    Calendar calendar=Calendar.getInstance();
-                    calendar.set(Calendar.DAY_OF_MONTH,cal.get(Calendar.DAY_OF_MONTH));
-                    calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
-                    Event ev = new Event(calendarHelper.getCourse().getCourseColor(),calendar.getTimeInMillis());
-                    events.add(ev);
-                }
-            }
-            catch (ParseException e)
-            {
-                e.printStackTrace();
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.DAY_OF_MONTH, calendarHelper.getDay());
+                calendar.set(Calendar.MONTH, calendarHelper.getMonth());
+                calendar.set(Calendar.YEAR, calendarHelper.getYear());
+                System.out.println(calendar.getTime());
+                Event ev = new Event(calendarHelper.getCourse().getCourseColor(), calendar.getTimeInMillis());
+                events.add(ev);
             }
         }
-        return  events;
+        return events;
     }
 
-    public void RemoveClass(Course course)
+    public void RemoveClass(Course course, Context context)
     {
         for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
         {
@@ -103,13 +119,14 @@ public class CalendarManager
             {
                 if (arrayList.get(i).getCourse().getCourseName().equals(course.getCourseName()))
                 {
+                    RemoveFromNativeCalendar(arrayList.get(i), context);
                     arrayList.remove(i);
                 }
             }
         }
     }
 
-    public void RemoveOnlyClass(Course course)
+    public void RemoveOnlyClass(Course course, Context context)
     {
         for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
         {
@@ -118,23 +135,19 @@ public class CalendarManager
             {
                 if (arrayList.get(i).getCourse().getCourseName().equals(course.getCourseName()) && arrayList.get(i).getTaskType() == TaskType.Class)
                 {
+                    RemoveFromNativeCalendar(arrayList.get(i), context);
                     arrayList.remove(i);
                 }
             }
         }
     }
 
-    public void AddClass(Course course)
+    public void AddClass(Course course, Context context)
     {
         Calendar baseCalendar = Calendar.getInstance();
-        //baseCalendar.setTimeInMillis(course.getStartDate().getTimeInMillis());
-        //baseCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        //while (baseCalendar.compareTo(course.getEndDate()) <= 0)
-        // {
         for (CourseDay day : course.getCourseDays())
         {
             baseCalendar.setTimeInMillis(course.getStartDate().getTimeInMillis());
-            //baseCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
             baseCalendar.set(Calendar.DAY_OF_WEEK, day.getDayInWeek().GetDayNumber());
             if (baseCalendar.compareTo(course.getStartDate()) < 0)
             {
@@ -142,23 +155,23 @@ public class CalendarManager
             }
             while (baseCalendar.compareTo(course.getEndDate()) <= 0 && baseCalendar.compareTo(course.getStartDate()) >= 0)
             {
-                CalendarHelper calendarHelper = new CalendarHelper(day.getStartHour(), day.getStartMinute(), course.getCourseName(), course, TaskType.Class);
-                String string = MakeDateString(baseCalendar);
+                CalendarHelper calendarHelper = new CalendarHelper(day.getStartHour(), day.getStartMinute(), baseCalendar.get(Calendar.DAY_OF_MONTH), baseCalendar.get(Calendar.MONTH), baseCalendar.get(Calendar.YEAR), day.getEndHour(), day.getEndMinute(), course.getCourseName(), course, TaskType.Class);
+                String string = MakeDateString(calendarHelper);
                 if (this.calendarDictionary.containsKey(string))
                 {
+                    AddToNativeCalendar(calendarHelper, context);
                     this.calendarDictionary.get(string).add(calendarHelper);
                 }
                 else
                 {
                     ArrayList<CalendarHelper> arrayList = new ArrayList<CalendarHelper>();
                     arrayList.add(calendarHelper);
+                    AddToNativeCalendar(calendarHelper, context);
                     this.calendarDictionary.put(string, arrayList);
                 }
                 baseCalendar.set(Calendar.DAY_OF_MONTH, baseCalendar.get(Calendar.DAY_OF_MONTH) + 7);
             }
-            //baseCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         }
-        // }
         for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
         {
             Collections.sort(pair.getValue());
@@ -168,15 +181,74 @@ public class CalendarManager
 
     public ArrayList<CalendarHelper> GetListOFTasksInDate(Date date)
     {
-        Calendar calendar=Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        String datestr=MakeDateString(calendar);
-        ArrayList<CalendarHelper> calendarHelpers=calendarDictionary.get(datestr);
-        if(calendarHelpers==null)
+        String datestr = MakeDateString(calendar);
+        ArrayList<CalendarHelper> calendarHelpers = calendarDictionary.get(datestr);
+        if (calendarHelpers == null)
         {
-            calendarHelpers=new ArrayList<>();
+            calendarHelpers = new ArrayList<>();
         }
         return calendarHelpers;
+    }
+
+    private void AddToNativeCalendar(CalendarHelper calendarHelper, Context context)
+    {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED)
+        {
+            long calID = 1;
+            long startMillis = 0;
+            long endMillis = 0;
+            Calendar beginTime = Calendar.getInstance();
+            beginTime.set(calendarHelper.getYear(), calendarHelper.getMonth(), calendarHelper.getDay(), calendarHelper.getHour(), calendarHelper.getMinute());
+            startMillis = beginTime.getTimeInMillis();
+
+            ContentResolver cr = context.getContentResolver();
+            ContentValues values = new ContentValues();
+            String title;
+            String description;
+            if (calendarHelper.getTaskType() == TaskType.Class)
+            {
+                title = calendarHelper.getCourse().getCourseName();
+                description = "";
+                Calendar endTime = Calendar.getInstance();
+                endTime.set(calendarHelper.getYear(), calendarHelper.getMonth(), calendarHelper.getDay(), calendarHelper.getEndHour(), calendarHelper.getEndMinute());
+                endMillis = endTime.getTimeInMillis();
+            }
+            else
+            {
+                title = calendarHelper.getTaskName();
+                description = calendarHelper.getCourse().getCourseName();
+                //Calendar endTime = Calendar.getInstance();
+                //endTime.set(calendarHelper.getYear(), calendarHelper.getMonth(), calendarHelper.getDay(), calendarHelper.getEndHour(), calendarHelper.getEndMinute());
+                endMillis = beginTime.getTimeInMillis();
+            }
+            values.put(CalendarContract.Events.DTSTART, startMillis);
+            values.put(CalendarContract.Events.DTEND, endMillis);
+            values.put(CalendarContract.Events.TITLE, title);
+            values.put(CalendarContract.Events.DESCRIPTION, description);
+            values.put(CalendarContract.Events.CALENDAR_ID, calID);
+            //values.put(CalendarContract.Events.EVENT_COLOR, calendarHelper.getCourse().getCourseColor());
+            values.put(CalendarContract.Events.EVENT_TIMEZONE, "America/Los_Angeles");
+            Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
+            long eventID = Long.parseLong(uri.getLastPathSegment());
+            calendarHelper.setEventId(eventID);
+        }
+
+    }
+
+    private void RemoveFromNativeCalendar(CalendarHelper calendarHelper, Context context)
+    {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED)
+        {
+            ContentResolver cr = context.getContentResolver();
+            ContentValues values = new ContentValues();
+            Uri deleteUri = null;
+            deleteUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, calendarHelper.getEventId());
+            context.getContentResolver().delete(deleteUri, null, null);
+        }
     }
 }
 

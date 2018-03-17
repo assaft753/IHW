@@ -60,14 +60,14 @@
     <color name="md_red_100">#FFCDD2</color>
     <color name="md_red_200">#EF9A9A</color>
     <color name="md_red_300">#E57373</color>
-    <color name="md_red_400">#EF5350</color>
+    <color name="md_red_400">#ef5350</color>
     <color name="md_red_500">#F44336</color>
     <color name="md_red_600">#e53935</color>
     <color name="md_red_700">#D32F2F</color>
     <color name="md_red_800">#C62828</color>
     <color name="md_red_900">#B71C1C</color>
-    <color name="md_red_A100">#FF8A80</color>
-    <color name="md_red_A200">#FF5252</color>
+    <color name="md_red_A100">#ff8a80</color>
+    <color name="md_red_A200">#ff5252</color>
     <color name="md_red_A400">#FF1744</color>
     <color name="md_red_A700">#D50000</color>
 
@@ -109,13 +109,13 @@
     <color name="md_deep_purple_200">#B39DDB</color>
     <color name="md_deep_purple_300">#9575CD</color>
     <color name="md_deep_purple_400">#7E57C2</color>
-    <color name="md_deep_purple_500">#673AB7</color>
+    <color name="md_deep_purple_500">#673ab7</color>
     <color name="md_deep_purple_600">#5E35B1</color>
     <color name="md_deep_purple_700">#512DA8</color>
     <color name="md_deep_purple_800">#4527A0</color>
     <color name="md_deep_purple_900">#311B92</color>
     <color name="md_deep_purple_A100">#B388FF</color>
-    <color name="md_deep_purple_A200">#7C4DFF</color>
+    <color name="md_deep_purple_A200">#7c4dff</color>
     <color name="md_deep_purple_A400">#651FFF</color>
     <color name="md_deep_purple_A700">#6200EA</color>
 
@@ -148,7 +148,7 @@
     <color name="md_blue_900">#0D47A1</color>
     <color name="md_blue_A100">#82B1FF</color>
     <color name="md_blue_A200">#448AFF</color>
-    <color name="md_blue_A400">#2979FF</color>
+    <color name="md_blue_A400">#2979ff</color>
     <color name="md_blue_A700">#2962ff</color>
 
     <!-- light blue-->
@@ -204,16 +204,16 @@
     <color name="md_green_100">#C8E6C9</color>
     <color name="md_green_200">#A5D6A7</color>
     <color name="md_green_300">#81C784</color>
-    <color name="md_green_400">#66BB6A</color>
+    <color name="md_green_400">#66bb6a</color>
     <color name="md_green_500">#4CAF50</color>
-    <color name="md_green_600">#43A047</color>
+    <color name="md_green_600">#43a047</color>
     <color name="md_green_700">#388E3C</color>
-    <color name="md_green_800">#2E7D32</color>
-    <color name="md_green_900">#1B5E20</color>
+    <color name="md_green_800">#2e7d32</color>
+    <color name="md_green_900">#1b5e20</color>
     <color name="md_green_A100">#B9F6CA</color>
     <color name="md_green_A200">#69F0AE</color>
     <color name="md_green_A400">#00E676</color>
-    <color name="md_green_A700">#00C853</color>
+    <color name="md_green_A700">#00c853</color>
 
     <!--light green-->
     <color name="md_light_green_50">#F1F8E9</color>

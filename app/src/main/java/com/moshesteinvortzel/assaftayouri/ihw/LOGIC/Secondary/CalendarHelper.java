@@ -16,20 +16,80 @@ public class CalendarHelper implements Comparable<CalendarHelper>
 {
     private int hour;
     private int minute;
+    private int day;
+    private int month;
+    private int year;
+    private int endHour;
+    private int endMinute;
     private String TaskName;
     private Course course;
     private TaskType taskType;
+    private long eventId;
 
-    public CalendarHelper(int hour, int minute, String taskName, Course course, TaskType taskType)
+    public CalendarHelper(int hour, int minute, int day, int month, int year, String taskName, Course course, TaskType taskType)
     {
         this.hour = hour;
         this.minute = minute;
+        this.day = day;
+        this.month = month;
+        this.year = year;
         TaskName = taskName;
         this.course = course;
         this.taskType = taskType;
-
+        this.eventId = 0;
+        this.endMinute = - 1;
+        this.endHour = - 1;
     }
 
+    public CalendarHelper(int hour, int minute, int day, int month, int year, int endHour, int endMinute, String taskName, Course course, TaskType taskType)
+    {
+        this.hour = hour;
+        this.minute = minute;
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.endHour = endHour;
+        this.endMinute = endMinute;
+        TaskName = taskName;
+        this.course = course;
+        this.taskType = taskType;
+        this.eventId = 0;
+    }
+
+    public int getEndHour()
+    {
+        return endHour;
+    }
+
+    public int getEndMinute()
+    {
+        return endMinute;
+    }
+
+    public int getDay()
+    {
+        return day;
+    }
+
+    public int getMonth()
+    {
+        return month;
+    }
+
+    public int getYear()
+    {
+        return year;
+    }
+
+    public long getEventId()
+    {
+        return eventId;
+    }
+
+    public void setEventId(long eventId)
+    {
+        this.eventId = eventId;
+    }
 
     public String GenerateTimeStr()
     {
@@ -44,8 +104,9 @@ public class CalendarHelper implements Comparable<CalendarHelper>
             ampm = "AM";
         }
 
-       return hour + ":" + minutestr + " " + ampm;
+        return hour + ":" + minutestr + " " + ampm;
     }
+
     public TaskType getTaskType()
     {
         return taskType;

@@ -33,7 +33,7 @@
                     android:maxLines="2"
                     android:minLines="1"
                     android:text="Algebra"
-                    android:textColor="@color/IHWBrown"
+                    android:textColor="@color/IHWWhite"
                     android:textSize="30sp" />
 
                 <LinearLayout
@@ -45,13 +45,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="3dp"
-                        android:text="@string/Points" />
+                        android:text="@string/Points"
+                        android:textColor="@color/IHWWhite" />
 
                     <TextView
                         android:id="@+id/examPointsText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2.5" />
+                        android:text="2.5"
+                        android:textColor="@color/IHWWhite" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -63,20 +65,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="3dp"
-                        android:text="@string/Term" />
+                        android:text="@string/Term"
+                        android:textColor="@color/IHWWhite" />
 
                     <TextView
                         android:id="@+id/examTermText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="A" />
+                        android:text="A"
+                        android:textColor="@color/IHWWhite" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/examDateText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fri, 23 Jul 10:30 AM" />
+                    android:text="Fri, 23 Jul 10:30 AM"
+                    android:textColor="@color/IHWWhite" />
 
             </LinearLayout>
 
@@ -90,6 +95,7 @@
                 android:elevation="10dp"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="@string/noGrade"
+                android:textColor="@color/IHWWhite"
                 android:textSize="36sp"
                 android:textStyle="normal" />
         </RelativeLayout>

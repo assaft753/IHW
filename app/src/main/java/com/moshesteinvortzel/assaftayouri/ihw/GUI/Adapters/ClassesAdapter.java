@@ -86,7 +86,8 @@ public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ClassVie
                 return true;
             }
         });
-        holder.getForeground().setBackground(new Border(course.getCourseColor()));
+        //holder.getForeground().setBackground(new Border(course.getCourseColor()));
+        holder.getForeground().setBackgroundColor(course.getCourseColor());
         holder.className.setText(course.getCourseName());
         holder.classPoints.setText(String.valueOf(course.getPoints()));
         String datestr = GetDateString(course.getStartDate(), course.getEndDate());

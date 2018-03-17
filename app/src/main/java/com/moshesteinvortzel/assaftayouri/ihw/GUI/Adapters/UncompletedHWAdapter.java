@@ -115,14 +115,14 @@ public class UncompletedHWAdapter extends RecyclerView.Adapter<UncompletedHWAdap
             {
                 diff = diff * - 1;
             }
-            holder.hwTime.setTextColor(0xfffa315b);
+            holder.hwTime.setTextColor(0xFFEF5350);//fffa315b);
         }
         else
         {
-            holder.hwTime.setTextColor(0xff4f4f4f);
+            holder.hwTime.setTextColor(0xffffffff);//ff4f4f4f);
         }
         holder.hwTimeLeft.setText(String.valueOf(diff));
-        holder.getForeground().setBackground(new Border(homeWork.getCourse().getCourseColor()));
+        holder.getForeground().setBackgroundColor(homeWork.getCourse().getCourseColor());//holder.getForeground().setBackground(new Border(homeWork.getCourse().getCourseColor()));
 
     }
 

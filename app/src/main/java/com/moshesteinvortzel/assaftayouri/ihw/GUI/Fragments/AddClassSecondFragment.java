@@ -134,11 +134,11 @@ public class AddClassSecondFragment extends Fragment implements SwipeHelperListe
 
                         course.setPoints(coursePoints);
                         course.setCourseDays(courseDays);
-                        User.Student.UpdateCourse(index);
+                        User.Student.UpdateCourse(index, getContext());
                     }
                     else
                     {
-                        User.Student.AddClass(new Course(courseName, coursePoints, calendarstart, calendarend, color,courseDays));
+                        User.Student.AddClass(new Course(courseName, coursePoints, calendarstart, calendarend, color, courseDays), getContext());
                     }
                     dialogDismissCallback.Dismiss();
                 }

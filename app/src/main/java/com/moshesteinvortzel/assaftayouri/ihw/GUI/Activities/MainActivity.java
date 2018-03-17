@@ -1,12 +1,23 @@
 package com.moshesteinvortzel.assaftayouri.ihw.GUI.Activities;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -36,6 +47,8 @@ import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.ShowDialogExamLis
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CourseDay;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
+import java.security.Permission;
+import java.security.Permissions;
 import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ClassesFragment classesFragment;
     private CalendarFragment calendarFragment;
     private ExamsFragment examsFragment;
-    //private AddDialog newFragment;
     Fragment fragment;
 
     @Override
@@ -60,20 +72,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         homeWorkFragment = new HomeWorkFragment();
         homeWorkFragment.setOnHWDialogListener(this);
         classesFragment = new ClassesFragment();
         calendarFragment = new CalendarFragment();
         examsFragment = new ExamsFragment();
         examsFragment.setDialogExamListener(this);
-
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR}, 0);
+        }
         User.Student = new Student(2, "assaf@gmail.com", "122345", "Assaf Tayouri");
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 16);
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(Calendar.DAY_OF_MONTH, 30);
         Course course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course);
+        User.Student.AddClass(course, getApplicationContext());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.navView);
+        ((TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail)).setText(User.Student.getEmail());
+        ((TextView) navigationView.getHeaderView(0).findViewById(R.id.userFullName)).setText(User.Student.getUserName());
         navigationView.setNavigationItemSelectedListener(this);
 
         toolbarTitles = getResources().getStringArray(R.array.nav_titles);
@@ -138,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed()
     {
-        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START))
         {
             drawer.closeDrawer(GravityCompat.START);
@@ -147,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             super.onBackPressed();
         }
-
     }
 
 
@@ -163,12 +180,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
 
         int id = item.getItemId();
-
         if (id == R.id.addToolBarButton)
         {
             showDialog();
-            //Make Intent To Add Page
-            //return true;
         }
         return super.onOptionsItemSelected(item);
     }

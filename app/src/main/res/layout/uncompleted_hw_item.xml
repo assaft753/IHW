@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="8dp"
+    android:background="@android:drawable/screen_background_light_transparent"
+    app:cardBackgroundColor="@android:drawable/screen_background_light_transparent">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:orientation="vertical">
 
         <include layout="@layout/swipe_complete" />
@@ -15,7 +19,7 @@
             android:id="@+id/viewForeground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/IHWWhite"
+            android:background="@color/md_deep_purple_A200"
             android:elevation="4dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp">
@@ -27,7 +31,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="5dp"
                 android:text="Algebra"
-                android:textColor="@color/IHWBrown"
+                android:textColor="@color/IHWWhite"
                 android:textSize="24sp" />
 
             <TextView
@@ -38,9 +42,9 @@
                 android:layout_alignBottom="@+id/hwName"
                 android:layout_alignParentEnd="true"
                 android:text="Wed, Feb 21 - 9:30 AM"
-                android:textColor="@color/md_light_green_500"
+                android:textColor="@color/md_red_400"
                 android:textSize="14sp"
-                android:textStyle="normal" />
+                android:textStyle="normal|bold" />
 
             <ImageView
                 android:id="@+id/hwPriority"
@@ -65,12 +69,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="3dp"
-                    android:text="@string/timeLeft" />
+                    android:text="@string/timeLeft"
+                    android:textColor="@color/IHWWhite" />
 
                 <TextView
                     android:id="@+id/hwTimeLeft"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/IHWWhite" />
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>

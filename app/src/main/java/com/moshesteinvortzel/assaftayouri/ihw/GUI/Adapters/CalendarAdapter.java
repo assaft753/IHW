@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>
 {
     private ArrayList<CalendarHelper> calendarHelpers;
+
     public class CalendarViewHolder extends RecyclerView.ViewHolder
     {
         public TextView taskName;
@@ -37,18 +38,18 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
         public CalendarViewHolder(View itemView)
         {
             super(itemView);
-            taskName=itemView.findViewById(R.id.taskName);
-            className=itemView.findViewById(R.id.className);
-            taskTime=itemView.findViewById(R.id.taskTime);
-            taskType=itemView.findViewById(R.id.taskType);
-            view=itemView;
+            taskName = itemView.findViewById(R.id.taskName);
+            className = itemView.findViewById(R.id.className);
+            taskTime = itemView.findViewById(R.id.taskTime);
+            taskType = itemView.findViewById(R.id.taskType);
+            view = itemView;
         }
     }
 
     public void setCalendarHelpers(ArrayList<CalendarHelper> calendarHelpers)
     {
         this.calendarHelpers = calendarHelpers;
-       notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     @Override
@@ -61,23 +62,23 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
     @Override
     public void onBindViewHolder(CalendarViewHolder holder, int position)
     {
-        CalendarHelper calendarHelper=calendarHelpers.get(position);
+        CalendarHelper calendarHelper = calendarHelpers.get(position);
         String taskname;
-        if(calendarHelper.getTaskType()== TaskType.Class)
+        if (calendarHelper.getTaskType() == TaskType.Class)
         {
             holder.className.setVisibility(View.INVISIBLE);
-            taskname=calendarHelper.getCourse().getCourseName();
+            taskname = calendarHelper.getCourse().getCourseName();
         }
         else
         {
             holder.className.setVisibility(View.VISIBLE);
             holder.className.setText(calendarHelper.getCourse().getCourseName());
-            taskname=calendarHelper.getTaskName();
+            taskname = calendarHelper.getTaskName();
         }
         holder.taskName.setText(taskname);
         holder.taskType.setText(calendarHelper.getTaskType().toString());
         holder.taskTime.setText(calendarHelper.GenerateTimeStr());
-        holder.view.setBackground(new Border(calendarHelper.getCourse().getCourseColor()));
+        holder.view.setBackgroundColor(calendarHelper.getCourse().getCourseColor());//new Border(calendarHelper.getCourse().getCourseColor()));
     }
 
     @Override
@@ -85,9 +86,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
     {
         return calendarHelpers.size();
     }
-
-
-
 
 
 }

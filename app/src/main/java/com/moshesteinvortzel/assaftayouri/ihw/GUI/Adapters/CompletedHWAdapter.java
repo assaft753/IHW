@@ -101,8 +101,9 @@ public class CompletedHWAdapter extends RecyclerView.Adapter<CompletedHWAdapter.
         SimpleDateFormat ft = new SimpleDateFormat(DATE_PATTERN);
         holder.hwTime.setText(ft.format(date));
         holder.hwImage.setImageResource(homeWork.getPriority().GetDrawable());
-        holder.hwTime.setTextColor(0xff67d751);
-        holder.getForeground().setBackground(new Border(homeWork.getCourse().getCourseColor()));
+        holder.hwTime.setTextColor(0xFF00C853);
+        holder.getForeground().setBackgroundColor(homeWork.getCourse().getCourseColor());
+        //holder.getForeground().setBackground(new Border(homeWork.getCourse().getCourseColor()));
 
     }
 

@@ -101,6 +101,7 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
         UpdateDateText(currentDate);
         ArrayList<CalendarHelper> calendarHelpers = User.Student.GetListOFTasksInDate(currentDate);
         calendarAdapter.setCalendarHelpers(calendarHelpers);
+        RefreshCalendarEvents();
     }
 
    /* private void setCalendarHelperList()
