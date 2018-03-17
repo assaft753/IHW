@@ -7,14 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.Views.Border;
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.Views.Oval;
-import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Exam;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.HomeWork;
-import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.Priority;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnLongHWItemListener;
-import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnLongUngradedItemListener;
-import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.ShowDialogExamListener;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
 import java.text.SimpleDateFormat;

@@ -1,18 +1,14 @@
 package com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters;
 
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.Views.Border;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Course;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnLongClassItemListener;
-import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CourseDay;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
 import java.util.ArrayList;

@@ -1,22 +1,15 @@
 package com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.TaskType;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.Views.Border;
-import com.tr4android.recyclerviewslideitem.SwipeAdapter;
-import com.tr4android.recyclerviewslideitem.SwipeConfiguration;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

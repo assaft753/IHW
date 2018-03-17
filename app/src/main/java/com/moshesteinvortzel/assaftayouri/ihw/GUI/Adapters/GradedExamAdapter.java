@@ -6,11 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.moshesteinvortzel.assaftayouri.ihw.GUI.Views.Border;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Views.Oval;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Exam;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnLongGradedItemListener;
-import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.ShowDialogExamListener;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
 
 import java.text.SimpleDateFormat;
