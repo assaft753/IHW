@@ -46,6 +46,11 @@ public class NotificationManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), pendingIntent);
     }
 
+    public void setPushId(int pushId)
+    {
+        this.pushId = pushId;
+    }
+
     public void CancelNotification(int pushId, Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
@@ -64,6 +69,11 @@ public class NotificationManager
     }
 
     public int getPushId()
+    {
+        return pushId;
+    }
+
+    public int GeneratePushId()
     {
         this.pushId++;
         return pushId - 1;

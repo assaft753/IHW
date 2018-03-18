@@ -86,7 +86,7 @@ public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ClassVie
         holder.getForeground().setBackgroundColor(course.getCourseColor());
         holder.className.setText(course.getCourseName());
         holder.classPoints.setText(String.valueOf(course.getPoints()));
-        String datestr = GetDateString(course.getStartDate(), course.getEndDate());
+        String datestr = GetDateString(course.GetStartDateAsCalendar(), course.GetEndDateAsCalendar());
         holder.classDates.setText(datestr);
     }
 

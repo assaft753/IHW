@@ -96,11 +96,11 @@ public class UncompletedHWAdapter extends RecyclerView.Adapter<UncompletedHWAdap
         });
         holder.daysLeftContainer.setVisibility(View.VISIBLE);
         holder.hwName.setText(homeWork.getTaskName());
-        Date date = homeWork.getToDate().getTime();
+        Date date = homeWork.GetToDateAsObject().getTime();
         SimpleDateFormat ft = new SimpleDateFormat(DATE_PATTERN);
         holder.hwTime.setText(ft.format(date));
         holder.hwImage.setImageResource(homeWork.getPriority().GetDrawable());
-        long difftime = homeWork.getToDate().getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+        long difftime = homeWork.GetToDateAsObject().getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
         long diffInMillies = Math.abs(difftime);
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         if (diff <= 3)

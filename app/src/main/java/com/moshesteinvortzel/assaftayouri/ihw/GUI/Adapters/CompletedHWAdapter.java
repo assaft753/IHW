@@ -89,7 +89,7 @@ public class CompletedHWAdapter extends RecyclerView.Adapter<CompletedHWAdapter.
             }
         });
         holder.hwName.setText(homeWork.getTaskName());
-        Date date = homeWork.getToDate().getTime();
+        Date date = homeWork.GetToDateAsObject().getTime();
         SimpleDateFormat ft = new SimpleDateFormat(DATE_PATTERN);
         holder.hwTime.setText(ft.format(date));
         holder.hwImage.setImageResource(homeWork.getPriority().GetDrawable());

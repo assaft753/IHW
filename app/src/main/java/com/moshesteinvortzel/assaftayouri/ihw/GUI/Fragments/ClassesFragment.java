@@ -35,7 +35,7 @@ public class ClassesFragment extends android.support.v4.app.Fragment implements 
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        courses = User.Student.getCourses();
+        courses = (ArrayList<Course>) User.Student.getCourses();
     }
 
     @Override

@@ -8,8 +8,10 @@ import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CourseDay;
 
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by assaftayouri on 09/03/2018.
@@ -22,25 +24,50 @@ public class Course
     private Calendar startDate;
     private Calendar endDate;
     private int courseColor;
-    private ArrayList<CourseDay> courseDays;
-    private ArrayList<HomeWork> homeWorks;
+    private List<CourseDay> courseDays;
+    private List<HomeWork> homeWorks;
     private Exam[] exams;
 
-    public Course(String courseName, float points, Calendar startDate, Calendar endDate, int courseColor, ArrayList<CourseDay> courseDays)
+    public Course(String courseName, float points, Calendar startDate, Calendar endDate, int courseColor, List<CourseDay> courseDays)
     {
         this.courseName = courseName;
         this.points = points;
-        setStartDate(startDate);
-        setEndDate(endDate);
+        this.startDate = Calendar.getInstance();
+        this.endDate = Calendar.getInstance();
+        setStartDate(startDate.getTimeInMillis());
+        setEndDate(endDate.getTimeInMillis());
         this.courseColor = courseColor;
         this.courseDays = courseDays;
         this.homeWorks = new ArrayList<HomeWork>();
         this.exams = new Exam[3];
     }
 
-    public Exam[] getExams()
+
+    public Course()
     {
-        return exams;
+        startDate = Calendar.getInstance();
+        endDate = Calendar.getInstance();
+    }
+
+
+    public void setHomeWorks(List<HomeWork> homeWorks)
+    {
+        this.homeWorks = homeWorks;
+    }
+
+    public List<HomeWork> getHomeWorks()
+    {
+        return homeWorks;
+    }
+
+    public List<Exam> getExams()
+    {
+        return Arrays.asList(exams);
+    }
+
+    public Exam[] GetExamsAsArray()
+    {
+        return this.exams;
     }
 
     public boolean CheckExamValidate(Term term)
@@ -72,9 +99,9 @@ public class Course
         {
             if (exams[i] != null && i != skipIndex)
             {
-                if (calendar.get(Calendar.YEAR) == exams[i].getExamDate().get(Calendar.YEAR)
-                        && calendar.get(Calendar.DAY_OF_MONTH) == exams[i].getExamDate().get(Calendar.DAY_OF_MONTH)
-                        && calendar.get(Calendar.MONTH) == exams[i].getExamDate().get(Calendar.MONTH))
+                if (calendar.get(Calendar.YEAR) == exams[i].GetExamDateAsCalendar().get(Calendar.YEAR)
+                        && calendar.get(Calendar.DAY_OF_MONTH) == exams[i].GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH)
+                        && calendar.get(Calendar.MONTH) == exams[i].GetExamDateAsCalendar().get(Calendar.MONTH))
                 {
                     return false;
                 }
@@ -89,19 +116,29 @@ public class Course
         return courseName;
     }
 
+    public Calendar GetStartDateAsCalendar()
+    {
+        return startDate;
+    }
+
+    public Calendar GetEndDateAsCalendar()
+    {
+        return endDate;
+    }
+
     public float getPoints()
     {
         return points;
     }
 
-    public Calendar getStartDate()
+    public long getStartDate()
     {
-        return startDate;
+        return startDate.getTimeInMillis();
     }
 
-    public Calendar getEndDate()
+    public long getEndDate()
     {
-        return endDate;
+        return endDate.getTimeInMillis();
     }
 
     public int getCourseColor()
@@ -109,7 +146,7 @@ public class Course
         return courseColor;
     }
 
-    public ArrayList<CourseDay> getCourseDays()
+    public List<CourseDay> getCourseDays()
     {
         return courseDays;
     }
@@ -178,19 +215,30 @@ public class Course
         this.points = points;
     }
 
-    public void setStartDate(Calendar startDate)
+    public void setStartDate(long startDate)
     {
-        startDate.set(Calendar.MINUTE, 0);
-        startDate.set(Calendar.HOUR, 0);
-        startDate.set(Calendar.SECOND, 0);
+        this.startDate.setTimeInMillis(startDate);
+        this.startDate.set(Calendar.MINUTE, 0);
+        this.startDate.set(Calendar.HOUR, 0);
+        this.startDate.set(Calendar.SECOND, 0);
+
+    }
+
+    public void setEndDate(long endDate)
+    {
+        this.endDate.setTimeInMillis(endDate);
+        this.startDate.set(Calendar.MINUTE, 0);
+        this.startDate.set(Calendar.HOUR, 0);
+        this.startDate.set(Calendar.SECOND, 0);
+    }
+
+    public void SetStartDateAsCalendar(Calendar startDate)
+    {
         this.startDate = startDate;
     }
 
-    public void setEndDate(Calendar endDate)
+    public void SetEndDateAsCalendar(Calendar endDate)
     {
-        endDate.set(Calendar.MINUTE, 0);
-        endDate.set(Calendar.HOUR, 0);
-        endDate.set(Calendar.SECOND, 0);
         this.endDate = endDate;
     }
 
@@ -199,7 +247,7 @@ public class Course
         this.courseColor = courseColor;
     }
 
-    public void setCourseDays(ArrayList<CourseDay> courseDays)
+    public void setCourseDays(List<CourseDay> courseDays)
     {
         this.courseDays = courseDays;
     }

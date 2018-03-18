@@ -30,6 +30,10 @@ public class CourseDay
         this.endMinute = endMinute;
     }
 
+    public CourseDay()
+    {
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -50,9 +54,19 @@ public class CourseDay
         return dayInWeek;
     }
 
+    public void setDayInWeek(Day dayInWeek)
+    {
+        this.dayInWeek = dayInWeek;
+    }
+
     public int getStartHour()
     {
         return startHour;
+    }
+
+    public void setStartHour(int startHour)
+    {
+        this.startHour = startHour;
     }
 
     public int getStartMinute()
@@ -60,13 +74,28 @@ public class CourseDay
         return startMinute;
     }
 
+    public void setStartMinute(int startMinute)
+    {
+        this.startMinute = startMinute;
+    }
+
     public int getEndHour()
     {
         return endHour;
     }
 
+    public void setEndHour(int endHour)
+    {
+        this.endHour = endHour;
+    }
+
     public int getEndMinute()
     {
         return endMinute;
+    }
+
+    public void setEndMinute(int endMinute)
+    {
+        this.endMinute = endMinute;
     }
 }

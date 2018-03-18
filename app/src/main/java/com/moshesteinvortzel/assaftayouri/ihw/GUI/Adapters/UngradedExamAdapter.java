@@ -97,7 +97,7 @@ public class UngradedExamAdapter extends RecyclerView.Adapter<UngradedExamAdapte
         holder.examClassText.setText(exam.getCourse().getCourseName());
         holder.examPointsText.setText(String.valueOf(exam.getCourse().getPoints()));
         holder.examTermText.setText(exam.getTerm().toString());
-        Date date = exam.getExamDate().getTime();
+        Date date = exam.GetExamDateAsCalendar().getTime();
         SimpleDateFormat ft = new SimpleDateFormat(DATE_PATTERN);
         holder.examDateText.setText(ft.format(date));
         holder.getForeground().setBackgroundColor(exam.getCourse().getCourseColor());//holder.getForeground().setBackground(new Border(exam.getCourse().getCourseColor()));

@@ -1,7 +1,9 @@
 package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core;
 
 import android.support.annotation.NonNull;
+import android.view.ViewDebug;
 
+import com.google.firebase.database.Exclude;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.Priority;
 
 import java.util.Calendar;
@@ -30,6 +32,13 @@ public class HomeWork implements Comparable<HomeWork>
         this.finished = false;
     }
 
+    public HomeWork()
+    {
+        toDate = Calendar.getInstance();
+        finished = false;
+    }
+
+    @Exclude
     public void setCourse(Course course)
     {
         this.course = course;
@@ -40,9 +49,9 @@ public class HomeWork implements Comparable<HomeWork>
         this.priority = priority;
     }
 
-    public void setToDate(Calendar toDate)
+    public void setToDate(Long toDate)
     {
-        this.toDate = toDate;
+        this.toDate.setTimeInMillis(toDate);
     }
 
     public boolean isFinished()
@@ -72,11 +81,11 @@ public class HomeWork implements Comparable<HomeWork>
         this.TaskName = homeWork.getTaskName();
         this.priority = homeWork.getPriority();
         this.toDate = Calendar.getInstance();
-        this.toDate.setTimeInMillis(homeWork.getToDate().getTimeInMillis());
-        this.notify=homeWork.getNotify();
+        this.toDate.setTimeInMillis(homeWork.getToDate());
+        this.notify = homeWork.getNotify();
     }
 
-
+    @Exclude
     public Course getCourse()
     {
         return course;
@@ -92,9 +101,9 @@ public class HomeWork implements Comparable<HomeWork>
         this.notify = notify;
     }
 
-    public Calendar getToDate()
+    public Long getToDate()
     {
-        return toDate;
+        return toDate.getTimeInMillis();
     }
 
     public String getTaskName()
@@ -116,6 +125,12 @@ public class HomeWork implements Comparable<HomeWork>
     {
         this.pushId = pushId;
     }
+
+    public Calendar GetToDateAsObject()
+    {
+        return toDate;
+    }
+
 
     @Override
     public boolean equals(Object obj)

@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -35,11 +36,26 @@ import java.util.Map;
 public class CalendarManager
 {
     private final String PATTERN = "dd'/'MM'/'yyyy";
-    private HashMap<String, ArrayList<CalendarHelper>> calendarDictionary;
+    private HashMap<String, List<CalendarHelper>> calendarDictionary;
 
     public CalendarManager()
     {
-        this.calendarDictionary = new HashMap<String, ArrayList<CalendarHelper>>();
+        this.calendarDictionary = new HashMap<String, List<CalendarHelper>>();
+    }
+
+    public List<CalendarHelper> getCalendarDictionary()
+    {
+        List<CalendarHelper> calendarHelpers = new ArrayList<>();
+        for (Map.Entry<String, List<CalendarHelper>> pair : this.calendarDictionary.entrySet())
+        {
+            calendarHelpers.addAll(pair.getValue());
+        }
+        return calendarHelpers;
+    }
+
+    public void setCalendarDictionary(HashMap<String, ArrayList<CalendarHelper>> calendarDictionary)
+    {
+        //this.calendarDictionary = calendarDictionary;
     }
 
     private String MakeDateString(CalendarHelper calendarHelper)
@@ -54,7 +70,7 @@ public class CalendarManager
 
     public void AddToCalendar(CalendarHelper calendarHelper, Context context)
     {
-        ArrayList<CalendarHelper> arrayList;
+        List<CalendarHelper> arrayList;
         String date = MakeDateString(calendarHelper);
         if (this.calendarDictionary.containsKey(date))
         {
@@ -94,7 +110,7 @@ public class CalendarManager
     {
         ArrayList<Event> events = new ArrayList<Event>();
         Calendar cal = Calendar.getInstance();
-        for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
+        for (Map.Entry<String, List<CalendarHelper>> pair : this.calendarDictionary.entrySet())
         {
             for (CalendarHelper calendarHelper : pair.getValue())
             {
@@ -112,9 +128,9 @@ public class CalendarManager
 
     public void RemoveClass(Course course, Context context)
     {
-        for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
+        for (Map.Entry<String, List<CalendarHelper>> pair : this.calendarDictionary.entrySet())
         {
-            ArrayList<CalendarHelper> arrayList = (pair.getValue());
+            List<CalendarHelper> arrayList = (pair.getValue());
             for (int i = 0; i < arrayList.size(); i++)
             {
                 if (arrayList.get(i).getCourse().getCourseName().equals(course.getCourseName()))
@@ -128,9 +144,9 @@ public class CalendarManager
 
     public void RemoveOnlyClass(Course course, Context context)
     {
-        for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
+        for (Map.Entry<String, List<CalendarHelper>> pair : this.calendarDictionary.entrySet())
         {
-            ArrayList<CalendarHelper> arrayList = (pair.getValue());
+            List<CalendarHelper> arrayList = (pair.getValue());
             for (int i = 0; i < arrayList.size(); i++)
             {
                 if (arrayList.get(i).getCourse().getCourseName().equals(course.getCourseName()) && arrayList.get(i).getTaskType() == TaskType.Class)
@@ -147,13 +163,13 @@ public class CalendarManager
         Calendar baseCalendar = Calendar.getInstance();
         for (CourseDay day : course.getCourseDays())
         {
-            baseCalendar.setTimeInMillis(course.getStartDate().getTimeInMillis());
+            baseCalendar.setTimeInMillis(course.GetStartDateAsCalendar().getTimeInMillis());
             baseCalendar.set(Calendar.DAY_OF_WEEK, day.getDayInWeek().GetDayNumber());
-            if (baseCalendar.compareTo(course.getStartDate()) < 0)
+            if (baseCalendar.compareTo(course.GetStartDateAsCalendar()) < 0)
             {
                 baseCalendar.set(Calendar.DAY_OF_MONTH, baseCalendar.get(Calendar.DAY_OF_MONTH) + 7);
             }
-            while (baseCalendar.compareTo(course.getEndDate()) <= 0 && baseCalendar.compareTo(course.getStartDate()) >= 0)
+            while (baseCalendar.compareTo(course.GetEndDateAsCalendar()) <= 0 && baseCalendar.compareTo(course.GetStartDateAsCalendar()) >= 0)
             {
                 CalendarHelper calendarHelper = new CalendarHelper(day.getStartHour(), day.getStartMinute(), baseCalendar.get(Calendar.DAY_OF_MONTH), baseCalendar.get(Calendar.MONTH), baseCalendar.get(Calendar.YEAR), day.getEndHour(), day.getEndMinute(), course.getCourseName(), course, TaskType.Class);
                 String string = MakeDateString(calendarHelper);
@@ -172,19 +188,19 @@ public class CalendarManager
                 baseCalendar.set(Calendar.DAY_OF_MONTH, baseCalendar.get(Calendar.DAY_OF_MONTH) + 7);
             }
         }
-        for (Map.Entry<String, ArrayList<CalendarHelper>> pair : this.calendarDictionary.entrySet())
+        for (Map.Entry<String, List<CalendarHelper>> pair : this.calendarDictionary.entrySet())
         {
             Collections.sort(pair.getValue());
         }
 
     }
 
-    public ArrayList<CalendarHelper> GetListOFTasksInDate(Date date)
+    public List<CalendarHelper> GetListOFTasksInDate(Date date)
     {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         String datestr = MakeDateString(calendar);
-        ArrayList<CalendarHelper> calendarHelpers = calendarDictionary.get(datestr);
+        List<CalendarHelper> calendarHelpers = calendarDictionary.get(datestr);
         if (calendarHelpers == null)
         {
             calendarHelpers = new ArrayList<>();

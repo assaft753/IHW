@@ -3,6 +3,7 @@ package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 
+import com.google.firebase.database.Exclude;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Course;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.TaskType;
 
@@ -56,14 +57,28 @@ public class CalendarHelper implements Comparable<CalendarHelper>
         this.eventId = 0;
     }
 
-    public int getEndHour()
+    public CalendarHelper()
     {
-        return endHour;
     }
 
-    public int getEndMinute()
+    public int getHour()
     {
-        return endMinute;
+        return hour;
+    }
+
+    public void setHour(int hour)
+    {
+        this.hour = hour;
+    }
+
+    public int getMinute()
+    {
+        return minute;
+    }
+
+    public void setMinute(int minute)
+    {
+        this.minute = minute;
     }
 
     public int getDay()
@@ -71,14 +86,70 @@ public class CalendarHelper implements Comparable<CalendarHelper>
         return day;
     }
 
+    public void setDay(int day)
+    {
+        this.day = day;
+    }
+
     public int getMonth()
     {
         return month;
     }
 
+    public void setMonth(int month)
+    {
+        this.month = month;
+    }
+
     public int getYear()
     {
         return year;
+    }
+
+    public void setYear(int year)
+    {
+        this.year = year;
+    }
+
+    public int getEndHour()
+    {
+        return endHour;
+    }
+
+    public void setEndHour(int endHour)
+    {
+        this.endHour = endHour;
+    }
+
+    public int getEndMinute()
+    {
+        return endMinute;
+    }
+
+    public void setEndMinute(int endMinute)
+    {
+        this.endMinute = endMinute;
+    }
+
+    public String getTaskName()
+    {
+        return TaskName;
+    }
+
+    public void setTaskName(String taskName)
+    {
+        TaskName = taskName;
+    }
+
+    @Exclude
+    public void setCourse(Course course)
+    {
+        this.course = course;
+    }
+
+    public void setTaskType(TaskType taskType)
+    {
+        this.taskType = taskType;
     }
 
     public long getEventId()
@@ -112,20 +183,6 @@ public class CalendarHelper implements Comparable<CalendarHelper>
         return taskType;
     }
 
-    public int getHour()
-    {
-        return hour;
-    }
-
-    public int getMinute()
-    {
-        return minute;
-    }
-
-    public String getTaskName()
-    {
-        return TaskName;
-    }
 
     @Override
     public int compareTo(@NonNull CalendarHelper calendarHelper)
@@ -138,6 +195,7 @@ public class CalendarHelper implements Comparable<CalendarHelper>
         return this.getMinute() - calendarHelper.getMinute();
     }
 
+    @Exclude
     public Course getCourse()
     {
         return course;

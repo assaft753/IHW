@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "871389715428",
+    "firebase_url": "https://ihw-master-firebase.firebaseio.com",
+    "project_id": "ihw-master-firebase",
+    "storage_bucket": "ihw-master-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871389715428:android:519974d5cf21b0e8",
+        "android_client_info": {
+          "package_name": "com.moshesteinvortzel.assaftayouri.ihw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871389715428-f3netgjl1np8ejl1nbg3qc3fnre99cqq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moshesteinvortzel.assaftayouri.ihw",
+            "certificate_hash": "6a0c78c95adaee3b3d12b9d95b260a929ecc0427"
+          }
+        },
+        {
+          "client_id": "871389715428-9g3ug2r8u13rr32kij7l9junm7elu1aj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moshesteinvortzel.assaftayouri.ihw",
+            "certificate_hash": "3d5219fde4b9cde36cc6fb0f97ef6f36ea5eb473"
+          }
+        },
+        {
+          "client_id": "871389715428-e3q9fqvlki6nl9446hnf4onq3r96r8ig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moshesteinvortzel.assaftayouri.ihw",
+            "certificate_hash": "b94cb4d559bbaa09921ee38cec881e2926b51edc"
+          }
+        },
+        {
+          "client_id": "871389715428-lk7vqsm9ftfbel2poll666k9483ajjqf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKowJCUQ6US-2s1q7vDPb-nCYVnP4OrEo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871389715428-lk7vqsm9ftfbel2poll666k9483ajjqf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

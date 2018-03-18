@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class CalendarFragment extends android.support.v4.app.Fragment implements RefreshDataSetListener
 {
@@ -92,6 +93,7 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
     {
         calendarView.removeAllEvents();
         ArrayList<Event> events = User.Student.GetEvents();
+        System.out.println(events.size());
         calendarView.addEvents(events);
     }
 
@@ -99,7 +101,7 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
     public void RefreshDataSet()
     {
         UpdateDateText(currentDate);
-        ArrayList<CalendarHelper> calendarHelpers = User.Student.GetListOFTasksInDate(currentDate);
+        List<CalendarHelper> calendarHelpers = User.Student.GetListOFTasksInDate(currentDate);
         calendarAdapter.setCalendarHelpers(calendarHelpers);
         RefreshCalendarEvents();
     }

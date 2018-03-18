@@ -1,8 +1,10 @@
 package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core;
 
 import android.content.Context;
+import android.view.ViewDebug;
 
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.firebase.database.Exclude;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.TaskType;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarManager;
@@ -15,6 +17,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.FormatFlagsConversionMismatchException;
+import java.util.List;
 
 /**
  * Created by assaftayouri on 09/03/2018.
@@ -29,9 +32,10 @@ public class Student
     private NotificationManager notificationManager;
     private CalendarManager calendarManager;
     private String email;
+    private int pushId;
     private String password;
     private String userName;
-    private ArrayList<Course> courses;
+    private List<Course> courses;
     private ArrayList<HomeWork> completedHW;
     private ArrayList<HomeWork> uncompletedHW;
     private ArrayList<Exam> gradedExams;
@@ -39,6 +43,7 @@ public class Student
 
     public Student(int pushId, String email, String password, String userName)
     {
+        this.pushId = pushId;
         this.notificationManager = new NotificationManager(pushId);
         this.calendarManager = new CalendarManager();
         this.email = email;
@@ -51,14 +56,85 @@ public class Student
         this.ungradedExams = new ArrayList<Exam>();
     }
 
+    public Student()
+    {
+        this.completedHW = new ArrayList<HomeWork>();
+        this.uncompletedHW = new ArrayList<HomeWork>();
+        this.gradedExams = new ArrayList<Exam>();
+        this.ungradedExams = new ArrayList<Exam>();
+        this.calendarManager = new CalendarManager();
+    }
+
+
+    public CalendarManager getCalendarManager()
+    {
+        return calendarManager;
+    }
+
+    public void setCalendarManager(CalendarManager calendarManager)
+    {
+        this.calendarManager = calendarManager;
+    }
+
+    @Exclude
     public ArrayList<HomeWork> getCompletedHW()
     {
         return completedHW;
     }
 
+    @Exclude
     public ArrayList<HomeWork> getUncompletedHW()
     {
         return uncompletedHW;
+    }
+
+    @Exclude
+    public ArrayList<Exam> getGradedExams()
+    {
+        return gradedExams;
+    }
+
+    @Exclude
+    public ArrayList<Exam> getUngradedExams()
+    {
+        return ungradedExams;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+
+    public void setUserName(String userName)
+    {
+        this.userName = userName;
+    }
+
+    public void setCourses(List<Course> courses)
+    {
+        this.courses = courses;
+    }
+
+    public int getPushId()
+    {
+        return notificationManager.GeneratePushId();
+    }
+
+    public void setPushId(int pushId)
+    {
+        if (notificationManager == null)
+        {
+            notificationManager = new NotificationManager(pushId);
+        }
+        else
+        {
+            notificationManager.setPushId(pushId);
+        }
     }
 
     public String[] GetCourseNames()
@@ -71,17 +147,7 @@ public class Student
         return strings;
     }
 
-    public ArrayList<Exam> getGradedExams()
-    {
-        return gradedExams;
-    }
-
-    public ArrayList<Exam> getUngradedExams()
-    {
-        return ungradedExams;
-    }
-
-    public ArrayList<Course> getCourses()
+    public List<Course> getCourses()
     {
         return courses;
     }
@@ -127,7 +193,7 @@ public class Student
         homeWork.setFinished(true);
         this.uncompletedHW.add(homeWork);
         Collections.sort(this.uncompletedHW);
-        homeWork.setPushId(this.AddNotification(homeWork.getTaskName(), "HomeWork", context, homeWork.getToDate(), homeWork.getNotify()));
+        homeWork.setPushId(this.AddNotification(homeWork.getTaskName(), "HomeWork", context, homeWork.GetToDateAsObject(), homeWork.getNotify()));
     }
 
     public void AddUncompletedHW(HomeWork homeWork, Context context)
@@ -135,9 +201,9 @@ public class Student
         this.uncompletedHW.add(homeWork);
         homeWork.getCourse().AddToHomeWork(homeWork);
         Collections.sort(this.uncompletedHW);
-        CalendarHelper calendarHelper = new CalendarHelper(homeWork.getToDate().get(Calendar.HOUR_OF_DAY), homeWork.getToDate().get(Calendar.MINUTE), homeWork.getToDate().get(Calendar.DAY_OF_MONTH), homeWork.getToDate().get(Calendar.MONTH), homeWork.getToDate().get(Calendar.YEAR), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
+        CalendarHelper calendarHelper = new CalendarHelper(homeWork.GetToDateAsObject().get(Calendar.HOUR_OF_DAY), homeWork.GetToDateAsObject().get(Calendar.MINUTE), homeWork.GetToDateAsObject().get(Calendar.DAY_OF_MONTH), homeWork.GetToDateAsObject().get(Calendar.MONTH), homeWork.GetToDateAsObject().get(Calendar.YEAR), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.AddToCalendar(calendarHelper, context);
-        homeWork.setPushId(this.AddNotification(homeWork.getTaskName(), "HomeWork", context, homeWork.getToDate(), homeWork.getNotify()));
+        homeWork.setPushId(this.AddNotification(homeWork.getTaskName(), "HomeWork", context, homeWork.GetToDateAsObject(), homeWork.getNotify()));
     }
 
     public void UpdatedUncompletedHW(int indexUncompleted, Context context, HomeWork oldHomeWork)
@@ -145,13 +211,13 @@ public class Student
         HomeWork homeWork = this.uncompletedHW.get(indexUncompleted);
         Collections.sort(this.uncompletedHW);
 
-        CalendarHelper calendarHelper = new CalendarHelper(oldHomeWork.getToDate().get(Calendar.HOUR_OF_DAY), oldHomeWork.getToDate().get(Calendar.MINUTE), oldHomeWork.getToDate().get(Calendar.DAY_OF_MONTH), oldHomeWork.getToDate().get(Calendar.MONTH), oldHomeWork.getToDate().get(Calendar.YEAR), oldHomeWork.getTaskName(), oldHomeWork.getCourse(), TaskType.HomeWork);
+        CalendarHelper calendarHelper = new CalendarHelper(oldHomeWork.GetToDateAsObject().get(Calendar.HOUR_OF_DAY), oldHomeWork.GetToDateAsObject().get(Calendar.MINUTE), oldHomeWork.GetToDateAsObject().get(Calendar.DAY_OF_MONTH), oldHomeWork.GetToDateAsObject().get(Calendar.MONTH), oldHomeWork.GetToDateAsObject().get(Calendar.YEAR), oldHomeWork.getTaskName(), oldHomeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.RemoveFromCalendar(calendarHelper, context);
 
-        calendarHelper = new CalendarHelper(homeWork.getToDate().get(Calendar.HOUR_OF_DAY), homeWork.getToDate().get(Calendar.MINUTE), homeWork.getToDate().get(Calendar.DAY_OF_MONTH), homeWork.getToDate().get(Calendar.MONTH), homeWork.getToDate().get(Calendar.YEAR), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
+        calendarHelper = new CalendarHelper(homeWork.GetToDateAsObject().get(Calendar.HOUR_OF_DAY), homeWork.GetToDateAsObject().get(Calendar.MINUTE), homeWork.GetToDateAsObject().get(Calendar.DAY_OF_MONTH), homeWork.GetToDateAsObject().get(Calendar.MONTH), homeWork.GetToDateAsObject().get(Calendar.YEAR), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.AddToCalendar(calendarHelper, context);
 
-        homeWork.setPushId(this.UpdateNotification(homeWork.getPushId(), homeWork.getTaskName(), "HomeWork", homeWork.getToDate(), context, homeWork.getNotify()));
+        homeWork.setPushId(this.UpdateNotification(homeWork.getPushId(), homeWork.getTaskName(), "HomeWork", homeWork.GetToDateAsObject(), context, homeWork.getNotify()));
     }
 
     public void UpdatedCompletedHW(int indexCompleted, Context context, HomeWork oldHomeWork)
@@ -159,10 +225,10 @@ public class Student
         HomeWork homeWork = this.completedHW.get(indexCompleted);
         Collections.sort(this.completedHW);
 
-        CalendarHelper calendarHelper = new CalendarHelper(oldHomeWork.getToDate().get(Calendar.HOUR_OF_DAY), oldHomeWork.getToDate().get(Calendar.MINUTE), oldHomeWork.getToDate().get(Calendar.DAY_OF_MONTH), oldHomeWork.getToDate().get(Calendar.MONTH), oldHomeWork.getToDate().get(Calendar.YEAR), oldHomeWork.getTaskName(), oldHomeWork.getCourse(), TaskType.HomeWork);
+        CalendarHelper calendarHelper = new CalendarHelper(oldHomeWork.GetToDateAsObject().get(Calendar.HOUR_OF_DAY), oldHomeWork.GetToDateAsObject().get(Calendar.MINUTE), oldHomeWork.GetToDateAsObject().get(Calendar.DAY_OF_MONTH), oldHomeWork.GetToDateAsObject().get(Calendar.MONTH), oldHomeWork.GetToDateAsObject().get(Calendar.YEAR), oldHomeWork.getTaskName(), oldHomeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.RemoveFromCalendar(calendarHelper, context);
 
-        calendarHelper = new CalendarHelper(homeWork.getToDate().get(Calendar.HOUR_OF_DAY), homeWork.getToDate().get(Calendar.MINUTE), homeWork.getToDate().get(Calendar.DAY_OF_MONTH), homeWork.getToDate().get(Calendar.MONTH), homeWork.getToDate().get(Calendar.YEAR), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
+        calendarHelper = new CalendarHelper(homeWork.GetToDateAsObject().get(Calendar.HOUR_OF_DAY), homeWork.GetToDateAsObject().get(Calendar.MINUTE), homeWork.GetToDateAsObject().get(Calendar.DAY_OF_MONTH), homeWork.GetToDateAsObject().get(Calendar.MONTH), homeWork.GetToDateAsObject().get(Calendar.YEAR), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.AddToCalendar(calendarHelper, context);
     }
 
@@ -189,7 +255,7 @@ public class Student
         {
             RemoveNotification(homeWork.getPushId(), context);
         }
-        CalendarHelper calendarHelper = new CalendarHelper(homeWork.getToDate().get(Calendar.HOUR_OF_DAY), homeWork.getToDate().get(Calendar.MINUTE), homeWork.getToDate().get(Calendar.DAY_OF_MONTH), homeWork.getToDate().get(Calendar.MONTH), homeWork.getToDate().get(Calendar.YEAR), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
+        CalendarHelper calendarHelper = new CalendarHelper(homeWork.GetToDateAsObject().get(Calendar.HOUR_OF_DAY), homeWork.GetToDateAsObject().get(Calendar.MINUTE), homeWork.GetToDateAsObject().get(Calendar.DAY_OF_MONTH), homeWork.GetToDateAsObject().get(Calendar.MONTH), homeWork.GetToDateAsObject().get(Calendar.YEAR), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.RemoveFromCalendar(calendarHelper, context);
     }
 
@@ -218,17 +284,17 @@ public class Student
         exam.setGraded(false);
         this.ungradedExams.add(exam);
         Collections.sort(this.ungradedExams);
-        exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", context, exam.getExamDate(), exam.getNotify()));
+        exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", context, exam.GetExamDateAsCalendar(), exam.getNotify()));
     }
 
     public void AddUngradedExam(Exam exam, Context context)
     {
         this.ungradedExams.add(exam);
-        exam.getCourse().getExams()[exam.getTerm().ordinal()] = exam;
+        exam.getCourse().GetExamsAsArray()[exam.getTerm().ordinal()] = exam;
         Collections.sort(this.ungradedExams);
-        CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), exam.getExamDate().get(Calendar.DAY_OF_MONTH), exam.getExamDate().get(Calendar.MONTH), exam.getExamDate().get(Calendar.YEAR), "Term " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
+        CalendarHelper calendarHelper = new CalendarHelper(exam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), exam.GetExamDateAsCalendar().get(Calendar.MINUTE), exam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), exam.GetExamDateAsCalendar().get(Calendar.MONTH), exam.GetExamDateAsCalendar().get(Calendar.YEAR), "Term " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.AddToCalendar(calendarHelper, context);
-        exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", context, exam.getExamDate(), exam.getNotify()));
+        exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", context, exam.GetExamDateAsCalendar(), exam.getNotify()));
     }
 
     public void UpdatedUngradedExam(int indexUngraded, Context context, Exam oldExam)
@@ -236,16 +302,16 @@ public class Student
         Exam exam = this.ungradedExams.get(indexUngraded);
         Collections.sort(this.ungradedExams);
 
-        exam.getCourse().getExams()[oldExam.getTerm().ordinal()] = null;
-        exam.getCourse().getExams()[exam.getTerm().ordinal()] = exam;
+        exam.getCourse().GetExamsAsArray()[oldExam.getTerm().ordinal()] = null;
+        exam.getCourse().GetExamsAsArray()[exam.getTerm().ordinal()] = exam;
 
-        CalendarHelper calendarHelper = new CalendarHelper(oldExam.getExamDate().get(Calendar.HOUR_OF_DAY), oldExam.getExamDate().get(Calendar.MINUTE), oldExam.getExamDate().get(Calendar.DAY_OF_MONTH), oldExam.getExamDate().get(Calendar.MONTH), oldExam.getExamDate().get(Calendar.YEAR), "Term " + oldExam.getTerm().toString(), oldExam.getCourse(), TaskType.Exam);
+        CalendarHelper calendarHelper = new CalendarHelper(oldExam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), oldExam.GetExamDateAsCalendar().get(Calendar.MINUTE), oldExam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), oldExam.GetExamDateAsCalendar().get(Calendar.MONTH), oldExam.GetExamDateAsCalendar().get(Calendar.YEAR), "Term " + oldExam.getTerm().toString(), oldExam.getCourse(), TaskType.Exam);
         this.calendarManager.RemoveFromCalendar(calendarHelper, context);
 
-        calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), exam.getExamDate().get(Calendar.DAY_OF_MONTH), exam.getExamDate().get(Calendar.MONTH), exam.getExamDate().get(Calendar.YEAR), "Term " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
+        calendarHelper = new CalendarHelper(exam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), exam.GetExamDateAsCalendar().get(Calendar.MINUTE), exam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), exam.GetExamDateAsCalendar().get(Calendar.MONTH), exam.GetExamDateAsCalendar().get(Calendar.YEAR), "Term " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.AddToCalendar(calendarHelper, context);
 
-        exam.setPushId(this.UpdateNotification(exam.getPushId(), exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", exam.getExamDate(), context, exam.getNotify()));
+        exam.setPushId(this.UpdateNotification(exam.getPushId(), exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", exam.GetExamDateAsCalendar(), context, exam.getNotify()));
     }
 
     public Exam GetUngradedExam(int index)
@@ -271,13 +337,13 @@ public class Student
 
     private void RemoveExam(Exam exam, Context context)
     {
-        exam.getCourse().getExams()[exam.getTerm().ordinal()] = null;
+        exam.getCourse().GetExamsAsArray()[exam.getTerm().ordinal()] = null;
         if (exam.getPushId() != - 1)
         {
             System.out.println("enter delete push");
             RemoveNotification(exam.getPushId(), context);
         }
-        CalendarHelper calendarHelper = new CalendarHelper(exam.getExamDate().get(Calendar.HOUR_OF_DAY), exam.getExamDate().get(Calendar.MINUTE), exam.getExamDate().get(Calendar.DAY_OF_MONTH), exam.getExamDate().get(Calendar.MONTH), exam.getExamDate().get(Calendar.YEAR), "Term " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
+        CalendarHelper calendarHelper = new CalendarHelper(exam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), exam.GetExamDateAsCalendar().get(Calendar.MINUTE), exam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), exam.GetExamDateAsCalendar().get(Calendar.MONTH), exam.GetExamDateAsCalendar().get(Calendar.YEAR), "Term " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.RemoveFromCalendar(calendarHelper, context);
     }
 
@@ -385,7 +451,7 @@ public class Student
         if (calendar1.after(Calendar.getInstance()))
         {
             System.out.println("Notification Added");
-            int pushId = notificationManager.getPushId();
+            int pushId = notificationManager.GeneratePushId();
             notificationManager.AddNotification(pushId, title, content, context, calendar, notify);
             return pushId;
         }
@@ -424,12 +490,10 @@ public class Student
         return calendarManager.GetEvent();
     }
 
-
-    public ArrayList<CalendarHelper> GetListOFTasksInDate(Date date)
+    public List<CalendarHelper> GetListOFTasksInDate(Date date)
     {
         return calendarManager.GetListOFTasksInDate(date);
     }
-
 
     public float[] CalculateExamsAvg()
     {

@@ -231,10 +231,10 @@ public class AddClassFirstFragment extends android.support.v4.app.Fragment
 
         this.coursePoints.setText(String.valueOf(course.getPoints()));
 
-        this.startDateCalendar.setTimeInMillis(course.getStartDate().getTimeInMillis());
+        this.startDateCalendar.setTimeInMillis(course.GetStartDateAsCalendar().getTimeInMillis());
         AddClassFirstFragment.this.SetDateText(AddClassFirstFragment.this.startDate, startDateCalendar);
 
-        this.endDateCalendar.setTimeInMillis(course.getEndDate().getTimeInMillis());
+        this.endDateCalendar.setTimeInMillis(course.GetEndDateAsCalendar().getTimeInMillis());
         AddClassFirstFragment.this.SetDateText(AddClassFirstFragment.this.endDate, endDateCalendar);
 
         SetColorOfPickColor(course.getCourseColor());

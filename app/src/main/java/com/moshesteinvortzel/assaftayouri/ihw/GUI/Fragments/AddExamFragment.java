@@ -41,7 +41,7 @@ import java.util.Locale;
 public class
 AddExamFragment extends android.support.v4.app.Fragment
 {
-    private final String PATTERN="dd/MM/yy";
+    private final String PATTERN = "dd/MM/yy";
     private String opt;
     private Exam exam;
     private TextView toolbarTitleText;
@@ -140,7 +140,7 @@ AddExamFragment extends android.support.v4.app.Fragment
                 {
                     if (currentExam != null)
                     {
-                        currentExam.setExamDate(toDateCalendar);
+                        currentExam.setExamDate(toDateCalendar.getTimeInMillis());
                         currentExam.setNotify(notify);
                         currentExam.setTerm(termExam);
                         User.Student.UpdatedUngradedExam(examIndex, getContext(), oldExam);
@@ -318,7 +318,7 @@ AddExamFragment extends android.support.v4.app.Fragment
 
         classText.setText(currentExam.getCourse().getCourseName());
 
-        toDateCalendar.setTimeInMillis(currentExam.getExamDate().getTimeInMillis());
+        toDateCalendar.setTimeInMillis(currentExam.GetExamDateAsCalendar().getTimeInMillis());
         SetTimeTextView(toTimeText, toDateCalendar.get(Calendar.HOUR_OF_DAY), toDateCalendar.get(Calendar.MINUTE));
         SetDateText(toDateText, toDateCalendar);
 

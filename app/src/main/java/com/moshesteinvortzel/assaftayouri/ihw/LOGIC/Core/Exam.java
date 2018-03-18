@@ -2,6 +2,7 @@ package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core;
 
 import android.support.annotation.NonNull;
 
+import com.google.firebase.database.Exclude;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.Term;
 
 import java.util.Calendar;
@@ -30,6 +31,12 @@ public class Exam implements Comparable<Exam>
         this.graded = false;
     }
 
+    public Exam()
+    {
+        examDate = Calendar.getInstance();
+        graded = false;
+    }
+
     public boolean isGraded()
     {
         return graded;
@@ -40,9 +47,14 @@ public class Exam implements Comparable<Exam>
         this.course = currentExam.getCourse();
         this.term = currentExam.getTerm();
         this.examDate = Calendar.getInstance();
-        this.examDate.setTimeInMillis(currentExam.getExamDate().getTimeInMillis());
+        this.examDate.setTimeInMillis(currentExam.GetExamDateAsCalendar().getTimeInMillis());
         this.notify = getNotify();
         this.graded = false;
+    }
+
+    public Calendar GetExamDateAsCalendar()
+    {
+        return this.examDate;
     }
 
     public int getGrade()
@@ -80,14 +92,14 @@ public class Exam implements Comparable<Exam>
         this.notify = notify;
     }
 
-    public Calendar getExamDate()
+    public long getExamDate()
     {
-        return examDate;
+        return examDate.getTimeInMillis();
     }
 
-    public void setExamDate(Calendar examDate)
+    public void setExamDate(long examDate)
     {
-        this.examDate = examDate;
+        this.examDate.setTimeInMillis(examDate);
     }
 
     public int getPushId()
@@ -95,6 +107,7 @@ public class Exam implements Comparable<Exam>
         return pushId;
     }
 
+    @Exclude
     public Course getCourse()
     {
         return course;
@@ -108,6 +121,6 @@ public class Exam implements Comparable<Exam>
     @Override
     public int compareTo(@NonNull Exam exam)
     {
-        return this.examDate.compareTo(exam.getExamDate());
+        return this.examDate.compareTo(exam.GetExamDateAsCalendar());
     }
 }

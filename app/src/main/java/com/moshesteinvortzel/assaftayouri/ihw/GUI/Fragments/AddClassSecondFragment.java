@@ -128,9 +128,9 @@ public class AddClassSecondFragment extends Fragment implements SwipeHelperListe
                         course.setCourseName(courseName);
                         course.setCourseColor(color);
 
-                        course.setStartDate(calendarstart);
+                        course.SetStartDateAsCalendar(calendarstart);
 
-                        course.setEndDate(calendarend);
+                        course.SetEndDateAsCalendar(calendarend);
 
                         course.setPoints(coursePoints);
                         course.setCourseDays(courseDays);

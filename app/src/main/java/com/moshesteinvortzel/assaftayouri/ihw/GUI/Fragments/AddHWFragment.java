@@ -146,7 +146,7 @@ public class AddHWFragment extends android.support.v4.app.Fragment
                 {
                     if (currentHW != null)
                     {
-                        currentHW.setToDate(toDateCalendar);
+                        currentHW.setToDate(toDateCalendar.getTimeInMillis());
                         currentHW.setNotify(notify);
                         currentHW.setPriority(priorityHW);
                         if (hwIndex < 0)
@@ -331,7 +331,7 @@ public class AddHWFragment extends android.support.v4.app.Fragment
 
         classText.setText(currentHW.getCourse().getCourseName());
 
-        toDateCalendar.setTimeInMillis(currentHW.getToDate().getTimeInMillis());
+        toDateCalendar.setTimeInMillis(currentHW.GetToDateAsObject().getTimeInMillis());
         SetTimeTextView(toTimeText, toDateCalendar.get(Calendar.HOUR_OF_DAY), toDateCalendar.get(Calendar.MINUTE));
         SetDateText(toDateText, toDateCalendar);
 
