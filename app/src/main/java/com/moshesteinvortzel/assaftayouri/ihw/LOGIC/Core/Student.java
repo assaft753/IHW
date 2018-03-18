@@ -3,7 +3,9 @@ package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core;
 import android.content.Context;
 
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.FirebaseDatabase;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.TaskType;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarManager;
@@ -555,6 +557,11 @@ public class Student
             }
         }
         return strs;
+    }
+
+    public void SaveChanges(DatabaseReference myRef)
+    {
+        myRef.child(User.Student.getUserID()).setValue(User.Student);
     }
 
 

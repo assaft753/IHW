@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.firebase.database.FirebaseDatabase;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.CalendarAdapter;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.User;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.RefreshDataSetListener;
@@ -100,6 +101,7 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
     @Override
     public void RefreshDataSet()
     {
+        User.Student.SaveChanges(FirebaseDatabase.getInstance().getReference());
         UpdateDateText(currentDate);
         List<CalendarHelper> calendarHelpers = User.Student.GetListOFTasksInDate(currentDate);
         calendarAdapter.setCalendarHelpers(calendarHelpers);

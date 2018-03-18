@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Adapters.ClassesAdapter;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.AddClassDialog;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.SwipeHelpers.OneSideItemHelper;
@@ -64,6 +65,7 @@ public class ClassesFragment extends android.support.v4.app.Fragment implements 
     @Override
     public void RefreshDataSet()
     {
+        User.Student.SaveChanges(FirebaseDatabase.getInstance().getReference());
         this.classesAdapter.notifyDataSetChanged();
     }
 

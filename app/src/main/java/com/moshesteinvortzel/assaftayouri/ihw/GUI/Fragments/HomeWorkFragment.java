@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.FirebaseDatabase;
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.User;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.OnHWDialogListener;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces.RefreshDataSetListener;
 import com.moshesteinvortzel.assaftayouri.ihw.R;
@@ -54,6 +56,7 @@ public class HomeWorkFragment extends Fragment implements RefreshDataSetListener
     @Override
     public void RefreshDataSet()
     {
+        User.Student.SaveChanges(FirebaseDatabase.getInstance().getReference());
         uncompletedHWFragment.RefreshDataSet();
     }
 
