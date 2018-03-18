@@ -6,5 +6,5 @@ package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces;
 
 public interface OnLongGradedItemListener
 {
-        public void OnLongGradedItem(int pos);
+    public void OnLongGradedItem(int pos);
 }

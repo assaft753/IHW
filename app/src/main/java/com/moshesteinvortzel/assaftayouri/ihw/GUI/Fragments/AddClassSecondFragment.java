@@ -97,7 +97,7 @@ public class AddClassSecondFragment extends Fragment implements SwipeHelperListe
         addTimeBtn = view.findViewById(R.id.addTimeButton);
         doneBtn = view.findViewById(R.id.doneButton);
         timeList = view.findViewById(R.id.timeRecyclerView);
-        sundaySW =  view.findViewById(R.id.sundaySW);
+        sundaySW = view.findViewById(R.id.sundaySW);
         mondaySW = view.findViewById(R.id.mondaySW);
         tuesdaySW = view.findViewById(R.id.tuesdaySW);
         wednesdaySW = view.findViewById(R.id.wednesdaySW);
@@ -112,7 +112,7 @@ public class AddClassSecondFragment extends Fragment implements SwipeHelperListe
             {
                 if (courseDays.size() == 0)
                 {
-                    Toast toast = Toast.makeText(getContext(), "No Times", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getContext(), getResources().getText(R.string.noTime), Toast.LENGTH_LONG);
                     toast.show();
                 }
                 else

@@ -7,7 +7,9 @@ package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Interfaces;
 public interface AddChoicesListener
 {
     public void MoveToAddClass();
+
     public void MoveToAddHomeWork();
+
     public void MoveToAddExam();
 
 }

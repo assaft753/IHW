@@ -13,7 +13,9 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder
     {
         super(itemView);
     }
+
     public abstract View getForeground();
+
     public abstract View getBackground();
 
 

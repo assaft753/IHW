@@ -60,6 +60,7 @@ public class HomeWork implements Comparable<HomeWork>
     {
         return finished;
     }
+
     public void setFinished(boolean finished)
     {
         this.finished = finished;

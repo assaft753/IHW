@@ -69,15 +69,6 @@ public class AddDialog extends DialogFragment implements AddChoicesListener, Fir
         return view;
     }
 
-    /*@Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        //dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        return dialog;
-    }*/
-
-
     @Override
     public void MoveToAddClass()
     {
@@ -147,7 +138,6 @@ public class AddDialog extends DialogFragment implements AddChoicesListener, Fir
     @Override
     public void Dismiss()
     {
-        System.out.println("enter dismiss");
         refreshDataSetListener.RefreshDataSet();
         this.dismiss();
     }

@@ -93,10 +93,6 @@ public class AddHWFragment extends android.support.v4.app.Fragment
             }
             oldHW = new HomeWork(currentHW);
         }
-        /*Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH, 12);
-        currentExam = new Exam(new Course("Assaf", (float) 2.4, Calendar.getInstance(), Calendar.getInstance(), 90, null), Term.B, calendar, 7);*/
-
 
         this.toDateCallback = new DatePickerDialog.OnDateSetListener()
         {
@@ -244,7 +240,7 @@ public class AddHWFragment extends android.support.v4.app.Fragment
 
         if (currentHW == null)
         {
-            toolbarTitleText.setText("Add HomeWork");
+            toolbarTitleText.setText(getResources().getString(R.string.addHomeWork));
             pickClassText.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -253,7 +249,7 @@ public class AddHWFragment extends android.support.v4.app.Fragment
                     String[] strings = User.Student.GetCourseNames();
                     if (strings.length == 0)
                     {
-                        Toast.makeText(getContext(), "No Classes Found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getResources().getText(R.string.noclassfound), Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
@@ -277,7 +273,7 @@ public class AddHWFragment extends android.support.v4.app.Fragment
 
         else
         {
-            toolbarTitleText.setText("Edit HomeWork");
+            toolbarTitleText.setText(getResources().getString(R.string.editHomeWork));
             PutData();
         }
         pickPriorityText.setPaintFlags(pickPriorityText.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -294,28 +290,26 @@ public class AddHWFragment extends android.support.v4.app.Fragment
             if (classText.getText().equals("") || priorityText.getText().equals("")
                     || toDateText.getText().equals("") || toTimeText.getText().equals("") || reminderText.getText().equals("") || hwName.getText().toString().trim().equals(""))
             {
-                throw new Exception("Missing Info");
+                throw new Exception(getResources().getString(R.string.missingInfo));
             }
             if (currentHW != null)
             {
                 if (! currentCourse.CheckExistsHomeWork(hwName.getText().toString().trim()))
                 {
-                    throw new Exception("Duplicate Task Name");
+                    throw new Exception(getResources().getString(R.string.DuplicateTaskName));
                 }
             }
             else
             {
                 if (! currentCourse.CheckNewHomeWork(hwName.getText().toString().trim()))
                 {
-                    throw new Exception("Duplicate Task Name");
+                    throw new Exception(getResources().getString(R.string.DuplicateTaskName));
                 }
             }
-            System.out.println("true");
             return true;
         } catch (Exception ex)
         {
             Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
-            System.out.println("false");
             return false;
         }
     }

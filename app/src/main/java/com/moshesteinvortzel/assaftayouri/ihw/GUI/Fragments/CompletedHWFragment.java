@@ -47,7 +47,6 @@ public class CompletedHWFragment extends android.support.v4.app.Fragment impleme
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser)
     {
-        System.out.println(isVisibleToUser);
         if (isVisibleToUser && completedHWAdapter != null)
         {
             completedHWAdapter.notifyDataSetChanged();

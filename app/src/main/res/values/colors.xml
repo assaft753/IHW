@@ -246,6 +246,7 @@
     <color name="md_lime_A200">#EEFF41</color>
     <color name="md_lime_A400">#C6FF00</color>
     <color name="md_lime_A700">#AEEA00</color>
+    <color name="Complete">#FF00C853</color>
 
     <!--yellow -->
     <color name="md_yellow_50">#FFFDE7</color>

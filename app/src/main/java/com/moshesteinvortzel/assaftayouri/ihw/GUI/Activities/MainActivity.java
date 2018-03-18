@@ -57,7 +57,6 @@ import com.moshesteinvortzel.assaftayouri.ihw.R;
 
 import java.security.Permission;
 import java.security.Permissions;
-import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -96,13 +95,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR}, 0);
         }
-        /*User.Student = new Student(2, "assaft753@gmail.com", "1234567", "Assaf Tayouri");
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH, 16);
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.set(Calendar.DAY_OF_MONTH, 30);
-        Course course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course, getApplicationContext());*/
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

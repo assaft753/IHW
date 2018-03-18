@@ -30,7 +30,7 @@ public class AddFragment extends Fragment
         View view = inflater.inflate(R.layout.add, container, false);
         imageClass = view.findViewById(R.id.addClassImage);
         imageExam = view.findViewById(R.id.addExamImage);
-        imageHW=view.findViewById(R.id.addHWImage);
+        imageHW = view.findViewById(R.id.addHWImage);
 
         imageClass.setOnClickListener(new View.OnClickListener()
         {

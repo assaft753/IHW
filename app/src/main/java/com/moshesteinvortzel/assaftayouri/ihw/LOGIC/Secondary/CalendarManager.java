@@ -248,8 +248,6 @@ public class CalendarManager
             {
                 title = calendarHelper.getTaskName();
                 description = calendarHelper.getCourse().getCourseName();
-                //Calendar endTime = Calendar.getInstance();
-                //endTime.set(calendarHelper.getYear(), calendarHelper.getMonth(), calendarHelper.getDay(), calendarHelper.getEndHour(), calendarHelper.getEndMinute());
                 endMillis = beginTime.getTimeInMillis();
             }
             values.put(CalendarContract.Events.DTSTART, startMillis);
@@ -257,7 +255,6 @@ public class CalendarManager
             values.put(CalendarContract.Events.TITLE, title);
             values.put(CalendarContract.Events.DESCRIPTION, description);
             values.put(CalendarContract.Events.CALENDAR_ID, calID);
-            //values.put(CalendarContract.Events.EVENT_COLOR, calendarHelper.getCourse().getCourseColor());
             values.put(CalendarContract.Events.EVENT_TIMEZONE, "America/Los_Angeles");
             Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
             long eventID = Long.parseLong(uri.getLastPathSegment());

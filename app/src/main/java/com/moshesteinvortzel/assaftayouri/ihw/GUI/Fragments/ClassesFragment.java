@@ -24,7 +24,7 @@ import com.moshesteinvortzel.assaftayouri.ihw.R;
 import java.util.ArrayList;
 
 
-public class ClassesFragment extends android.support.v4.app.Fragment implements SwipeHelperListener, RefreshDataSetListener,OnLongClassItemListener
+public class ClassesFragment extends android.support.v4.app.Fragment implements SwipeHelperListener, RefreshDataSetListener, OnLongClassItemListener
 {
     private RecyclerView recyclerView;
     private ClassesAdapter classesAdapter;
@@ -46,7 +46,7 @@ public class ClassesFragment extends android.support.v4.app.Fragment implements 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        classesAdapter = new ClassesAdapter(courses,this);
+        classesAdapter = new ClassesAdapter(courses, this);
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new OneSideItemHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         this.recyclerView.setAdapter(classesAdapter);
@@ -57,7 +57,7 @@ public class ClassesFragment extends android.support.v4.app.Fragment implements 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position)
     {
-        User.Student.RemoveClassElements(position,getContext());
+        User.Student.RemoveClassElements(position, getContext());
         classesAdapter.removeItem(position);
     }
 
@@ -77,8 +77,8 @@ public class ClassesFragment extends android.support.v4.app.Fragment implements 
     {
         FragmentManager fragmentManager = getFragmentManager();
         addClassDialog = new AddClassDialog();
-        Bundle bundle=new Bundle();
-        bundle.putString("opt",String.valueOf(pos));
+        Bundle bundle = new Bundle();
+        bundle.putString("opt", String.valueOf(pos));
         addClassDialog.setArguments(bundle);
         addClassDialog.setRefreshDataSetListener(this);
         FragmentTransaction transaction = fragmentManager.beginTransaction();

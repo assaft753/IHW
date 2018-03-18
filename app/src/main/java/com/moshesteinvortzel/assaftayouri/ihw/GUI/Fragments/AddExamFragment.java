@@ -89,10 +89,6 @@ AddExamFragment extends android.support.v4.app.Fragment
             currentExam = User.Student.GetUngradedExam(examIndex);
             oldExam = new Exam(currentExam);
         }
-        /*Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH, 12);
-        currentExam = new Exam(new Course("Assaf", (float) 2.4, Calendar.getInstance(), Calendar.getInstance(), 90, null), Term.B, calendar, 7);*/
-
 
         this.toDateCallback = new DatePickerDialog.OnDateSetListener()
         {
@@ -230,7 +226,7 @@ AddExamFragment extends android.support.v4.app.Fragment
 
         if (currentExam == null)
         {
-            toolbarTitleText.setText("Add Exam");
+            toolbarTitleText.setText(getResources().getText(R.string.addExam));
             pickClassText.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -239,7 +235,7 @@ AddExamFragment extends android.support.v4.app.Fragment
                     String[] strings = User.Student.GetCourseNames();
                     if (strings.length == 0)
                     {
-                        Toast.makeText(getContext(), "No Classes Found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getResources().getText(R.string.noclassesfound), Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
@@ -263,7 +259,7 @@ AddExamFragment extends android.support.v4.app.Fragment
 
         else
         {
-            toolbarTitleText.setText("Edit Exam");
+            toolbarTitleText.setText(getResources().getText(R.string.editExam));
             PutData();
         }
         pickTermText.setPaintFlags(pickTermText.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -279,14 +275,14 @@ AddExamFragment extends android.support.v4.app.Fragment
             if (classText.getText().equals("") || termText.getText().equals("")
                     || toDateText.getText().equals("") || toTimeText.getText().equals("") || reminderText.getText().equals(""))
             {
-                throw new Exception("Missing Info");
+                throw new Exception(getResources().getString(R.string.missingInfo));
             }
 
             if ((oldExam != null && oldExam.getTerm() != termExam) || (oldExam == null))
             {
                 if (! currentCourse.CheckExamValidate(termExam))
                 {
-                    throw new Exception("Term Taken For This Class");
+                    throw new Exception(getResources().getString(R.string.termtaken));
                 }
             }
 
@@ -299,7 +295,7 @@ AddExamFragment extends android.support.v4.app.Fragment
 
             if (! currentCourse.CheckExamDate(toDateCalendar, index))
             {
-                throw new Exception("Another Exam On That Time");
+                throw new Exception(getResources().getString(R.string.exaontime));
             }
             return true;
         } catch (Exception ex)

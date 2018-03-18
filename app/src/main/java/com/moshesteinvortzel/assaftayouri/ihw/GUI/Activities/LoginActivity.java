@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -42,9 +43,6 @@ import com.moshesteinvortzel.assaftayouri.ihw.R;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
-/**
- * A login screen that offers login via email/password.
- */
 public class LoginActivity extends AppCompatActivity
 {
     private EditText emailText;
@@ -63,12 +61,10 @@ public class LoginActivity extends AppCompatActivity
         SetVisibility(View.GONE);
         if (mAuth.getCurrentUser() == null)
         {
-            System.out.println("No Auto User LOGerd IN");
             ActivateLogoTransitionInStart();
         }
         else
         {
-            System.out.println("Auto User LOGerd IN");
             MoveToMain();
         }
         super.onResume();
@@ -128,7 +124,6 @@ public class LoginActivity extends AppCompatActivity
                                         if (task.isSuccessful())
                                         {
                                             FirebaseUser user = mAuth.getCurrentUser();
-                                            System.out.println(user.getUid());
                                             MoveToMain();
                                         }
                                         else
@@ -139,48 +134,6 @@ public class LoginActivity extends AppCompatActivity
                                         }
                                     }
                                 });
-
-
-
-
-
-                                    /*LoginActivity.this.myRef.addListenerForSingleValueEvent(new ValueEventListener()
-                                    {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot)
-                                        {
-
-                                            for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                                            {
-                                                System.out.println(snapshot.getKey());
-                                                //if(emailText.equals(snapshot.getKey()))
-                                                //{
-                                                for (DataSnapshot field : snapshot.getChildren())
-                                                {
-                                                    System.out.println(field.getKey());
-                                                }
-                                                //}
-                                                //System.out.println(snapshot.getValue());
-                                                //InitStudent(snapshot);
-                                            }
-                                            runOnUiThread(new Runnable()
-                                            {
-                                                @Override
-                                                public void run()
-                                                {
-                                                    MoveToMain();
-                                                    //ActivateLogoTransition();
-                                                    //circularButton.revertAnimation();
-                                                }
-                                            });
-
-
-                                        @Override
-                                        public void onCancelled(DatabaseError error)
-                                        {
-
-                                        }
-                                    });*/
                             }
                         }).start();
                     }
@@ -210,7 +163,7 @@ public class LoginActivity extends AppCompatActivity
                 }
                 else
                 {
-                    Toast.makeText(LoginActivity.this, "Invalid Input", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getResources().getText(R.string.invalidInput), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -277,8 +230,7 @@ public class LoginActivity extends AppCompatActivity
 
     private void MoveToMain()
     {
-        System.out.println("Moving Tosssss Main");
-        circularButton.doneLoadingAnimation(0xff4f4f4f, BitmapFactory.decodeResource(getResources(), R.drawable.v));
+        circularButton.doneLoadingAnimation(ContextCompat.getColor(getApplicationContext(), R.color.IHWBrown), BitmapFactory.decodeResource(getResources(), R.drawable.v));
         new Thread(new Runnable()
         {
             @Override
@@ -325,7 +277,7 @@ public class LoginActivity extends AppCompatActivity
                         @Override
                         public void onCancelled(DatabaseError error)
                         {
-                            Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, getResources().getText(R.string.error), Toast.LENGTH_SHORT).show();
                         }
 
                     });
@@ -336,14 +288,6 @@ public class LoginActivity extends AppCompatActivity
                 }
             }
         }).start();
-
-
-
-        /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        //intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
-        ActivityOptions activityOptions = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.anim2, R.anim.anim1);
-        startActivity(intent, activityOptions.toBundle());*/
     }
 
     private void ActivateLogoTransitionInStart()

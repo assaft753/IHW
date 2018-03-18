@@ -106,10 +106,6 @@ public class CalendarFragment extends android.support.v4.app.Fragment implements
         RefreshCalendarEvents();
     }
 
-   /* private void setCalendarHelperList()
-    {
-        // calendarView.getcu
-    }*/
 
     private void UpdateDateText(Date date)
     {

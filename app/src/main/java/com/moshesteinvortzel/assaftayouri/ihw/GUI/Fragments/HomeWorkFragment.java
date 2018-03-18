@@ -95,9 +95,9 @@ public class HomeWorkFragment extends Fragment implements RefreshDataSetListener
             switch (position)
             {
                 case 0:
-                    return "UnCompleted";
+                    return getResources().getString(R.string.uncompleteed);
                 case 1:
-                    return "Completed";
+                    return getResources().getString(R.string.completed);
             }
             return null;
         }

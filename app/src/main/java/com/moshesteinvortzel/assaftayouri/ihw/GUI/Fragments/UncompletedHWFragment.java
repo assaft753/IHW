@@ -77,8 +77,6 @@ public class UncompletedHWFragment extends android.support.v4.app.Fragment imple
         if (direction == ItemTouchHelper.LEFT)
         {
             homeWork = User.Student.RemoveHW(position, false, getContext());
-
-
         }
         else
         {

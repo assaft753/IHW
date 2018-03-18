@@ -38,7 +38,6 @@ public class UngradedExamFragment extends Fragment implements RefreshDataSetList
     private int getAboutToGradedIndex;
     private GradeDialog gradeDialog;
 
-
     public void setDialogExamListener(ShowDialogExamListener dialogExamListener)
     {
         this.dialogExamListener = dialogExamListener;
@@ -119,14 +118,12 @@ public class UngradedExamFragment extends Fragment implements RefreshDataSetList
             User.Student.CanceledGradedExam(aboutToGraded, getAboutToGradedIndex);
             ungradedExamAdapter.notifyItemInserted(getAboutToGradedIndex);
         }
-        //ungradedExamAdapter.notifyItemInserted(aboutToGraded);
     }
 
 
     @Override
     public void onCancel(DialogInterface dialogInterface)
     {
-        System.out.println("dismiss");
         User.Student.CanceledGradedExam(aboutToGraded, getAboutToGradedIndex);
         ungradedExamAdapter.notifyItemInserted(getAboutToGradedIndex);
     }

@@ -6,13 +6,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:testOnly="false"
         android:theme="@style/AppTheme">
         <activity android:name=".GUI.Activities.LoginActivity">
             <intent-filter>
@@ -23,7 +23,6 @@
         </activity>
         <activity android:name=".GUI.Activities.CreateAccountActivity" />
         <activity android:name=".GUI.Activities.MainActivity" />
-
         <receiver
             android:name=".LOGIC.Secondary.NotificationReceiver"
             android:enabled="true"

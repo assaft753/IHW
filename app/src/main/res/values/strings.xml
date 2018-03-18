@@ -66,7 +66,29 @@
     <string name="timeLeft">Submit Days:</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
+    <string name="invalidInput">Invalid Input</string>
     <string name="noGrade">\?</string>
+    <string name="error">Error</string>
+    <string name="noTime">No Times</string>
+    <string name="addExam">Add Exam</string>
+    <string name="noclassesfound">No Classes Found</string>
+    <string name="editExam">Edit Exam</string>
+    <string name="missingInfo">Missing Info</string>
+    <string name="termtaken">Term Taken For This Class</string>
+    <string name="exaontime">Another Exam On That Time</string>
+    <string name="addHomeWork">Add HomeWork</string>
+    <string name="noclassfound">No Classes Found</string>
+    <string name="editHomeWork">Edit HomeWork</string>
+    <string name="DuplicateTaskName">Duplicate Task Name</string>
+    <string name="unGraded">UnGraded</string>
+    <string name="Graded">Graded</string>
+    <string name="uncompleteed">UnCompleted</string>
+    <string name="completed">Completed</string>
+    <string name="homeWork">HomeWork</string>
+    <string name="exam">Exam</string>
+    <string name="term">Term</string>
+    <string name="day">Day</string>
+    <string name="days">Days</string>
     <string-array name="nav_titles">
         <item>HomeWorks</item>
         <item>Classes</item>

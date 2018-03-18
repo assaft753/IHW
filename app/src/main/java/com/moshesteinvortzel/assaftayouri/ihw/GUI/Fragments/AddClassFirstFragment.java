@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 
 public class AddClassFirstFragment extends android.support.v4.app.Fragment
 {
+    private final String PATTERN = "dd/MM/yy";
     private final String ERROR = "Invalid Details";
     private String opt;
     private EditText courseName;
@@ -56,24 +57,18 @@ public class AddClassFirstFragment extends android.support.v4.app.Fragment
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        System.out.println("create");
         this.startDateCalendar = Calendar.getInstance();
         this.endDateCalendar = Calendar.getInstance();
         this.opt = getArguments().getString("opt");
         if (! this.opt.equals("new"))
         {
             indexOf = Integer.valueOf(this.opt);
-            course=User.Student.GetCourseAtIndex(indexOf);
+            course = User.Student.GetCourseAtIndex(indexOf);
         }
         else
         {
             course = null;
         }
-        /*Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2017);
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.set(Calendar.DAY_OF_MONTH, 18);
-        course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3);*/
 
         this.startDateCallback = new DatePickerDialog.OnDateSetListener()
         {
@@ -243,7 +238,7 @@ public class AddClassFirstFragment extends android.support.v4.app.Fragment
 
     private void SetDateText(TextView textView, Calendar calendar)
     {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(PATTERN, Locale.getDefault());
         textView.setText(simpleDateFormat.format(calendar.getTime()));
     }
 

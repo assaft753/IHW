@@ -95,7 +95,6 @@ public class CompletedHWAdapter extends RecyclerView.Adapter<CompletedHWAdapter.
         holder.hwImage.setImageResource(homeWork.getPriority().GetDrawable());
         holder.hwTime.setTextColor(0xFF00C853);
         holder.getForeground().setBackgroundColor(homeWork.getCourse().getCourseColor());
-        //holder.getForeground().setBackground(new Border(homeWork.getCourse().getCourseColor()));
 
     }
 

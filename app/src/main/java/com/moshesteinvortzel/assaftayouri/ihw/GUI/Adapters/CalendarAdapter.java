@@ -23,7 +23,6 @@ import java.util.List;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>
 {
-    private static int id = 1;
     private ArrayList<CalendarHelper> calendarHelpers;
 
     public class CalendarViewHolder extends RecyclerView.ViewHolder
@@ -77,7 +76,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
         holder.taskName.setText(taskname);
         holder.taskType.setText(calendarHelper.getTaskType().toString());
         holder.taskTime.setText(calendarHelper.GenerateTimeStr());
-        holder.view.setBackgroundColor(calendarHelper.getCourse().getCourseColor());//new Border(calendarHelper.getCourse().getCourseColor()));
+        holder.view.setBackgroundColor(calendarHelper.getCourse().getCourseColor());
         holder.view.setOnLongClickListener(new View.OnLongClickListener()
         {
             @Override
@@ -87,18 +86,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
                 DatabaseReference myRef = database.getReference();
                 myRef.child(User.Student.getUserID()).setValue(User.Student);
                 return true;
-
             }
         });
-        holder.view.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                id++;
-            }
-        });
-
     }
 
 

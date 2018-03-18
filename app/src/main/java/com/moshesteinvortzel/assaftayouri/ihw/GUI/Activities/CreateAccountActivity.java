@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -89,7 +90,7 @@ public class CreateAccountActivity extends AppCompatActivity
 
     private void MoveToMainActivity()
     {
-        circularProgressButton.doneLoadingAnimation(0xff4f4f4f, BitmapFactory.decodeResource(getResources(), R.drawable.v));
+        circularProgressButton.doneLoadingAnimation(ContextCompat.getColor(getApplicationContext(), R.color.IHWBrown), BitmapFactory.decodeResource(getResources(), R.drawable.v));
         new Thread(new Runnable()
         {
             @Override

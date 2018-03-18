@@ -8,6 +8,7 @@ import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.TaskType;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarManager;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.NotificationManager;
+import com.moshesteinvortzel.assaftayouri.ihw.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -214,7 +215,7 @@ public class Student
         homeWork.setFinished(false);
         this.uncompletedHW.add(homeWork);
         Collections.sort(this.uncompletedHW);
-        homeWork.setPushId(this.AddNotification(homeWork.getTaskName(), "HomeWork", context, homeWork.GetToDateAsObject(), homeWork.getNotify()));
+        homeWork.setPushId(this.AddNotification(homeWork.getTaskName(), context.getResources().getString(R.string.homeWork), context, homeWork.GetToDateAsObject(), homeWork.getNotify()));
     }
 
     public void AddUncompletedHW(HomeWork homeWork, Context context)
@@ -224,7 +225,7 @@ public class Student
         Collections.sort(this.uncompletedHW);
         CalendarHelper calendarHelper = new CalendarHelper(homeWork.GetToDateAsObject().get(Calendar.HOUR_OF_DAY), homeWork.GetToDateAsObject().get(Calendar.MINUTE), homeWork.GetToDateAsObject().get(Calendar.DAY_OF_MONTH), homeWork.GetToDateAsObject().get(Calendar.MONTH), homeWork.GetToDateAsObject().get(Calendar.YEAR), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.AddToCalendar(calendarHelper, context);
-        homeWork.setPushId(this.AddNotification(homeWork.getTaskName(), "HomeWork", context, homeWork.GetToDateAsObject(), homeWork.getNotify()));
+        homeWork.setPushId(this.AddNotification(homeWork.getTaskName(), context.getResources().getString(R.string.homeWork), context, homeWork.GetToDateAsObject(), homeWork.getNotify()));
     }
 
     public void UpdatedUncompletedHW(int indexUncompleted, Context context, HomeWork oldHomeWork)
@@ -238,7 +239,7 @@ public class Student
         calendarHelper = new CalendarHelper(homeWork.GetToDateAsObject().get(Calendar.HOUR_OF_DAY), homeWork.GetToDateAsObject().get(Calendar.MINUTE), homeWork.GetToDateAsObject().get(Calendar.DAY_OF_MONTH), homeWork.GetToDateAsObject().get(Calendar.MONTH), homeWork.GetToDateAsObject().get(Calendar.YEAR), homeWork.getTaskName(), homeWork.getCourse(), TaskType.HomeWork);
         this.calendarManager.AddToCalendar(calendarHelper, context);
 
-        homeWork.setPushId(this.UpdateNotification(homeWork.getPushId(), homeWork.getTaskName(), "HomeWork", homeWork.GetToDateAsObject(), context, homeWork.getNotify()));
+        homeWork.setPushId(this.UpdateNotification(homeWork.getPushId(), homeWork.getTaskName(), context.getResources().getString(R.string.homeWork), homeWork.GetToDateAsObject(), context, homeWork.getNotify()));
     }
 
     public void UpdatedCompletedHW(int indexCompleted, Context context, HomeWork oldHomeWork)
@@ -305,7 +306,7 @@ public class Student
         exam.setGraded(false);
         this.ungradedExams.add(exam);
         Collections.sort(this.ungradedExams);
-        exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", context, exam.GetExamDateAsCalendar(), exam.getNotify()));
+        exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " " + context.getResources().getString(R.string.term) + " " + exam.getTerm().toString(), context.getResources().getString(R.string.exam), context, exam.GetExamDateAsCalendar(), exam.getNotify()));
     }
 
     public void AddUngradedExam(Exam exam, Context context)
@@ -313,9 +314,9 @@ public class Student
         this.ungradedExams.add(exam);
         exam.getCourse().GetExamsAsArray()[exam.getTerm().ordinal()] = exam;
         Collections.sort(this.ungradedExams);
-        CalendarHelper calendarHelper = new CalendarHelper(exam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), exam.GetExamDateAsCalendar().get(Calendar.MINUTE), exam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), exam.GetExamDateAsCalendar().get(Calendar.MONTH), exam.GetExamDateAsCalendar().get(Calendar.YEAR), "Term " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
+        CalendarHelper calendarHelper = new CalendarHelper(exam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), exam.GetExamDateAsCalendar().get(Calendar.MINUTE), exam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), exam.GetExamDateAsCalendar().get(Calendar.MONTH), exam.GetExamDateAsCalendar().get(Calendar.YEAR), context.getResources().getString(R.string.term) + " " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.AddToCalendar(calendarHelper, context);
-        exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", context, exam.GetExamDateAsCalendar(), exam.getNotify()));
+        exam.setPushId(this.AddNotification(exam.getCourse().getCourseName() + " " + context.getResources().getString(R.string.term) + " " + exam.getTerm().toString(), context.getResources().getString(R.string.exam), context, exam.GetExamDateAsCalendar(), exam.getNotify()));
     }
 
     public void UpdatedUngradedExam(int indexUngraded, Context context, Exam oldExam)
@@ -326,13 +327,13 @@ public class Student
         exam.getCourse().GetExamsAsArray()[oldExam.getTerm().ordinal()] = null;
         exam.getCourse().GetExamsAsArray()[exam.getTerm().ordinal()] = exam;
 
-        CalendarHelper calendarHelper = new CalendarHelper(oldExam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), oldExam.GetExamDateAsCalendar().get(Calendar.MINUTE), oldExam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), oldExam.GetExamDateAsCalendar().get(Calendar.MONTH), oldExam.GetExamDateAsCalendar().get(Calendar.YEAR), "Term " + oldExam.getTerm().toString(), oldExam.getCourse(), TaskType.Exam);
+        CalendarHelper calendarHelper = new CalendarHelper(oldExam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), oldExam.GetExamDateAsCalendar().get(Calendar.MINUTE), oldExam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), oldExam.GetExamDateAsCalendar().get(Calendar.MONTH), oldExam.GetExamDateAsCalendar().get(Calendar.YEAR), context.getResources().getString(R.string.term) + " " + oldExam.getTerm().toString(), oldExam.getCourse(), TaskType.Exam);
         this.calendarManager.RemoveFromCalendar(calendarHelper, context);
 
-        calendarHelper = new CalendarHelper(exam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), exam.GetExamDateAsCalendar().get(Calendar.MINUTE), exam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), exam.GetExamDateAsCalendar().get(Calendar.MONTH), exam.GetExamDateAsCalendar().get(Calendar.YEAR), "Term " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
+        calendarHelper = new CalendarHelper(exam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), exam.GetExamDateAsCalendar().get(Calendar.MINUTE), exam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), exam.GetExamDateAsCalendar().get(Calendar.MONTH), exam.GetExamDateAsCalendar().get(Calendar.YEAR), context.getResources().getString(R.string.term) + " " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.AddToCalendar(calendarHelper, context);
 
-        exam.setPushId(this.UpdateNotification(exam.getPushId(), exam.getCourse().getCourseName() + " Term " + exam.getTerm().toString(), "Exam", exam.GetExamDateAsCalendar(), context, exam.getNotify()));
+        exam.setPushId(this.UpdateNotification(exam.getPushId(), exam.getCourse().getCourseName() + " " + context.getResources().getString(R.string.term) + " " + exam.getTerm().toString(), context.getResources().getString(R.string.exam), exam.GetExamDateAsCalendar(), context, exam.getNotify()));
     }
 
     public Exam GetUngradedExam(int index)
@@ -361,10 +362,9 @@ public class Student
         exam.getCourse().GetExamsAsArray()[exam.getTerm().ordinal()] = null;
         if (exam.getPushId() != - 1)
         {
-            System.out.println("enter delete push");
             RemoveNotification(exam.getPushId(), context);
         }
-        CalendarHelper calendarHelper = new CalendarHelper(exam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), exam.GetExamDateAsCalendar().get(Calendar.MINUTE), exam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), exam.GetExamDateAsCalendar().get(Calendar.MONTH), exam.GetExamDateAsCalendar().get(Calendar.YEAR), "Term " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
+        CalendarHelper calendarHelper = new CalendarHelper(exam.GetExamDateAsCalendar().get(Calendar.HOUR_OF_DAY), exam.GetExamDateAsCalendar().get(Calendar.MINUTE), exam.GetExamDateAsCalendar().get(Calendar.DAY_OF_MONTH), exam.GetExamDateAsCalendar().get(Calendar.MONTH), exam.GetExamDateAsCalendar().get(Calendar.YEAR), context.getResources().getString(R.string.term) + " " + exam.getTerm().toString(), exam.getCourse(), TaskType.Exam);
         this.calendarManager.RemoveFromCalendar(calendarHelper, context);
     }
 
@@ -471,14 +471,12 @@ public class Student
         calendar1.set(Calendar.DAY_OF_MONTH, calendar1.get(Calendar.DAY_OF_MONTH) - notify);
         if (calendar1.after(Calendar.getInstance()))
         {
-            System.out.println("Notification Added");
             int pushId = notificationManager.GeneratePushId();
             notificationManager.AddNotification(pushId, title, content, context, calendar, notify);
             return pushId;
         }
         else
         {
-            System.out.println("Notification Not Added");
             return - 1;
         }
     }
@@ -487,7 +485,6 @@ public class Student
     {
         if (pushId != - 1)
         {
-            System.out.println("Notification Removed");
             notificationManager.CancelNotification(pushId, context);
         }
     }
@@ -499,10 +496,8 @@ public class Student
         calendar1.set(Calendar.DAY_OF_MONTH, calendar1.get(Calendar.DAY_OF_MONTH) - notify);
         if (calendar1.after(Calendar.getInstance()))
         {
-            System.out.println("Notification Updated");
             return notificationManager.UpdateNotification(pushId, title, content, calendar, context, notify);
         }
-        System.out.println("Notification Not Updated");
         return - 1;
     }
 

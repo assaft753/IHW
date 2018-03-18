@@ -52,22 +52,6 @@ public class ExamsFragment extends android.support.v4.app.Fragment implements Re
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
-        //TextView textView = (TextView) view.findViewById(R.id.pickClass);
-
-        //textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        //view.findViewById(R.id.ovalgrade).setBackground(new Oval("ss", 6));
-        //((TextView) view.findViewById(R.id.ovalgrade)).setTextColor(Color.parseColor("#7B1FA2"));
-        //view.findViewById(R.id.container).setBackground(new Border("7B1FA2", 20));
-        /*((TextView) view.findViewById(R.id.ovalgrade)).setOnLongClickListener(new View.OnLongClickListener()
-        {
-            @Override
-            public boolean onLongClick(View view)
-            {
-                GradeDialog gradeDialog = new GradeDialog();
-                gradeDialog.show(getFragmentManager(), "ss");
-                return true;
-            }
-        });*/
         return view;
     }
 
@@ -117,9 +101,9 @@ public class ExamsFragment extends android.support.v4.app.Fragment implements Re
             switch (position)
             {
                 case 0:
-                    return "UnGraded";
+                    return getResources().getString(R.string.unGraded);
                 case 1:
-                    return "Graded";
+                    return getResources().getString(R.string.Graded);
             }
             return null;
         }
