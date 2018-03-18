@@ -53,9 +53,21 @@ public class CalendarManager
         return calendarHelpers;
     }
 
-    public void setCalendarDictionary(HashMap<String, ArrayList<CalendarHelper>> calendarDictionary)
+    public void setCalendarDictionary(List<CalendarHelper> calendarDic)
     {
-        //this.calendarDictionary = calendarDictionary;
+        for (CalendarHelper calendarHelper : calendarDic)
+        {
+            if (this.calendarDictionary.containsKey(MakeDateString(calendarHelper)))
+            {
+                this.calendarDictionary.get(MakeDateString(calendarHelper)).add(calendarHelper);
+            }
+            else
+            {
+                ArrayList<CalendarHelper> list = new ArrayList<>();
+                list.add(calendarHelper);
+                this.calendarDictionary.put(MakeDateString(calendarHelper), list);
+            }
+        }
     }
 
     private String MakeDateString(CalendarHelper calendarHelper)

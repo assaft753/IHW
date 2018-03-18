@@ -1,6 +1,7 @@
 package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core;
 
 import android.support.annotation.NonNull;
+import android.text.BoringLayout;
 import android.view.ViewDebug;
 
 import com.google.firebase.database.Exclude;
@@ -38,6 +39,7 @@ public class HomeWork implements Comparable<HomeWork>
         finished = false;
     }
 
+
     @Exclude
     public void setCourse(Course course)
     {
@@ -54,11 +56,10 @@ public class HomeWork implements Comparable<HomeWork>
         this.toDate.setTimeInMillis(toDate);
     }
 
-    public boolean isFinished()
+    public Boolean getFinished()
     {
         return finished;
     }
-
     public void setFinished(boolean finished)
     {
         this.finished = finished;

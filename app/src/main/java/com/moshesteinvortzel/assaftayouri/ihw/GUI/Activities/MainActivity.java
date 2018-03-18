@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -28,8 +29,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.AddDialog;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.AddExamDialog;
 import com.moshesteinvortzel.assaftayouri.ihw.GUI.Dialogs.AddHWDialog;
@@ -65,14 +73,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ClassesFragment classesFragment;
     private CalendarFragment calendarFragment;
     private ExamsFragment examsFragment;
-    Fragment fragment;
+    private ImageView signOut;
+    private Fragment fragment;
+    private FirebaseAuth mAuth;
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        myRef = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
         homeWorkFragment = new HomeWorkFragment();
         homeWorkFragment.setOnHWDialogListener(this);
         classesFragment = new ClassesFragment();
@@ -84,14 +96,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR}, 0);
         }
-        User.Student = new Student(2, "assaf@gmail.com", "122345", "Assaf Tayouri");
+        /*User.Student = new Student(2, "assaft753@gmail.com", "1234567", "Assaf Tayouri");
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 16);
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(Calendar.DAY_OF_MONTH, 30);
         Course course = new Course("Algebra", (float) 2.6, calendar, calendar1, 0xff2196f3, new ArrayList<CourseDay>());
-        User.Student.AddClass(course, getApplicationContext());
-
+        User.Student.AddClass(course, getApplicationContext());*/
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -104,11 +115,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.navView);
         ((TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail)).setText(User.Student.getEmail());
         ((TextView) navigationView.getHeaderView(0).findViewById(R.id.userFullName)).setText(User.Student.getUserName());
+        signOut = navigationView.getHeaderView(0).findViewById(R.id.logOutButton);
         navigationView.setNavigationItemSelectedListener(this);
-
         toolbarTitles = getResources().getStringArray(R.array.nav_titles);
         CurrentFragment = 0;
         SetCurrentFragment();
+        signOut.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                mAuth.signOut();
+                myRef.child(User.Student.getUserID()).setValue(User.Student);
+                for (int i = 0; i < User.Student.getCourses().size(); i++)
+                {
+                    User.Student.RemoveClassElements(i, getApplicationContext());
+                }
+                User.Student = null;
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void SetCurrentFragment()

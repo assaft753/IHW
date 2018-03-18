@@ -47,8 +47,18 @@ public class Course
     {
         startDate = Calendar.getInstance();
         endDate = Calendar.getInstance();
+        homeWorks = new ArrayList<>();
+        this.exams = new Exam[3];
+        courseDays = new ArrayList<>();
     }
 
+    public void setExams(List<Exam> exams)
+    {
+        for (int i = 0; i < exams.size(); i++)
+        {
+            this.exams[i] = exams.get(i);
+        }
+    }
 
     public void setHomeWorks(List<HomeWork> homeWorks)
     {
@@ -84,7 +94,7 @@ public class Course
     {
         for (int i = exams.length - 1; i >= 0; i--)
         {
-            if (exams[i] != null && exams[i].isGraded())
+            if (exams[i] != null && exams[i].getGraded())
             {
                 return exams[i];
             }

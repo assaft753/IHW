@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.Student;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core.User;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Enums.TaskType;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarHelper;
@@ -84,7 +85,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
             {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference();
-                myRef.child(id+"").setValue(User.Student);
+                myRef.child(User.Student.getUserID()).setValue(User.Student);
                 return true;
 
             }

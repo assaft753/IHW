@@ -1,7 +1,6 @@
 package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core;
 
 import android.content.Context;
-import android.view.ViewDebug;
 
 import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.firebase.database.Exclude;
@@ -10,13 +9,10 @@ import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarHelper;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.CalendarManager;
 import com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Secondary.NotificationManager;
 
-import java.lang.reflect.Array;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.FormatFlagsConversionMismatchException;
 import java.util.List;
 
 /**
@@ -32,6 +28,7 @@ public class Student
     private NotificationManager notificationManager;
     private CalendarManager calendarManager;
     private String email;
+    private String userID;
     private int pushId;
     private String password;
     private String userName;
@@ -41,7 +38,7 @@ public class Student
     private ArrayList<Exam> gradedExams;
     private ArrayList<Exam> ungradedExams;
 
-    public Student(int pushId, String email, String password, String userName)
+    public Student(int pushId, String email, String password, String userID, String userName)
     {
         this.pushId = pushId;
         this.notificationManager = new NotificationManager(pushId);
@@ -49,6 +46,7 @@ public class Student
         this.email = email;
         this.password = password;
         this.userName = userName;
+        this.userID = userID;
         this.courses = new ArrayList<Course>();
         this.completedHW = new ArrayList<HomeWork>();
         this.uncompletedHW = new ArrayList<HomeWork>();
@@ -56,8 +54,10 @@ public class Student
         this.ungradedExams = new ArrayList<Exam>();
     }
 
+
     public Student()
     {
+        this.courses = new ArrayList<Course>();
         this.completedHW = new ArrayList<HomeWork>();
         this.uncompletedHW = new ArrayList<HomeWork>();
         this.gradedExams = new ArrayList<Exam>();
@@ -65,15 +65,24 @@ public class Student
         this.calendarManager = new CalendarManager();
     }
 
-
-    public CalendarManager getCalendarManager()
+    public String getUserID()
     {
-        return calendarManager;
+        return userID;
     }
 
-    public void setCalendarManager(CalendarManager calendarManager)
+    public void setUserID(String userID)
     {
-        this.calendarManager = calendarManager;
+        this.userID = userID;
+    }
+
+    public List<CalendarHelper> getCalendarManager()
+    {
+        return calendarManager.getCalendarDictionary();
+    }
+
+    public void setCalendarManager(List<CalendarHelper> calendarManager)
+    {
+        this.calendarManager.setCalendarDictionary(calendarManager);
     }
 
     @Exclude
@@ -118,6 +127,18 @@ public class Student
     public void setCourses(List<Course> courses)
     {
         this.courses = courses;
+    }
+
+    public Course FindCourseByName(String courseName)
+    {
+        for (Course course : courses)
+        {
+            if (course.getCourseName().equals(courseName))
+            {
+                return course;
+            }
+        }
+        return null;
     }
 
     public int getPushId()
@@ -181,7 +202,7 @@ public class Student
     public void AddCompletedHW(int toBeCompleted, Context context)
     {
         HomeWork homeWork = this.uncompletedHW.remove(toBeCompleted);
-
+        homeWork.setFinished(true);
         this.completedHW.add(homeWork);
         Collections.sort(this.completedHW);
         this.RemoveNotification(homeWork.getPushId(), context);
@@ -190,7 +211,7 @@ public class Student
     public void FromCompletedToUncompleted(int completedHWIndex, Context context)
     {
         HomeWork homeWork = this.completedHW.remove(completedHWIndex);
-        homeWork.setFinished(true);
+        homeWork.setFinished(false);
         this.uncompletedHW.add(homeWork);
         Collections.sort(this.uncompletedHW);
         homeWork.setPushId(this.AddNotification(homeWork.getTaskName(), "HomeWork", context, homeWork.GetToDateAsObject(), homeWork.getNotify()));

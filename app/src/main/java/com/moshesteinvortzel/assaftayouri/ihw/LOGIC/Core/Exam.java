@@ -37,11 +37,6 @@ public class Exam implements Comparable<Exam>
         graded = false;
     }
 
-    public boolean isGraded()
-    {
-        return graded;
-    }
-
     public Exam(Exam currentExam)
     {
         this.course = currentExam.getCourse();
@@ -51,6 +46,7 @@ public class Exam implements Comparable<Exam>
         this.notify = getNotify();
         this.graded = false;
     }
+
 
     public Calendar GetExamDateAsCalendar()
     {
@@ -70,6 +66,11 @@ public class Exam implements Comparable<Exam>
     public void setTerm(Term term)
     {
         this.term = term;
+    }
+
+    public boolean getGraded()
+    {
+        return graded;
     }
 
     public void setGraded(boolean graded)
@@ -105,6 +106,11 @@ public class Exam implements Comparable<Exam>
     public int getPushId()
     {
         return pushId;
+    }
+
+    public void setCourse(Course course)
+    {
+        this.course = course;
     }
 
     @Exclude

@@ -97,7 +97,7 @@ public class AddClassSecondFragment extends Fragment implements SwipeHelperListe
         addTimeBtn = view.findViewById(R.id.addTimeButton);
         doneBtn = view.findViewById(R.id.doneButton);
         timeList = view.findViewById(R.id.timeRecyclerView);
-        sundaySW = (SwitchCompat) view.findViewById(R.id.sundaySW);
+        sundaySW =  view.findViewById(R.id.sundaySW);
         mondaySW = view.findViewById(R.id.mondaySW);
         tuesdaySW = view.findViewById(R.id.tuesdaySW);
         wednesdaySW = view.findViewById(R.id.wednesdaySW);

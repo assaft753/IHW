@@ -6,8 +6,5 @@ package com.moshesteinvortzel.assaftayouri.ihw.LOGIC.Core;
 
 public class User
 {
-
     public static Student Student;
-
-
 }

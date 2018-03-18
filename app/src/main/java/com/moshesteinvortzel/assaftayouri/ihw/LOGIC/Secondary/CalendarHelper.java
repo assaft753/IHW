@@ -26,6 +26,7 @@ public class CalendarHelper implements Comparable<CalendarHelper>
     private Course course;
     private TaskType taskType;
     private long eventId;
+    private String courseName;
 
     public CalendarHelper(int hour, int minute, int day, int month, int year, String taskName, Course course, TaskType taskType)
     {
@@ -40,6 +41,7 @@ public class CalendarHelper implements Comparable<CalendarHelper>
         this.eventId = 0;
         this.endMinute = - 1;
         this.endHour = - 1;
+        this.courseName = course.getCourseName();
     }
 
     public CalendarHelper(int hour, int minute, int day, int month, int year, int endHour, int endMinute, String taskName, Course course, TaskType taskType)
@@ -55,10 +57,21 @@ public class CalendarHelper implements Comparable<CalendarHelper>
         this.course = course;
         this.taskType = taskType;
         this.eventId = 0;
+        this.courseName = course.getCourseName();
     }
 
     public CalendarHelper()
     {
+    }
+
+    public String getCourseName()
+    {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName)
+    {
+        this.courseName = courseName;
     }
 
     public int getHour()

@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GUI.Activities.MainActivity">
+        <activity android:name=".GUI.Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".GUI.Activities.CreateAccountActivity" />
-        <activity android:name=".GUI.Activities.LoginActivity" />
+        <activity android:name=".GUI.Activities.MainActivity" />
 
         <receiver
             android:name=".LOGIC.Secondary.NotificationReceiver"
